@@ -1,4 +1,37 @@
+@mixin button {
+  all: unset;
+  
+  cursor: pointer;
+  user-select: none;
+
+  display: inline-flex;
+  gap: 0.625rem;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  padding: 0.375rem 1.72rem;
+
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: center;
+  text-decoration: none;
+
+  background-color: transparent;
+  border: none;
+  border-radius: 0.25rem;
+
+  transition: 2s background-color, 2s color;
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+}
+
 .primary {
+  @include button;
     background-color: red;
   }
    

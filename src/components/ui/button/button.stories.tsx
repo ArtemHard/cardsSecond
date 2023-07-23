@@ -1,6 +1,8 @@
 // eslint-disable-next-line import/namespace
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { LogoutSvg } from '../../../assets/icons'
+
 import { Button } from './button'
 
 const meta = {
@@ -61,6 +63,17 @@ export const AsLink: Story = {
   args: {
     variant: 'primary',
     children: 'Link that looks like a button',
+    as: 'a',
+  },
+}
+export const WithSvgIcon: Story = {
+  args: {
+    variant: 'primary',
+    children: (
+      <>
+        <LogoutSvg />
+      </>
+    ),
     as: 'a',
   },
 }
