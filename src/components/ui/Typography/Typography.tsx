@@ -25,11 +25,12 @@ export type TypographyProps<T extends ElementType = 'p'> = {
 export const Typography = <T extends ElementType = 'p'>({
   as,
   className,
+  children,
   variant = 'body1',
   ...restProps
 }: TypographyProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>) => {
   const Component = as || 'p'
   const classNames = `${style[variant]} ${className}`
 
-  return <Component className={classNames}>Typography</Component>
+  return <Component className={classNames}>{children}</Component>
 }
