@@ -29,7 +29,7 @@ export const Typography = <T extends ElementType = 'p'>({
   ...restProps
 }: TypographyProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>) => {
   const Component = as || 'p'
-  const classNames = `${style[variant]} + ' ' + ${className}`
+  const classNames = `${style[variant]} ${className}`
 
   return <Component className={classNames}>Typography</Component>
 }
