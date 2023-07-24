@@ -64,6 +64,7 @@ export const AsLink: Story = {
     variant: 'primary',
     children: 'Link that looks like a button',
     as: 'a',
+    href: 'https://www.google.com',
   },
 }
 export const WithSvgIcon: Story = {
@@ -72,8 +73,10 @@ export const WithSvgIcon: Story = {
     children: (
       <>
         <LogoutSvg />
+        {'ClickHere'}
       </>
     ),
     as: 'a',
+    href: 'https://www.google.com',
   },
 }

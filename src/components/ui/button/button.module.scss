@@ -1,6 +1,6 @@
 @mixin button {
   all: unset;
-  
+
   cursor: pointer;
   user-select: none;
 
@@ -22,31 +22,88 @@
   border: none;
   border-radius: 0.25rem;
 
-  transition: 2s background-color, 2s color;
+  transition:
+    1s background-color,
+    1s color;
 
   &:disabled {
     cursor: default;
     opacity: 0.5;
+    pointer-events: none;
   }
 }
 
 .primary {
   @include button;
-    background-color: red;
+  color: var(--color-text-primary);
+  background-color: var(--color-primary);
+  box-shadow: 0px 4px 18px 0px rgba(140, 97, 255, 0.35);
+
+  &:active {
+    background-color: var(--color-primary-active);
   }
-   
-  .secondary {
-    background-color: green;
+  &:hover {
+    background-color: var(--color-primary-hover);
   }
-   
-  .tertiary {
-    background-color: blue;
+  &:focus {
+    outline: 2px solid var(--color-info-700);
+    background-color: var(--color-accent-500);
   }
-   
-  .link {
-    background-color: yellow;
+}
+
+.secondary {
+  @include button;
+  background-color: var(--color-secondary);
+  box-shadow: 0px 4px 4px 0px rgba(77, 86, 96, 0.13);
+
+  &:active {
+    background-color: var(--color-secondary-active);
   }
-   
-  .fullWidth {
-    width: 100%;
+  &:hover {
+    background-color: var(--color-secondary-hover);
   }
+  &:focus {
+    border-radius: 0.25rem;
+    outline: 2px solid var(--color-info-700);
+  }
+}
+
+.tertiary {
+  @include button;
+  color: var(--color-accent-500);
+  box-shadow: 0px 4px 4px 0px rgba(77, 86, 96, 0.13);
+  border: 1px solid var(--color-accent-500);
+
+  &:active {
+    background-color: var(--color-accent-900);
+  }
+  &:hover {
+    background-color: var(--color-accent-700);
+  }
+  &:focus {
+    border-radius: 0.25rem;
+    outline: 2px solid var(--color-info-700);
+  }
+  &:disabled {
+    background-color: none;
+  }
+}
+
+.link {
+  @include button;
+  color: var(--color-accent-500);
+  &:active {
+    color: var(--color-accent-700);
+  }
+  &:hover {
+    color: var(--color-accent-300);
+  }
+  &:focus {
+    outline: 2px solid var(--color-info-700);
+    border-radius: 8.125rem;
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}

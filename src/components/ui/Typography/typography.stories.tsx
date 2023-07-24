@@ -88,7 +88,7 @@ export const Caption: Story = {
 export const Overline: Story = {
   args: {
     children: 'Lorem ipsum.',
-    variant: 'caption',
+    variant: 'overline',
   },
 }
 export const Link1: Story = {
