@@ -1,9 +1,9 @@
 /* eslint-disable import/order */
-import { useEffect, useState } from 'react'
+import { ComponentProps, useEffect, useState } from 'react'
 import style from './avatar.module.scss'
 
 type AvatarProps = {
-  src?: string
+  src?: ComponentProps<'img'>['src']
   name: string
 }
 
