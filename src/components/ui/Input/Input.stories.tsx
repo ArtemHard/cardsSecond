@@ -33,3 +33,10 @@ export const InputError: Story = {
     type: 'text',
   },
 }
+export const InputSearch: Story = {
+  args: {
+    label: 'Label',
+    placeholder: 'Search',
+    type: 'search',
+  },
+}
