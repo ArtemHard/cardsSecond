@@ -32,9 +32,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     ref
   ) => {
     const classNames = {
-      root: style.root,
-      input: clsx(className, style.input, !!errorMessage && style.error),
-      inputContainer: clsx(className, style.inputContainer, !!errorMessage && style.error),
+      root: clsx(style.root, className),
+      input: clsx(style.input, !!errorMessage && style.error),
+      inputContainer: clsx(style.inputContainer, !!errorMessage && style.error),
     }
     const showIconHandler = () => setShowIcon(prev => !prev)
     const clearInputHandler = () => {
@@ -45,6 +45,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       onValueChange?.(e.target.value)
     }
     const [showIcon, setShowIcon] = useState(true)
+
+    console.log(classNames.root)
 
     return (
       <div className={classNames.root}>
@@ -57,6 +59,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               ref={ref}
               className={classNames.input}
               placeholder={placeholder}
+              onChange={handleChange}
+              {...restProps}
             />
           </div>
 
