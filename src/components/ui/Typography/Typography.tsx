@@ -32,5 +32,9 @@ export const Typography = <T extends ElementType = 'p'>({
   const Component = as || 'p'
   const classNames = `${style[variant]} ${className}`
 
-  return <Component className={classNames}>{children}</Component>
+  return (
+    <Component className={classNames} {...restProps}>
+      {children}
+    </Component>
+  )
 }
