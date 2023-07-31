@@ -13,7 +13,6 @@ import style from './sign-up-form.module.scss'
 export const SignUpForm = ({ onSubmit }: any) => {
   const {
     handleSubmit,
-    control,
     register,
     formState: { errors },
   } = useSignUpForm(onSubmit)
@@ -28,7 +27,7 @@ export const SignUpForm = ({ onSubmit }: any) => {
           {...register('email')}
           errorMessage={errors.email?.message}
           type="email"
-          label={'email'}
+          label={'Email'}
           className={style.textField}
         />
         <Input
@@ -55,15 +54,15 @@ export const SignUpForm = ({ onSubmit }: any) => {
           Forgot Password?
         </Typography> */}
         <Button type="submit" fullWidth>
-          Submit
+          Sign Up
         </Button>
       </form>
-      {/* <Typography variant="body2" className={style.dontHaveAccount}>
-        {"Don't have an account?"}
+      <Typography variant="body2" className={style.dontHaveAccount}>
+        {'Already have an account?'}
       </Typography>
-      <Typography as={'a'} href={PATH.REGISTRATION} className={style.signUpLink}>
-        Sign Up
-      </Typography> */}
+      <Typography as={'a'} href={PATH.LOGIN} className={style.signUpLink}>
+        Sign In
+      </Typography>
     </Card>
   )
 }
