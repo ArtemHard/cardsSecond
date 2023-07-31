@@ -7,29 +7,21 @@ import { Checkbox } from '../../ui/Checkbox'
 import { Input } from '../../ui/Input'
 import { Typography } from '../../ui/Typography'
 
-import style from './login-form.module.scss'
-import { useLoginForm } from './use-login-form'
+import { useSignUpForm } from './sign-up-form'
+import style from './sign-up-form.module.scss'
 
-export const LoginForm = ({ onSubmit }: any) => {
+export const SignUpForm = ({ onSubmit }: any) => {
   const {
     handleSubmit,
     control,
     register,
     formState: { errors },
-  } = useLoginForm(onSubmit)
-
-  const {
-    field: { value, onChange },
-  } = useController({
-    name: 'rememberMe',
-    control,
-    defaultValue: false,
-  })
+  } = useSignUpForm(onSubmit)
 
   return (
     <Card className={style.card}>
       <Typography as="h1" variant="h1" className={style.title}>
-        Sign In
+        Sign Up
       </Typography>
       <form onSubmit={handleSubmit}>
         <Input
@@ -41,36 +33,37 @@ export const LoginForm = ({ onSubmit }: any) => {
         />
         <Input
           {...register('password')}
-          label={'password'}
+          label={'Password'}
           type="password"
           errorMessage={errors.password?.message}
           className={style.textField}
         />
-        <Checkbox
-          className={style.checkbox}
-          checked={value}
-          onValueChange={onChange}
-          label={'remember me'}
-          position="left"
+        <Input
+          {...register('confirmPassword')}
+          label={'Confirm Password'}
+          type="password"
+          errorMessage={errors.confirmPassword?.message}
+          className={style.textField}
         />
-        <Typography
+
+        {/* <Typography
           variant="body2"
           as="a"
           href={PATH.FORGOT_PASSWORD}
           className={style.forgotPassword}
         >
           Forgot Password?
-        </Typography>
+        </Typography> */}
         <Button type="submit" fullWidth>
           Submit
         </Button>
       </form>
-      <Typography variant="body2" className={style.dontHaveAccount}>
+      {/* <Typography variant="body2" className={style.dontHaveAccount}>
         {"Don't have an account?"}
       </Typography>
       <Typography as={'a'} href={PATH.REGISTRATION} className={style.signUpLink}>
         Sign Up
-      </Typography>
+      </Typography> */}
     </Card>
   )
 }
