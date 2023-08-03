@@ -15,26 +15,26 @@
   margin-top: 0.75rem;
 }
 .forgotPassword {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 0.38rem;
-    margin-bottom: 4.13rem;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.38rem;
+  margin-bottom: 4.13rem;
   text-align: end;
   text-decoration: none;
   width: 100%;
 }
 .dontHaveAccount {
-    margin-top: 1.25rem;
- text-align: center;
- color: var(--color-light-900);
+  margin-top: 1.25rem;
+  text-align: center;
+  color: var(--color-light-900);
 }
 .signUpLink {
-    display: flex;
-    justify-content: center;
-    margin-top: 0.69rem;
-    color: var(  --color-accent-500);
-    font-size: var(--font-size-m);
-    font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-l);
-    text-decoration-line: underline; 
+  display: flex;
+  justify-content: center;
+  margin-top: 0.69rem;
+  color: var(--color-accent-500);
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-l);
+  text-decoration-line: underline;
 }
