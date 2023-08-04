@@ -1,0 +1,82 @@
+.card {
+  padding: 2.31rem 2.25rem 2.75rem 2.25rem;
+  max-width: 26.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  > h1 {
+    text-align: center;
+    margin-bottom: 1.69rem;
+  }
+}
+.nameContainer {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+.email {
+  color: var(--color-light-900);
+  opacity: 0.5;
+  font-size: var(--font-size-s);
+  line-height: var(--line-height-m);
+  text-align: center;
+}
+.button {
+  margin-top: 0.81rem;
+}
+.avatar {
+  width: 6rem;
+  height: 6rem;
+  font-size: var(--font-size-xxl);
+}
+.avatarContainer {
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.38rem;
+  > div {
+    position: relative;
+    margin: 0;
+    padding: 0;
+  }
+}
+.editAvatarButton {
+  all: unset;
+
+  cursor: pointer;
+
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  width: 1.5rem;
+  height: 1.5rem;
+
+  background-color: var(--color-dark-300);
+  border-radius: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:focus-visible {
+    outline: var(--outline-focus);
+  }
+}
+.editNameButton {
+  background-color: transparent;
+  position: relative;
+  right: auto;
+  bottom: auto;
+  margin-left: 0.56rem;
+  color: var(--color-light-100);
+  position: relative
+}
+
+.input {
+  margin-bottom: 2.25rem;
+}
+.buttonSave {
+  margin-bottom: 2.25rem;
+}

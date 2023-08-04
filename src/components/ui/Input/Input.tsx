@@ -46,8 +46,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     }
     const [showIcon, setShowIcon] = useState(true)
 
-    console.log(classNames.root)
-
     return (
       <div className={classNames.root}>
         <Typography className={style.label}>{label}</Typography>

@@ -1,6 +1,6 @@
 import { BrandSvg } from '../../../assets/icons/BrandSvg'
 import { Avatar } from '../../ui/avatar'
-import { Button } from '../../ui/button'
+import Button from '../../ui/button/button'
 import { Typography } from '../../ui/Typography'
 
 import style from './header.module.scss'
