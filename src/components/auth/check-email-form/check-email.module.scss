@@ -1,29 +1,25 @@
 .card {
-  padding: 2.06rem  2.25rem 3.75rem 2.25rem;
+  padding: 2.31rem  2.25rem 2.75rem 2.25rem;
   max-width: 26.25rem;
   > h1 {
     text-align: center;
     margin-bottom: 1.69rem;
   }
 }
-
-.textField {
-  margin-top: 3.13rem;
+.svgContainer {
+ display: flex;
+ justify-content: center;
+ align-items: center;
 }
-
 .text {
   margin-top: 1.19rem;
-  margin-bottom: 1.25rem;
   color: var(--color-light-900);
   opacity: 0.5;
   font-size: var(--font-size-s);
   line-height: var(--line-height-m);
+  text-align: center;
 }
 .button {
-  margin-top: 2.56rem;
+  margin-top: 4.06rem;
 }
-// @import '../cardsCommon.module';
 
-// .card {
-//   padding: 2.06rem 2.25rem 3.75rem 2.25rem;
-// }
