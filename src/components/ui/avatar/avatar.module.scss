@@ -1,20 +1,25 @@
-@mixin avatarSize {
+// @mixin avatarSize {
+//   width: 2.25rem;
+//   height: 2.25rem;
+//   border-radius: 50%;
+// }
+.standartSize {
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 50%;
 }
 .avatar {
-  @include avatarSize();
+  // @include avatarSize();
   background-color: var(--color-bg);
 }
 .avatarBroken {
-  @include avatarSize();
+  // @include avatarSize();
   display: flex;
   justify-content: center;
   align-items: center;
 
   font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-m);
+  // font-size: var(--font-size-m);
   color: white;
   text-transform: uppercase;
 }
