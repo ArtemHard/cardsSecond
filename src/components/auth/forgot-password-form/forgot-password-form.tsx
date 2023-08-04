@@ -1,5 +1,5 @@
 import { PATH } from '../../../routes'
-import { Button } from '../../ui/button'
+import Button from '../../ui/button/button'
 import { Card } from '../../ui/card'
 import { Input } from '../../ui/Input'
 import { Typography } from '../../ui/Typography'
