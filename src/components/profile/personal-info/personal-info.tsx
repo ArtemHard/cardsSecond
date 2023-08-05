@@ -85,7 +85,7 @@ export const PersonalInfo = ({ name, email, avatarSrc }: PersonalInfoProps) => {
         <div>
           <Avatar name={name} src={avatarSrc} className={style.avatar} />
           {!editMode && (
-            <button className={style.editAvatarButton}>
+            <button aria-label="Change avatar" className={style.editAvatarButton}>
               <EditPenSvg />
             </button>
           )}
