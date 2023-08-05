@@ -1,9 +1,6 @@
-import { useController, useForm } from 'react-hook-form'
-
 import { PATH } from '../../../routes'
 import Button from '../../ui/button/button'
 import { Card } from '../../ui/card'
-import { Checkbox } from '../../ui/Checkbox'
 import { Input } from '../../ui/Input'
 import { Typography } from '../../ui/Typography'
 
@@ -44,15 +41,6 @@ export const SignUpForm = ({ onSubmit }: any) => {
           errorMessage={errors.confirmPassword?.message}
           className={style.textField}
         />
-
-        {/* <Typography
-          variant="body2"
-          as="a"
-          href={PATH.FORGOT_PASSWORD}
-          className={style.forgotPassword}
-        >
-          Forgot Password?
-        </Typography> */}
         <Button type="submit" fullWidth>
           Sign Up
         </Button>
