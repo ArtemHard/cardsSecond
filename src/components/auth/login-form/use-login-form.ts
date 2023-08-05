@@ -1,13 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import { UseFormHandleSubmit, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { LoginFormProps } from '.'
+
 const schema = z.object({
-  // login: z
-  //   .string()
-  //   .trim()
-  //   .nonempty('Enter login')
-  //   .min(3, { message: 'Must be 3 or more characters long' }),
   email: z.string().trim().nonempty('Enter email').email('Invalid email'),
   password: z
     .string()
@@ -18,10 +15,10 @@ const schema = z.object({
   rememberMe: z.boolean().optional(),
 })
 
-type FormValues = z.infer<typeof schema>
+export type FormValuesLogin = z.infer<typeof schema>
 
-export const useLoginForm = (onSubmit: any) => {
-  const { handleSubmit, ...rest } = useForm<FormValues>({
+export const useLoginForm = ({ onSubmit }: LoginFormProps) => {
+  const { handleSubmit, ...rest } = useForm<FormValuesLogin>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
   })

@@ -1,30 +1,24 @@
-import { useController, useForm } from 'react-hook-form'
-
 import { PATH } from '../../../routes'
 import Button from '../../ui/button/button'
 import { Card } from '../../ui/card'
-import { Checkbox } from '../../ui/Checkbox'
+import { ControlledCheckbox } from '../../ui/controlled/controlled-checkbox'
+import { ControlledInput } from '../../ui/controlled/controlled-input'
 import { Input } from '../../ui/Input'
 import { Typography } from '../../ui/Typography'
 
 import style from './login-form.module.scss'
-import { useLoginForm } from './use-login-form'
+import { FormValuesLogin, useLoginForm } from './use-login-form'
 
-export const LoginForm = ({ onSubmit }: any) => {
+export type LoginFormProps = {
+  onSubmit: (data: FormValuesLogin) => void
+}
+export const LoginForm = ({ onSubmit }: LoginFormProps) => {
   const {
     handleSubmit,
     control,
     register,
     formState: { errors },
-  } = useLoginForm(onSubmit)
-
-  const {
-    field: { value, onChange },
-  } = useController({
-    name: 'rememberMe',
-    control,
-    defaultValue: false,
-  })
+  } = useLoginForm({ onSubmit })
 
   return (
     <Card className={style.card}>
@@ -39,19 +33,20 @@ export const LoginForm = ({ onSubmit }: any) => {
           label={'email'}
           className={style.textField}
         />
-        <Input
+        {/* <Input
           {...register('password')}
           label={'password'}
           type="password"
           errorMessage={errors.password?.message}
           className={style.textField}
-        />
-        <Checkbox
-          className={style.checkbox}
-          checked={value}
-          onValueChange={onChange}
+        /> */}
+        <ControlledInput control={control} name="password" type="password" label={'password'} />
+        <ControlledCheckbox
+          control={control}
+          name="rememberMe"
           label={'remember me'}
           position="left"
+          defaultValue={false}
         />
         <Typography
           variant="body2"
