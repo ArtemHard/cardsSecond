@@ -1,0 +1,17 @@
+.root {
+    & th {
+        &[data-sortable="true"] {
+        //    background-color:transparent;
+           cursor: pointer;
+           user-select: none;
+       }
+       &[data-key="name"] {
+       
+       } 
+ 
+    }
+}  
+.sortedLine {
+    background-color:var(--color-dark-300);
+    // color: va;
+}

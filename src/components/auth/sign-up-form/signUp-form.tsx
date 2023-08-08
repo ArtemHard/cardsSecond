@@ -1,3 +1,5 @@
+import { DevTool } from '@hookform/devtools'
+
 import { PATH } from '../../../routes'
 import Button from '../../ui/button/button'
 import { Card } from '../../ui/card'
@@ -10,6 +12,7 @@ import style from './sign-up-form.module.scss'
 export const SignUpForm = ({ onSubmit }: any) => {
   const {
     handleSubmit,
+    control,
     register,
     formState: { errors },
   } = useSignUpForm(onSubmit)
@@ -20,10 +23,11 @@ export const SignUpForm = ({ onSubmit }: any) => {
         Sign Up
       </Typography>
       <form onSubmit={handleSubmit}>
+        <DevTool control={control} />
         <Input
           {...register('email')}
           errorMessage={errors.email?.message}
-          type="email"
+          type="text"
           label={'Email'}
           className={style.textField}
         />
@@ -41,15 +45,6 @@ export const SignUpForm = ({ onSubmit }: any) => {
           errorMessage={errors.confirmPassword?.message}
           className={style.textField}
         />
-
-        {/* <Typography
-          variant="body2"
-          as="a"
-          href={PATH.FORGOT_PASSWORD}
-          className={style.forgotPassword}
-        >
-          Forgot Password?
-        </Typography> */}
         <Button type="submit" fullWidth>
           Sign Up
         </Button>
