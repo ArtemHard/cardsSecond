@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { TableHeader } from '../header'
+import { TableBody, TableCell, TableHeader } from '../header'
 
 import { DecksTable } from '.'
 
@@ -85,17 +85,20 @@ export const WithSort = {
     return (
       <table style={{ borderCollapse: 'collapse', width: '100%' }}>
         <TableHeader columns={columns} onSort={setSort} sort={sort} />
-        <tbody>
+        <TableBody style={{ border: '1px solid white' }}>
           {data.map(item => (
             <tr key={item.title}>
-              <td>{item.title}</td>
+              {Object.values(item).map(value => (
+                <TableCell key={value}>{value ?? ' '}</TableCell>
+              ))}
+              {/* <TableCell>{item.title}</TableCell>
               <td>{item.cardsCount}</td>
               <td>{item.updated}</td>
-              <td>{item.createdBy}</td>
-              <td>icons...</td>
+              <td>{item.createdBy}</td> */}
+              <TableCell>icons...</TableCell>
             </tr>
           ))}
-        </tbody>
+        </TableBody>
       </table>
     )
   },

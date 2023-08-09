@@ -1,5 +1,6 @@
 {
   "name": "new-cards",
+  "homepage": "https://cards-ecru-three.vercel.app/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
