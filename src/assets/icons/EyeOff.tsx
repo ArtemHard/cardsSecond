@@ -15,6 +15,5 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) =
     />
   </svg>
 )
-const EyeOff = forwardRef(SvgComponent)
 
-export default memo(EyeOff)
+export const EyeOff = memo(forwardRef(SvgComponent))

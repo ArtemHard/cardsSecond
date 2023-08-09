@@ -2,9 +2,9 @@ import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
 import clsx from 'clsx'
 
+import { EyeOff } from '../../../assets/icons'
 import { CloseOutlineSvg } from '../../../assets/icons/CloseOutlineSvg'
 import { EyeIconSvg } from '../../../assets/icons/EyeIconSvg'
-import EyeOff from '../../../assets/icons/EyeOff'
 import { SearchGlass } from '../../../assets/icons/SearchGlass'
 import { Typography } from '../Typography'
 

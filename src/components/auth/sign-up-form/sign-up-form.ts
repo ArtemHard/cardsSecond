@@ -8,7 +8,7 @@ const schema = z
     password: z
       .string()
       .trim()
-      .min(5, { message: 'Must be 5 or more characters long' })
+      .min(8, { message: 'Must be 5 or more characters long' })
       .emoji({ message: 'Contains non-emoji characters' })
       .nonempty('Enter password'),
     confirmPassword: z.string(),
