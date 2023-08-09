@@ -1,17 +1,42 @@
 .root {
-    & th {
-        &[data-sortable="true"] {
-        //    background-color:transparent;
-           cursor: pointer;
-           user-select: none;
-       }
-       &[data-key="name"] {
-       
-       } 
- 
+  background: var(--color-dark-500);
+  border-collapse: collapse;
+
+  & th {
+    padding: 0.375rem 1.5rem;
+    color: var(--color-light-100);
+    text-align: left;
+
+    &[data-sortable='true'] {
+      //    background-color:transparent;
+      cursor: pointer;
+      user-select: none;
     }
-}  
+  }
+  
+}
 .sortedLine {
-    background-color:var(--color-dark-300);
-    // color: va;
+    transition: background-color 0.3s ease-in-out;
+  background-color: var(--color-dark-300);
+}
+.hiddenSvg {
+  opacity: 0;
+  margin-left: 0.25rem;
+}
+.arrowUp {
+  animation: ani 0.3s forwards;
+}
+.arrowDown {
+  opacity: 1;
+  transition: transform 0.4s ease-in-out;
+  transform: rotate(180deg);
+}
+
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

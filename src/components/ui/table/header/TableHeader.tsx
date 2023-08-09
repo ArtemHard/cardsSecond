@@ -1,5 +1,8 @@
 import { ComponentPropsWithoutRef, MouseEventHandler } from 'react'
 
+import clsx from 'clsx'
+
+import { ArrowSvg } from '../../../../assets/icons/ArrowSvg'
 import { Column, Sort } from '../decks/decks-table.stories'
 
 import style from './tableHeader.module.scss'
@@ -38,21 +41,24 @@ export const TableHeader = ({ columns, sort, onSort }: TableHeaderProps) => {
       <tr>
         {columns.map(column => {
           const showSort = column.isSortable && sort && sort.key === column.key
+          const arrowStyle = clsx(
+            style.hiddenSvg,
+            sort?.direction === 'asc' && showSort && style.arrowUp,
+            sort?.direction === 'desc' && showSort && style.arrowDown
+          )
 
           return (
             <th
               key={column.title}
-              // underline current sorted column
               className={sortedLineClass(sort?.key, column.key, column.isSortable)}
-              //   data-sortable={column.isSortable}
               {...{
                 [dataAttributes.sortable]: column.isSortable,
                 [dataAttributes.key]: column.key,
               }}
-              //   data-key={column.key}
               onClick={handleSorting}
             >
-              {column.title} {showSort && <span>{sort.direction === 'asc' ? '▲' : '▼'}</span>}
+              {column.title}
+              <ArrowSvg className={arrowStyle} />
             </th>
           )
         })}

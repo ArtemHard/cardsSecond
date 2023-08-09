@@ -2,10 +2,7 @@ import { useState } from 'react'
 
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { TableHeader } from '../header'
-
-import { DecksTable } from '.'
-
+import { TableHeader } from './TableHeader'
 const data = [
   {
     title: 'Project A',
@@ -50,13 +47,9 @@ export type Column = {
   isSortable?: boolean
 }
 
-export const WithSort = {
+export const HeaderStory = {
   render: () => {
     const [sort, setSort] = useState<Sort>(null)
-
-    const sortString = sort ? `${sort.key}-${sort.direction}` : null
-
-    console.log(sortString)
 
     const columns: Column[] = [
       {
@@ -82,32 +75,23 @@ export const WithSort = {
       { key: 'options', title: '', isSortable: false },
     ]
 
+    const sortString = sort ? `${sort.key}-${sort.direction}` : null
+
+    console.log(sort)
+
     return (
       <table style={{ borderCollapse: 'collapse', width: '100%' }}>
         <TableHeader columns={columns} onSort={setSort} sort={sort} />
-        <tbody>
-          {data.map(item => (
-            <tr key={item.title}>
-              <td>{item.title}</td>
-              <td>{item.cardsCount}</td>
-              <td>{item.updated}</td>
-              <td>{item.createdBy}</td>
-              <td>icons...</td>
-            </tr>
-          ))}
-        </tbody>
       </table>
     )
   },
 }
 
 const meta = {
-  title: 'Components/DecksTable',
-  component: DecksTable,
+  title: 'Components/TableHeader',
+  component: TableHeader,
   tags: ['autodocs'],
-} satisfies Meta<typeof DecksTable>
+} satisfies Meta<typeof TableHeader>
 
 export default meta
 type Story = StoryObj<typeof meta>
-
-export const Deck: Story = {}
