@@ -25,7 +25,6 @@ export const Avatar = ({ src, name, className }: AvatarProps) => {
     containerAvaBroken: clsx(style.avatarBroken, style.standartSize, className),
     // eslint-disable-next-line prettier/prettier
     textInAvaBroken: clsx(style.initialsBroken),
-
     // buttonWrapper: clsx(s.buttonWrapper, disabled && s.disabled, position === 'left' && s.left),
     img: clsx(style.avatar, style.standartSize, className),
   }
@@ -46,6 +45,7 @@ type AvatarBrokenProps = {
   containerAvaBrokenStyle: string
   textInAvaBrokenStyle: string
 }
+
 const AvatarBroken = ({
   name,
   containerAvaBrokenStyle,
