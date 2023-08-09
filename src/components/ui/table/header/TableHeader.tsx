@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, MouseEventHandler } from 'react'
 
 import clsx from 'clsx'
 
-import { ArrowSvg } from '../../../../assets/icons/ArrowSvg'
+import { ChevronUp } from '../../../../assets/icons/ChevronUp'
 import { Column, Sort } from '../decks/decks-table.stories'
 
 import style from './tableHeader.module.scss'
@@ -28,7 +28,7 @@ export const TableHeader = ({ columns, sort, onSort }: TableHeaderProps) => {
 
     if (!(e.target instanceof HTMLTableCellElement)) return
     if (key === null) throw new Error('No data-key found!')
-    if (!isSortable) return
+    if (!isSortable || isSortable !== 'true') return
     if (key !== sort?.key) return onSort({ key, direction: 'asc' })
     if (sort.direction === 'asc') {
       return onSort({ key, direction: 'desc' })
@@ -57,8 +57,10 @@ export const TableHeader = ({ columns, sort, onSort }: TableHeaderProps) => {
               }}
               onClick={handleSorting}
             >
-              {column.title}
-              <ArrowSvg className={arrowStyle} />
+              <span>
+                {column.title}
+                <ChevronUp className={arrowStyle} />
+              </span>
             </th>
           )
         })}
