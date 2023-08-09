@@ -1,9 +1,10 @@
+import { DevTool } from '@hookform/devtools'
+
 import { PATH } from '../../../routes'
 import Button from '../../ui/button/button'
 import { Card } from '../../ui/card'
 import { ControlledCheckbox } from '../../ui/controlled/controlled-checkbox'
 import { ControlledInput } from '../../ui/controlled/controlled-input'
-import { Input } from '../../ui/Input'
 import { Typography } from '../../ui/Typography'
 
 import style from './login-form.module.scss'
@@ -16,7 +17,6 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
   const {
     handleSubmit,
     control,
-    register,
     formState: { errors },
   } = useLoginForm({ onSubmit })
 
@@ -26,21 +26,23 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
         Sign In
       </Typography>
       <form onSubmit={handleSubmit}>
-        <Input
-          {...register('email')}
-          errorMessage={errors.email?.message}
+        <DevTool control={control} />
+        <ControlledInput
+          control={control}
+          name="email"
           type="email"
-          label={'email'}
+          label={'Email'}
           className={style.textField}
-        />
-        {/* <Input
-          {...register('password')}
-          label={'password'}
-          type="password"
           errorMessage={errors.password?.message}
+        />
+        <ControlledInput
+          control={control}
+          name="password"
+          type="password"
+          label={'Password'}
           className={style.textField}
-        /> */}
-        <ControlledInput control={control} name="password" type="password" label={'password'} />
+          errorMessage={errors.password?.message}
+        />
         <ControlledCheckbox
           control={control}
           name="rememberMe"
