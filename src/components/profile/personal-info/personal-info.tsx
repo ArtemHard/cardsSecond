@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { MouseEvent, useRef, useState, useEffect } from 'react'
 
 import { useController } from 'react-hook-form'
 
@@ -53,6 +53,8 @@ export const PersonalInfo = ({ name, email, avatarSrc }: PersonalInfoProps) => {
     setEditMode(true)
   }
 
+  const inputRef = useRef<HTMLInputElement>(null)
+
   const infoRender = editMode ? (
     <form onSubmit={handleSubmit} style={{ width: '100%' }}>
       <Input
@@ -62,6 +64,7 @@ export const PersonalInfo = ({ name, email, avatarSrc }: PersonalInfoProps) => {
         defaultValue={name}
         className={style.input}
         errorMessage={errors.name?.message}
+        ref={inputRef}
       />
       <Button
         variant="primary"
@@ -76,8 +79,36 @@ export const PersonalInfo = ({ name, email, avatarSrc }: PersonalInfoProps) => {
     <StaticInfoRender email={email} name={name} editModeCallback={editModeOn} />
   )
 
+  const closeEditModuleHandler = (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
+    const element = e.target as HTMLElement
+
+    if (editMode) {
+      if (element.tagName !== 'INPUT') {
+        setEditMode(false)
+      }
+    }
+  }
+
+  const handleEscapeKeyPress = (event: globalThis.KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      console.log('Нажата клавиша Escape')
+      setEditMode(false)
+      // Выполните вашу функцию здесь
+    }
+  }
+
+  // close edit mode by press escape
+  useEffect(() => {
+    if (!editMode) return
+    document.addEventListener('keydown', handleEscapeKeyPress)
+
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKeyPress)
+    }
+  }, [handleEscapeKeyPress, editMode])
+
   return (
-    <Card className={style.card}>
+    <Card className={style.card} onClick={closeEditModuleHandler}>
       <Typography as="h1" variant="large" className={style.title}>
         Personal Information
       </Typography>
@@ -85,7 +116,11 @@ export const PersonalInfo = ({ name, email, avatarSrc }: PersonalInfoProps) => {
         <div>
           <Avatar name={name} src={avatarSrc} className={style.avatar} />
           {!editMode && (
-            <button aria-label="Change avatar" className={style.editAvatarButton}>
+            <button
+              aria-label="Change avatar"
+              className={style.editAvatarButton}
+              onClick={() => alert('nedd Add logic')}
+            >
               <EditPenSvg />
             </button>
           )}

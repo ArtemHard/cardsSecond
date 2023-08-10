@@ -42,8 +42,7 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
           label={'Password'}
           className={style.textField}
           errorMessage={errors.password?.message}
-          className={style.textField}
-        /> */}
+        />
         <ControlledInput
           control={control}
           name="password"

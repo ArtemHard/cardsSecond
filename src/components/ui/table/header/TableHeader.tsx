@@ -1,8 +1,8 @@
-import { ComponentPropsWithRef, ComponentPropsWithoutRef, FC, MouseEventHandler } from 'react'
+import { ComponentPropsWithoutRef, MouseEventHandler } from 'react'
 
 import clsx from 'clsx'
 
-import { ChevronUp } from '../../../../assets/icons/ChevronUp'
+import { ChevronUp } from '../../../../assets/icons'
 import { Typography } from '../../Typography'
 import { Column, Sort } from '../decks/decks-table.stories'
 
@@ -103,30 +103,4 @@ const sortedLineClass = (
   isSortable: boolean | undefined
 ) => {
   return currentSort === columnSort && isSortable ? style.sortedLine : undefined
-}
-
-type TableBodyProps = ComponentPropsWithoutRef<'tbody'>
-
-export const TableBody: FC<TableBodyProps> = ({ children, ...restProps }) => {
-  const classNames = clsx(style.tableBody, restProps.className ?? '')
-
-  return <tbody className={classNames}>{children}</tbody>
-}
-
-type TableRowProps = ComponentPropsWithoutRef<'tr'>
-
-export const TableRow: FC<TableRowProps> = props => {
-  return <tr {...props} />
-}
-
-export type CellProps = ComponentPropsWithRef<'td'>
-
-export const TableCell: FC<CellProps> = ({ className, ...rest }) => {
-  const classNames = clsx(style.tableCell, className ?? '')
-
-  return (
-    <td className={classNames} {...rest}>
-      {rest.children}
-    </td>
-  )
 }
