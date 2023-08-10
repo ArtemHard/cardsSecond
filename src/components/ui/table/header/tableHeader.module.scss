@@ -6,12 +6,16 @@
     padding: 0.375rem 1.5rem;
     color: var(--color-light-100);
     text-align: left;
+    // border: 1px solid red;
 
     &[data-sortable='true'] {
       //    background-color:transparent;
       cursor: pointer;
       user-select: none;
     }
+  }
+  & td {
+    border: 1px solid red;
   }
   
 }
@@ -39,4 +43,14 @@
   100% {
     opacity: 1;
   }
+}
+.tableBody {
+  border: 1px solid var(--color-dark-500)
+}
+.tableCell {
+  text-align: left;
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-dark-500);
+  padding: 0.375rem 1.5rem;
+  align-items: center;
 }
