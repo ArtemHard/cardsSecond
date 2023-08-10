@@ -2,7 +2,8 @@ import { ComponentPropsWithoutRef, MouseEventHandler } from 'react'
 
 import clsx from 'clsx'
 
-import { ChevronUp } from '../../../../assets/icons/ChevronUp'
+import { ChevronUp } from '../../../../assets/icons'
+import { Typography } from '../../Typography'
 import { Column, Sort } from '../decks/decks-table.stories'
 
 import style from './tableHeader.module.scss'
@@ -23,10 +24,11 @@ const dataAttributes = {
 
 export const TableHeader = ({ columns, sort, onSort }: TableHeaderProps) => {
   const handleSorting: MouseEventHandler<HTMLTableCellElement> = e => {
+    // debugger
     const isSortable = e.currentTarget.getAttribute(dataAttributes.sortable)
     const key = e.currentTarget.getAttribute(dataAttributes.key)
 
-    if (!(e.target instanceof HTMLTableCellElement)) return
+    // if (!(e.target instanceof HTMLTableCellElement)) return
     if (key === null) throw new Error('No data-key found!')
     if (!isSortable || isSortable !== 'true') return
     if (key !== sort?.key) return onSort({ key, direction: 'asc' })
@@ -48,24 +50,50 @@ export const TableHeader = ({ columns, sort, onSort }: TableHeaderProps) => {
           )
 
           return (
-            <th
-              key={column.title}
+            <HeadCell
+              key={column.key + 'head'}
+              column={column}
               className={sortedLineClass(sort?.key, column.key, column.isSortable)}
-              {...{
-                [dataAttributes.sortable]: column.isSortable,
-                [dataAttributes.key]: column.key,
-              }}
               onClick={handleSorting}
             >
-              <span>
-                {column.title}
-                <ChevronUp className={arrowStyle} />
-              </span>
-            </th>
+              {column.title}
+              {<ChevronUp className={arrowStyle} />}
+            </HeadCell>
+            // <th
+            //   key={column.title}
+            //   className={sortedLineClass(sort?.key, column.key, column.isSortable)}
+            //   {...{
+            //     [dataAttributes.sortable]: column.isSortable,
+            //     [dataAttributes.key]: column.key,
+            //   }}
+            //   onClick={handleSorting}
+            // >
+            //   <span>
+            //     {column.title}
+            //     <ChevronUp className={arrowStyle} />
+            //   </span>
+            // </th>
           )
         })}
       </tr>
     </thead>
+  )
+}
+type HeadCellProps = ComponentPropsWithoutRef<'th'> & { column: Column }
+
+const HeadCell = ({ column, children, ...restProps }: HeadCellProps) => {
+  return (
+    <th
+      {...{
+        [dataAttributes.sortable]: column.isSortable ?? false,
+        [dataAttributes.key]: column.key,
+      }}
+      {...restProps}
+    >
+      <Typography variant="subtitle2" style={{ margin: 0 }}>
+        {children}
+      </Typography>
+    </th>
   )
 }
 
