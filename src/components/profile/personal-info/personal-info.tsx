@@ -1,4 +1,4 @@
-import { MouseEvent, useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 
 import { useController } from 'react-hook-form'
 
@@ -53,10 +53,10 @@ export const PersonalInfo = ({ name, email, avatarSrc }: PersonalInfoProps) => {
     setEditMode(true)
   }
 
-  const inputRef = useRef<HTMLInputElement>(null)
+  const formRef = useRef<HTMLFormElement>(null)
 
   const infoRender = editMode ? (
-    <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+    <form ref={formRef} onSubmit={handleSubmit} style={{ width: '100%' }}>
       <Input
         label="Nickname"
         value={value}
@@ -64,7 +64,6 @@ export const PersonalInfo = ({ name, email, avatarSrc }: PersonalInfoProps) => {
         defaultValue={name}
         className={style.input}
         errorMessage={errors.name?.message}
-        ref={inputRef}
       />
       <Button
         variant="primary"
@@ -79,36 +78,31 @@ export const PersonalInfo = ({ name, email, avatarSrc }: PersonalInfoProps) => {
     <StaticInfoRender email={email} name={name} editModeCallback={editModeOn} />
   )
 
-  const closeEditModuleHandler = (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
-    const element = e.target as HTMLElement
-
-    if (editMode) {
-      if (element.tagName !== 'INPUT') {
+  // для закрытия editMode
+  useEffect(() => {
+    if (!editMode) return
+    const handler = (e: globalThis.MouseEvent) => {
+      if (!formRef.current?.contains(e.target as Node)) {
         setEditMode(false)
       }
     }
-  }
-
-  const handleEscapeKeyPress = (event: globalThis.KeyboardEvent) => {
-    if (event.key === 'Escape') {
-      console.log('Нажата клавиша Escape')
-      setEditMode(false)
-      // Выполните вашу функцию здесь
+    const handleEscapeKeyPress = (event: globalThis.KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setEditMode(false)
+      }
     }
-  }
 
-  // close edit mode by press escape
-  useEffect(() => {
-    if (!editMode) return
+    document.addEventListener('mousedown', handler)
     document.addEventListener('keydown', handleEscapeKeyPress)
 
     return () => {
+      document.removeEventListener('mousedown', handler)
       document.removeEventListener('keydown', handleEscapeKeyPress)
     }
-  }, [handleEscapeKeyPress, editMode])
+  }, [editMode])
 
   return (
-    <Card className={style.card} onClick={closeEditModuleHandler}>
+    <Card className={style.card}>
       <Typography as="h1" variant="large" className={style.title}>
         Personal Information
       </Typography>
