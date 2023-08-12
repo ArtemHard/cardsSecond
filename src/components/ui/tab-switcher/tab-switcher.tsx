@@ -26,15 +26,13 @@ export const TabSwither = ({
   className,
   ref,
 }: TabSwitherProps) => {
-  //   const onValueChange = (value: string) => {
-  //     console.log('work')
-
-  //     console.log(value)
-  //   }
+  const onChange = (value: string) => {
+    onValueChange?.(value)
+  }
 
   return (
     <Tabs.Root
-      onValueChange={onValueChange}
+      onValueChange={onChange}
       className={clsx(style.TabsRoot, className)}
       defaultValue={defaultValue}
       ref={ref}
