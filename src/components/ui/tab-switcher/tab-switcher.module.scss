@@ -1,0 +1,75 @@
+/* reset */
+button,
+fieldset,
+input {
+  all: unset;
+}
+
+.TabsRoot {
+  display: flex;
+  flex-direction: column;
+  //   width: 300px;
+  //   box-shadow: 0 0 0 1px var(--color-dark-300);
+  //   box-shadow: 0 0 0 2px yellow;
+  border: 1px solid var(--color-dark-300);
+}
+
+.TabsList {
+  flex-shrink: 0;
+  display: flex;
+  //   border-bottom: 1px solid yellow;
+  // background-color: var(--color-bg)
+}
+
+.TabsTrigger {
+  font-family: inherit;
+  background-color: var(--color-bg);
+  padding: 0.38rem 1.5rem;
+  height: 2.25rem;
+  //   width: 6.875rem;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  //   font-size: 15px;
+  //   line-height: 1;
+  //   color: red;
+  user-select: none;
+  //   border-radius: 0.125rem 0rem 0rem 0.125rem;
+}
+.TabsTrigger:first-child {
+  border-top-left-radius: 0.125rem;
+  border-bottom-left-radius: 0.125rem;
+}
+.TabsTrigger:last-child {
+  border-top-right-radius: 0.125rem;
+  border-bottom-right-radius: 0.125rem;
+}
+
+.TabsTrigger[data-state='active'] {
+  background-color: var(--color-accent-500);
+}
+
+.TabsTrigger:hover {
+  background-color: var(--color-dark-300);
+  & * {
+    color: var(--color-light-900);
+  }
+}
+
+.TabsTrigger:hover[disabled] {
+  & * {
+    color: var(--color-light-100);
+  }
+}
+.TabsTrigger:focus {
+  position: relative;
+  background-color: var(--color-dark-700);
+  outline: 2px solid var(--color-info-900);
+}
+.TabsTrigger[disabled] {
+  background-color: var(--color-dark-700);
+  opacity: 50%;
+  cursor: default;
+}

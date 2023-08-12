@@ -43,13 +43,6 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
           className={style.textField}
           errorMessage={errors.password?.message}
         />
-        <ControlledInput
-          control={control}
-          name="password"
-          type="password"
-          label={'password'}
-          className={style.textField}
-        />
         <ControlledCheckbox
           control={control}
           name="rememberMe"
