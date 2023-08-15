@@ -9,7 +9,7 @@ type AvatarProps = {
   // className: ComponentProps<'img'>['className']
 } & ComponentProps<'img'>
 
-export const Avatar = ({ src, name, className, ...restProps }: AvatarProps) => {
+export const Avatar = ({ src, name, className }: AvatarProps) => {
   const [isAvaBroken, setIsAvaBroken] = useState(false)
 
   const errorHandler = () => {
@@ -34,16 +34,9 @@ export const Avatar = ({ src, name, className, ...restProps }: AvatarProps) => {
       name={name}
       containerAvaBrokenStyle={classNames.containerAvaBroken}
       textInAvaBrokenStyle={classNames.textInAvaBroken}
-      {...restProps}
     />
   ) : (
-    <img
-      className={classNames.img}
-      src={src}
-      alt={name + ' avatar'}
-      onError={errorHandler}
-      {...restProps}
-    />
+    <img className={classNames.img} src={src} alt={name + ' avatar'} onError={errorHandler} />
   )
 }
 
@@ -51,13 +44,12 @@ type AvatarBrokenProps = {
   name: string
   containerAvaBrokenStyle: string
   textInAvaBrokenStyle: string
-} & ComponentProps<'div'>
+}
 
 const AvatarBroken = ({
   name,
   containerAvaBrokenStyle,
   textInAvaBrokenStyle,
-  ...restProps
 }: AvatarBrokenProps) => {
   const initials = name.substring(0, 2)
 
@@ -74,7 +66,7 @@ const AvatarBroken = ({
 
   // Отрисовываем аватарку с заглушкой
   return (
-    <div {...restProps} className={containerAvaBrokenStyle} style={{ backgroundColor: color }}>
+    <div className={containerAvaBrokenStyle} style={{ backgroundColor: color }}>
       <span className={textInAvaBrokenStyle}>{initials}</span>
     </div>
   )
