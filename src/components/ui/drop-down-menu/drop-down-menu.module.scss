@@ -4,41 +4,25 @@ button {
 }
 
 .DropdownMenuArrow {
-  // fill: red;
-  opacity: 0;
-  
+  fill: red;
 }
 
-// .DropdownMenuArrow2 {
+// .DropdownMenuArrow3 {
 //   position: absolute;
-//   top: -4px;
+//   bottom: -14px;
+//   right:50%;
 //   height: 8px;
 //   width: 8px;
 //   background-color: var(--color-dark-700);
+//   z-index: 1;
 //   transform: rotate(45deg);
 //   border-top: 1px solid var(--color-dark-500);
 //   border-left: 1px solid var(--color-dark-500);
 // }
-.DropdownMenuArrow3 {
-  position: absolute;
-  bottom: -14px;
-  right:50%;
-  height: 8px;
-  width: 8px;
-  background-color: var(--color-dark-700);
-  // background-color: red;
-  z-index: 1;
-  transform: rotate(45deg);
-  border-top: 1px solid var(--color-dark-500);
-  border-left: 1px solid var(--color-dark-500);
-}
-.protal {
-  margin-top: 15px;
-}
+
 .DropdownMenuContent,
 .DropdownMenuSubContent {
-  margin-top: 0.27rem;
-  min-width: 220px;
+
   background-color: var(--color-dark-700);
   border-radius: 0.25rem;
   border: 1px solid var(--color-dark-500);
@@ -72,13 +56,34 @@ button {
   display: flex;
   align-items: center;
   gap: 0.38rem;
-  height: 25px;
-  padding: 0 5px;
+  padding: 0.75rem 0;
   position: relative;
-  padding-left: 25px;
+  cursor: pointer;
   user-select: none;
   outline: none;
 }
+.DropdownMenuItem:before {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  border-bottom: 1px solid var(--color-dark-500);
+  bottom: 0;
+}
+
+.DropdownMenuItem:last-of-type::before {
+  display: none;
+  height: 100px;
+}
+.DropdownMenuItem:first-child {
+  padding-top: 0;
+}
+.DropdownMenuItem:last-of-type {
+  padding-bottom: 0;
+}
+
+
 .DropdownMenuSubTrigger[data-state='open'] {
   background-color: green;
   color: red;
@@ -94,8 +99,8 @@ button {
 .DropdownMenuCheckboxItem[data-highlighted],
 .DropdownMenuRadioItem[data-highlighted],
 .DropdownMenuSubTrigger[data-highlighted] {
-  background-color: orange;
-  color: orange;
+  background-color: var(--color-dark-300);
+  // color: orange;
 }
 
 .DropdownMenuLabel {

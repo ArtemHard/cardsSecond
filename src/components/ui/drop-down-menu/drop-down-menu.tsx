@@ -41,7 +41,7 @@ export const DropDownMenu: FC<DropdownProps> = ({
           hideWhenDetached
         >
           {children}
-          {/* <DropdownMenu.Arrow className={style['DropdownMenuArrow']} /> */}
+          <DropdownMenu.Arrow className={style['DropdownMenuArrow']} />
           {/* <div className={style.DropdownMenuArrow2}></div> */}
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
@@ -62,16 +62,20 @@ export const DropDownMenuIcon = ({
   ...restProps
 }: DropDownMenuIconProps) => {
   return (
-    <DropdownMenu.Item
-      onSelect={onSelect}
-      // className={className}
-      className={style.DropdownMenuItem}
-      disabled={disabled}
-      {...restProps}
-    >
-      {icon}
-      <Typography variant="subtitle2">{children}</Typography>
-      {/* <DropdownMenu.Separator className="DropdownMenuSeparator" /> */}
-    </DropdownMenu.Item>
+    <>
+      <DropdownMenu.Item
+        onSelect={onSelect}
+        // className={className}
+        className={style.DropdownMenuItem}
+        disabled={disabled}
+        {...restProps}
+      >
+        {icon}
+        <Typography variant="subtitle2" style={{ margin: 0 }}>
+          {children}
+        </Typography>
+        {/* <DropdownMenu.Separator className="DropdownMenuSeparator" /> */}
+      </DropdownMenu.Item>
+    </>
   )
 }
