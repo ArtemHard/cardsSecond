@@ -41,7 +41,7 @@ export const DropDownMenu: FC<DropdownProps> = ({
           hideWhenDetached
         >
           {children}
-          <DropdownMenu.Arrow className={style['DropdownMenuArrow']} />
+          {/* <DropdownMenu.Arrow className={style['DropdownMenuArrow']} /> */}
           {/* <div className={style.DropdownMenuArrow2}></div> */}
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
@@ -74,7 +74,6 @@ export const DropDownMenuIcon = ({
         <Typography variant="subtitle2" style={{ margin: 0 }}>
           {children}
         </Typography>
-        {/* <DropdownMenu.Separator className="DropdownMenuSeparator" /> */}
       </DropdownMenu.Item>
     </>
   )

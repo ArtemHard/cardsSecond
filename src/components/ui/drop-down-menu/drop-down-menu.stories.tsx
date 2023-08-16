@@ -15,23 +15,9 @@ const meta = {
 } satisfies Meta<typeof DropDownMenu>
 
 export default meta
-type Story = StoryObj<typeof meta>
+// type Story = StoryObj<typeof meta>
 
-export const Default: Story = {
-  args: {
-    trigger: <Avatar name="Artem" />,
-    children: (
-      <>
-        <DropDownMenuIcon onSelect={() => {}} icon={<EditPenSvg />}>
-          123
-        </DropDownMenuIcon>
-        <DropDownMenuIcon>123</DropDownMenuIcon>
-      </>
-    ),
-  },
-}
-
-export const InComponent = {
+export const Variants = {
   render: () => {
     return (
       <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -77,12 +63,6 @@ export const InComponent = {
           </DropDownMenuIcon>
           <DropDownMenuIcon icon={<LogoutSvg />}>Sign Out</DropDownMenuIcon>
         </DropDownMenu>
-        {/* <DropDownMenu trigger={<Avatar name="Ghorj" />}>
-          <DropDownMenuIcon onSelect={() => {}} icon={<EditPenSvg />}>
-            123
-          </DropDownMenuIcon>
-          <DropDownMenuIcon>123</DropDownMenuIcon>
-        </DropDownMenu> */}
       </div>
     )
   },
