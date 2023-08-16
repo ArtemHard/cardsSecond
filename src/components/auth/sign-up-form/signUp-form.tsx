@@ -3,7 +3,7 @@ import { DevTool } from '@hookform/devtools'
 import { PATH } from '../../../routes'
 import Button from '../../ui/button/button'
 import { Card } from '../../ui/card'
-import { Input } from '../../ui/Input'
+import { Input } from '../../ui/drop-down-menu'
 import { Typography } from '../../ui/Typography'
 
 import { useSignUpForm } from './sign-up-form'
