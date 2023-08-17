@@ -1,20 +1,15 @@
 import { useState } from 'react'
 
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta } from '@storybook/react'
 
 import { Slider } from '.'
 
 const meta = {
   title: 'Components/Slider',
   component: Slider,
-  // tags: ['autodocs'],
-  // args: {
-  //   value: [0, 100],
-  // },
 } satisfies Meta<typeof Slider>
 
 export default meta
-// type Story = StoryObj<typeof meta>
 
 export const InComponent = {
   render: () => {
@@ -23,10 +18,8 @@ export const InComponent = {
     const min = 0
 
     const onValueCommit = (values: number[]) => {
-      alert('установленно значние' + values)
+      alert('установленно значние ' + values)
     }
-
-    console.log(value)
 
     return (
       <Slider

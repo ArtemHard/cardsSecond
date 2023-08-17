@@ -2,21 +2,11 @@ import { forwardRef } from 'react'
 
 import * as RadixSlider from '@radix-ui/react-slider'
 
-import { Card } from '../card'
 import { Typography } from '../Typography'
 
 import style from './slider.module.scss'
 
 export const Slider = forwardRef<HTMLSpanElement, RadixSlider.SliderProps>((props, ref) => {
-  //   const onChange = (value: number[]) => {
-  //     // console.log(value)
-  //     props?.onValueChange?.(value)
-  //   }
-
-  //   const setCahnge = (value: number[]) => {
-  //     console.log(value)
-  //   }
-
   return (
     <div className={style.SliderWrapper}>
       <div className={style.cardNumber}>
