@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta } from '@storybook/react'
 
-import { EditPenSvg, LogoutSvg } from '../../../assets/icons'
+import { LogoutSvg } from '../../../assets/icons'
 import { PersonOutlineSvg } from '../../../assets/icons/PersonOutlineSvg'
 import { Avatar } from '../avatar'
 import Button from '../button/button'
@@ -15,7 +15,6 @@ const meta = {
 } satisfies Meta<typeof DropDownMenu>
 
 export default meta
-// type Story = StoryObj<typeof meta>
 
 export const Variants = {
   render: () => {
