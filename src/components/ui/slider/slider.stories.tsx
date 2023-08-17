@@ -22,8 +22,20 @@ export const InComponent = {
     const max = 75
     const min = 0
 
+    const onValueCommit = (values: number[]) => {
+      alert('установленно значние' + values)
+    }
+
     console.log(value)
 
-    return <Slider onValueChange={setValue} min={min} max={max} value={value} />
+    return (
+      <Slider
+        onValueChange={setValue}
+        min={min}
+        max={max}
+        value={value}
+        onValueCommit={onValueCommit}
+      />
+    )
   },
 }
