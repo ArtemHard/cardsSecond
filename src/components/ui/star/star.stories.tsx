@@ -1,9 +1,4 @@
-import { DevTool } from '@hookform/devtools'
 import type { Meta, StoryObj } from '@storybook/react'
-import { useForm } from 'react-hook-form'
-
-import Button from '../button/button'
-import { ControlledRadio } from '../controlled/controlled-radio'
 
 import { StarRating } from '.'
 

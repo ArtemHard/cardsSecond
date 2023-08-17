@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { StarSVG } from '../../../assets/icons/StarSvg'
 
 type StarRatingProps = {

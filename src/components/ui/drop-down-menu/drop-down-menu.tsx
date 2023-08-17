@@ -14,17 +14,11 @@ export type DropdownProps = {
   style?: CSSProperties
 } & DropdownMenu.DropdownMenuProps
 
-export const DropDownMenu: FC<DropdownProps> = ({
-  children,
-  align,
-  className,
-  trigger,
-  ...restProps
-}) => {
+export const DropDownMenu: FC<DropdownProps> = ({ children, trigger, ...restProps }) => {
   const [open, setOpen] = useState(false)
 
   return (
-    <DropdownMenu.Root onOpenChange={setOpen} modal>
+    <DropdownMenu.Root onOpenChange={setOpen} modal {...restProps}>
       <DropdownMenu.Trigger asChild>
         <div style={{ height: 'fit-content', width: 'fit-content', position: 'relative' }}>
           {trigger}
