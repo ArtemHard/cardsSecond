@@ -1,0 +1,62 @@
+@mixin buttonSize($heiight, $width) {
+  height: $heiight;
+  min-width: $width;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg);
+  border: none;
+  cursor: pointer;
+}
+.root {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    align-content: flex-start;
+    // width: 33.5rem;
+}
+.pageWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+.prevShevrone {
+  transform: rotate(90deg);
+  background-color: var(--color-bg);
+  border: none;
+}
+.nextChevrone {
+  transform: rotate(270deg);
+  background-color: var(--color-bg);
+}
+.shevroneButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include buttonSize(1rem, 1rem);
+  &:disabled {
+    opacity: 50%;
+    cursor: default;
+  }
+}
+
+.pageButton {
+  @include buttonSize(1.5rem, 1.5rem);
+}
+.pageButton:hover {
+  background-color: var(--color-dark-500);
+  color: var(--color-light-100);
+}
+.pageButton:focus {
+  outline: 2px solid var(--color-info-900);
+}
+.selected {
+  background-color: var(--color-light-100);
+  color: var(--color-dark-900);
+}
+.selecBlockWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
