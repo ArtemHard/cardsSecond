@@ -1,4 +1,4 @@
-import { Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { LogoutSvg } from '../../../assets/icons'
 import { BrandSvg } from '../../../assets/icons/BrandSvg'
