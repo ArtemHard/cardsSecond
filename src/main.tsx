@@ -8,8 +8,8 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/700.css'
 import './styles/index.scss'
 
+import { store } from './app/store.ts'
 import { router } from './routes/router.tsx'
-import { store } from './services/store.ts'
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>

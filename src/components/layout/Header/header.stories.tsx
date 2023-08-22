@@ -16,6 +16,7 @@ export const HeaderLogIn: Story = {
     isAuth: true,
     userInfo: {
       name: 'Artem',
+      email: 'dfgdfg@mail.ru',
       avatarSrc: 'https://avatars.githubusercontent.com/u/95387501?v=4',
     },
     signOutClick: () => alert('callback SIGN OUT'),

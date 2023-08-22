@@ -1,5 +1,7 @@
 import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
+import { App } from '../App'
+
 import { PATH } from '.'
 
 const publicRoutes: RouteObject[] = [
@@ -52,8 +54,14 @@ function PrivateRoutes() {
 
 export const router = createBrowserRouter([
   {
-    element: <PrivateRoutes />,
-    children: privateRoutes,
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        element: <PrivateRoutes />,
+        children: privateRoutes,
+      },
+      ...publicRoutes,
+    ],
   },
-  ...publicRoutes,
 ])
