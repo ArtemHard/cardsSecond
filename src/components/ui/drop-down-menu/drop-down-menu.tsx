@@ -1,8 +1,7 @@
 import { ReactNode, useState, FC, CSSProperties } from 'react'
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-
-import { Typography } from '../Typography'
+import clsx from 'clsx'
 
 import style from './drop-down-menu.module.scss'
 
@@ -20,7 +19,14 @@ export const DropDownMenu: FC<DropdownProps> = ({ children, trigger, ...restProp
   return (
     <DropdownMenu.Root onOpenChange={setOpen} modal {...restProps}>
       <DropdownMenu.Trigger asChild>
-        <div style={{ height: 'fit-content', width: 'fit-content', position: 'relative' }}>
+        <div
+          style={{
+            height: 'fit-content',
+            width: 'fit-content',
+            position: 'relative',
+            cursor: 'pointer',
+          }}
+        >
           {trigger}
           {open && <div className={style.DropdownMenuArrow3}></div>}
         </div>
@@ -55,19 +61,18 @@ export const DropDownMenuIcon = ({
   icon,
   ...restProps
 }: DropDownMenuIconProps) => {
+  const classNames = clsx(style.DropdownMenuItem, className)
+
   return (
     <>
       <DropdownMenu.Item
         onSelect={onSelect}
-        // className={className}
-        className={style.DropdownMenuItem}
+        className={classNames}
         disabled={disabled}
         {...restProps}
       >
         {icon}
-        <Typography variant="subtitle2" style={{ margin: 0 }}>
-          {children}
-        </Typography>
+        {children}
       </DropdownMenu.Item>
     </>
   )
