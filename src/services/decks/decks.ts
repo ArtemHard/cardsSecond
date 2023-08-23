@@ -2,7 +2,6 @@ import { baseApi } from '../common/base-api'
 
 import type {
   Card,
-  CreateDeckArgs,
   Deck,
   DeckId,
   Decks,

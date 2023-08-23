@@ -15,9 +15,7 @@ export function App() {
   const signOutHandler = () => {
     signOut()
       .unwrap()
-      .then(res => {
-        console.log('work')
-
+      .then(() => {
         navigate(PATH.LOGIN)
       })
   }

@@ -12,7 +12,7 @@ import { useAuthMeQuery, useLogInMutation } from '../../services/auth'
 
 export const SignInPage = () => {
   const { data: meData, isLoading: isLoadingMe } = useAuthMeQuery()
-  const [logIn, { isLoading: isLoggingIn, error, data }] = useLogInMutation()
+  const [logIn, { isLoading: isLoggingIn }] = useLogInMutation()
   const navigate = useNavigate()
 
   const submitHandler = (data: FormValuesLogin) => {
