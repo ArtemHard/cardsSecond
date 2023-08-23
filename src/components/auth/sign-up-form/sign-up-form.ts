@@ -8,7 +8,7 @@ const schema = z
     password: z
       .string()
       .trim()
-      .min(8, { message: 'Must be 5 or more characters long' })
+      .min(4, { message: 'Must be 4 or more characters long' })
       .emoji({ message: 'Contains non-emoji characters' })
       .nonempty('Enter password'),
     confirmPassword: z.string(),
@@ -18,10 +18,10 @@ const schema = z
     path: ['confirmPassword'], // path of error
   })
 
-type FormValues = z.infer<typeof schema>
+export type FormValuesSignUp = z.infer<typeof schema>
 
 export const useSignUpForm = (onSubmit: any) => {
-  const { handleSubmit, ...rest } = useForm<FormValues>({
+  const { handleSubmit, ...rest } = useForm<FormValuesSignUp>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
   })

@@ -9,8 +9,7 @@ const schema = z.object({
   password: z
     .string()
     .trim()
-    .min(5, { message: 'Must be 5 or more characters long' })
-    .emoji({ message: 'Contains non-emoji characters' })
+    .min(4, { message: 'Must be 4 or more characters long' })
     .nonempty('Enter password'),
   rememberMe: z.boolean().optional(),
 })
@@ -21,6 +20,9 @@ export const useLoginForm = ({ onSubmit }: LoginFormProps) => {
   const { handleSubmit, ...rest } = useForm<FormValuesLogin>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
+    defaultValues: {
+      rememberMe: false,
+    },
   })
 
   return { handleSubmit: handleSubmit(onSubmit), ...rest }

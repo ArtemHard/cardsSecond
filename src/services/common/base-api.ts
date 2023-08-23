@@ -1,13 +1,10 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
+
+import { customFetchBase } from './base-api-with-refresh'
 
 export const baseApi = createApi({
   reducerPath: 'baseApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_BASE_API_URL,
-    credentials: 'include',
-    // prepareHeaders: headers => {
-    //   headers.append('x-auth-skip', 'true')
-    // },
-  }),
+  baseQuery: customFetchBase,
+  tagTypes: ['me'],
   endpoints: () => ({}),
 })
