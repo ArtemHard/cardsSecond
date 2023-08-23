@@ -10,7 +10,7 @@ import type {
 
 const authApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    authMe: builder.query<Profile, void>({
+    authMe: builder.query<Profile | null, void>({
       query: () => {
         return { url: 'auth/me' }
       },
@@ -73,6 +73,21 @@ const authApi = baseApi.injectEndpoints({
         url: 'auth/logout',
         method: 'POST',
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(authApi.util.updateQueryData('authMe', _, () => null))
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
+
+          /**
+           * Alternatively, on failure you can invalidate the corresponding cache tags
+           * to trigger a re-fetch:
+           * dispatch(api.util.invalidateTags(['Post']))
+           */
+        }
+      },
       invalidatesTags: ['me'],
     }),
     refreshToken: builder.mutation({

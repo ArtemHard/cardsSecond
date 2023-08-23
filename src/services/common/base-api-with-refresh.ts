@@ -1,9 +1,6 @@
 import { BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { Mutex } from 'async-mutex'
 
-import { PATH } from '../../routes'
-import { globalNavigate } from '../../utils/GlovalNavigate'
-
 const baseUrl = import.meta.env.VITE_BASE_API_URL
 
 // Create a new mutex
@@ -38,7 +35,7 @@ export const customFetchBase: BaseQueryFn<
           // Retry the initial query
           result = await baseQuery(args, api, extraOptions)
         } else {
-          globalNavigate(PATH.LOGIN)
+          // globalNavigate(PATH.LOGIN)
         }
       } finally {
         release()
