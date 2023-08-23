@@ -12,8 +12,9 @@ import { FormValuesLogin, useLoginForm } from './use-login-form'
 
 export type LoginFormProps = {
   onSubmit: (data: FormValuesLogin) => void
+  isSubmitting?: boolean
 }
-export const LoginForm = ({ onSubmit }: LoginFormProps) => {
+export const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
   const {
     handleSubmit,
     control,
@@ -33,7 +34,7 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
           type="email"
           label={'Email'}
           className={style.textField}
-          errorMessage={errors.password?.message}
+          errorMessage={errors.email?.message}
         />
         <ControlledInput
           control={control}
@@ -59,7 +60,7 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
         >
           Forgot Password?
         </Typography>
-        <Button type="submit" fullWidth>
+        <Button type="submit" fullWidth disabled={isSubmitting}>
           Submit
         </Button>
       </form>

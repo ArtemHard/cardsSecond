@@ -1,17 +1,21 @@
 import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
 import { App } from '../App'
+import { SignInPage } from '../pages/sign-in'
+import { SignUpPage } from '../pages/sign-up'
+import { useAuthMeQuery } from '../services/auth'
+import { GlobalHistory } from '../utils/GlovalNavigate'
 
 import { PATH } from '.'
 
 const publicRoutes: RouteObject[] = [
   {
     path: PATH.LOGIN,
-    element: <div>login</div>,
+    element: <SignInPage />,
   },
   {
     path: PATH.REGISTRATION,
-    element: <div>Sign In</div>,
+    element: <SignUpPage />,
   },
   {
     path: PATH.CHECK_EMAIL,
@@ -47,21 +51,29 @@ const privateRoutes: RouteObject[] = [
 ]
 
 function PrivateRoutes() {
-  const isAuthenticated = false
+  const { data, isLoading } = useAuthMeQuery()
+  const isAuth = !!data
 
-  return isAuthenticated ? <Outlet /> : <Navigate to={PATH.LOGIN} />
+  if (isLoading) return <div>Loading... Add normal loader</div>
+
+  return isAuth ? <Outlet /> : <Navigate to={PATH.LOGIN} />
 }
 
 export const router = createBrowserRouter([
   {
-    path: '/',
-    element: <App />,
+    element: <GlobalHistory />,
     children: [
       {
-        element: <PrivateRoutes />,
-        children: privateRoutes,
+        // path: '/',
+        element: <App />,
+        children: [
+          {
+            element: <PrivateRoutes />,
+            children: privateRoutes,
+          },
+          ...publicRoutes,
+        ],
       },
-      ...publicRoutes,
     ],
   },
 ])

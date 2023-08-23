@@ -1,24 +1,34 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 import style from './app.module.scss'
 import { Header } from './components/layout/Header/Header'
-import { useGetDecksQuery } from './services/common/base-api'
+import { PATH } from './routes'
+import { useAuthMeQuery, useLogOutMutation } from './services/auth'
 
 export function App() {
-  const { data, isLoading, isError, error } = useGetDecksQuery()
+  const { data } = useAuthMeQuery()
+  const [signOut] = useLogOutMutation()
+  const navigate = useNavigate()
+  const userInfo = data
+    ? { name: data?.name, email: data?.email, avatarSrc: data.avatar }
+    : undefined
+  const signOutHandler = () => {
+    signOut()
+      .unwrap()
+      .then(res => {
+        console.log('work')
 
-  console.log(data)
-  console.log(isLoading)
-  console.log(isError)
-  console.log(error)
+        navigate(PATH.LOGIN)
+      })
+  }
+  // console.log(data)
+  // console.log(isLoading)
+  // console.log(isError)
+  // console.log(error)
 
   return (
     <div className={style.container}>
-      <Header
-        isAuth={true}
-        signOutClick={() => alert('signOut')}
-        userInfo={{ name: 'Artem', email: 'sdfgsdfg@mail.ru' }}
-      />
+      <Header isAuth={!!data} signOutClick={signOutHandler} userInfo={userInfo} />
       <div className={style.outletWrapper}>
         <Outlet />
       </div>

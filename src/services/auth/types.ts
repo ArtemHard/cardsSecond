@@ -10,10 +10,11 @@ export type Profile = {
 export type SignUpArgs = {
   email: string
   password: string
+  sendConfirmationEmail: boolean
 }
 
-export type LoginArgs = SignUpArgs & {
-  rememberMe: boolean
+export type LoginArgs = Omit<SignUpArgs, 'sendConfirmationEmail'> & {
+  rememberMe?: boolean
 }
 
 export type LoginResponse = {

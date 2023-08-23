@@ -6,10 +6,15 @@ import { Card } from '../../ui/card'
 import { Input } from '../../ui/Input'
 import { Typography } from '../../ui/Typography'
 
-import { useSignUpForm } from './sign-up-form'
+import { FormValuesSignUp, useSignUpForm } from './sign-up-form'
 import style from './sign-up-form.module.scss'
 
-export const SignUpForm = ({ onSubmit }: any) => {
+type SignUpFormPropsType = {
+  onSubmit: (data: FormValuesSignUp) => void
+  isSubmitting?: boolean
+}
+
+export const SignUpForm = ({ onSubmit, isSubmitting }: SignUpFormPropsType) => {
   const {
     handleSubmit,
     control,
@@ -45,7 +50,7 @@ export const SignUpForm = ({ onSubmit }: any) => {
           errorMessage={errors.confirmPassword?.message}
           className={style.textField}
         />
-        <Button type="submit" fullWidth>
+        <Button type="submit" fullWidth disabled={isSubmitting}>
           Sign Up
         </Button>
       </form>

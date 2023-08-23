@@ -73,3 +73,5 @@ export type createCardArgs = {
   questionVideo?: string
   answerVideo?: string
 }
+
+export type DeckId = { id: Deck['id'] }

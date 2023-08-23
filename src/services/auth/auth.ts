@@ -8,10 +8,16 @@ import type {
   ResendVerificationEmailArgs,
 } from './types'
 
-export const authApi = baseApi.injectEndpoints({
+const authApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    authMe: builder.query<Profile, unknown>({
-      query: () => 'auth/me',
+    authMe: builder.query<Profile, void>({
+      query: () => {
+        return { url: 'auth/me' }
+      },
+      extraOptions: {
+        maxRetries: 0,
+      },
+      providesTags: ['me'],
     }),
     updateUser: builder.mutation<Profile, Pick<Profile, 'name' | 'email'> & { avatar: File }>({
       query: body => ({
@@ -22,6 +28,14 @@ export const authApi = baseApi.injectEndpoints({
         },
         body: body,
       }),
+      transformErrorResponse: response => {
+        // if (isRejectedWithValue(response)) {
+        //   console.warn('We got a rejected action!')
+        //   console.warn(response.error.message)
+        // }
+        console.warn(response.data)
+      },
+      invalidatesTags: ['me'],
     }),
     signUp: builder.mutation<Profile, SignUpArgs>({
       query: body => ({
@@ -29,6 +43,7 @@ export const authApi = baseApi.injectEndpoints({
         method: 'POST',
         body: body,
       }),
+      invalidatesTags: ['me'],
     }),
     logIn: builder.mutation<LoginResponse, LoginArgs>({
       query: body => ({
@@ -36,15 +51,16 @@ export const authApi = baseApi.injectEndpoints({
         method: 'POST',
         body: body,
       }),
+      invalidatesTags: ['me'],
     }),
-    verifyEmail: builder.mutation<unknown, { code: string }>({
+    verifyEmail: builder.mutation<void, { code: string }>({
       query: body => ({
         url: 'auth/verify-email',
         method: 'POST',
         body: body,
       }),
     }),
-    resendVerificationEmail: builder.mutation<unknown, ResendVerificationEmailArgs>({
+    resendVerificationEmail: builder.mutation<void, ResendVerificationEmailArgs>({
       query: body => ({
         url: 'auth/resend-verification-email',
         method: 'POST',
@@ -52,11 +68,12 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
 
-    logOut: builder.mutation({
+    logOut: builder.mutation<void, void>({
       query: () => ({
         url: 'auth/logout',
         method: 'POST',
       }),
+      invalidatesTags: ['me'],
     }),
     refreshToken: builder.mutation({
       query: () => ({
@@ -64,14 +81,14 @@ export const authApi = baseApi.injectEndpoints({
         method: 'POST',
       }),
     }),
-    recoverPassword: builder.mutation<unknown, ResendVerificationEmailArgs>({
+    recoverPassword: builder.mutation<void, ResendVerificationEmailArgs>({
       query: body => ({
         url: 'auth/resend-verification-email',
         method: 'POST',
         body: body,
       }),
     }),
-    resetPassword: builder.mutation<unknown, Pick<SignUpArgs, 'password'> & { token: string }>({
+    resetPassword: builder.mutation<void, Pick<SignUpArgs, 'password'> & { token: string }>({
       query: body => ({
         url: 'auth/resend-verification-email',
         method: 'POST',
@@ -83,3 +100,5 @@ export const authApi = baseApi.injectEndpoints({
     }),
   }),
 })
+
+export const { useLogInMutation, useAuthMeQuery, useSignUpMutation, useLogOutMutation } = authApi
