@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { LogoutSvg } from '../../../assets/icons'
 import { BrandSvg } from '../../../assets/icons/BrandSvg'
@@ -11,7 +11,7 @@ import { Typography } from '../../ui/Typography'
 
 import style from './header.module.scss'
 
-type HeaderProps = {
+export type HeaderProps = {
   signOutClick: () => void
   isAuth: boolean
   userInfo?: {
@@ -21,6 +21,7 @@ type HeaderProps = {
   }
 }
 export const Header = ({ isAuth, userInfo, signOutClick }: HeaderProps) => {
+  const navigate = useNavigate()
   const dropdownItems = (name: string, email: string, avatarSrc?: string) => {
     return (
       <>
@@ -39,7 +40,7 @@ export const Header = ({ isAuth, userInfo, signOutClick }: HeaderProps) => {
             </Typography>
           </div>{' '}
         </DropDownMenuIcon>
-        <DropDownMenuIcon icon={<PersonOutlineSvg />}>
+        <DropDownMenuIcon icon={<PersonOutlineSvg />} onClick={() => navigate(PATH.PROFILE)}>
           <Typography variant="subtitle2" style={{ margin: 0 }}>
             My Profile
           </Typography>{' '}
