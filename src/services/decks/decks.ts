@@ -1,3 +1,4 @@
+import { RootState } from '../../app/store'
 import { baseApi } from '../common/base-api'
 
 import type {
@@ -17,6 +18,7 @@ const decksApi = baseApi.injectEndpoints({
         url: 'decks',
         params: args,
       }),
+      providesTags: ['Decks'],
     }),
     getDeck: builder.query<Decks, DeckId>({
       query: ({ id }) => ({
@@ -32,6 +34,32 @@ const decksApi = baseApi.injectEndpoints({
         // },
         body: args,
       }),
+      async onQueryStarted(_, { dispatch, getState, queryFulfilled }) {
+        const state = getState() as RootState
+
+        try {
+          const res = await queryFulfilled
+          // вытащить из стейта аргументы необходимые для передачи
+          // const state = state.decksSlice
+          const patchResult = dispatch(
+            decksApi.util.updateQueryData(
+              'getDecksList',
+              { name: 'sdf', orderBy: 'asc-sd' },
+              draft => {
+                draft.items.push()
+                draft.items.unshift(res.data)
+              }
+            )
+          )
+        } catch {
+          // patchResult.undo()
+          /**
+           * Alternatively, on failure you can invalidate the corresponding cache tags
+           * to trigger a re-fetch:
+           * dispatch(api.util.invalidateTags(['Post']))
+           */
+        }
+      },
     }),
     updateDeck: builder.mutation<Deck, DeckId & FormData>({
       query: ({ id, ...bodyData }) => ({
@@ -48,6 +76,16 @@ const decksApi = baseApi.injectEndpoints({
         url: `decks/${id}`,
         method: 'DELETE',
       }),
+      async onQueryStarted({ id }, { dispatch, getState, queryFulfilled }) {
+        const state = getState() as RootState
+
+        const patchResult = dispatch(
+          decksApi.util.updateQueryData('getDecksList', { currentPage: 1 }, draft => {
+            draft.items = draft.items.filter(deck => deck.id !== id)
+          })
+        )
+      },
+      invalidatesTags: ['Decks'],
     }),
     retriveCardsInDeck: builder.query<
       Omit<Decks, 'maxCardsCount'>,
