@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, ChangeEvent } from 'react'
 
 import { useController } from 'react-hook-form'
 
@@ -17,21 +17,37 @@ type PersonalInfoProps = {
   email: string
   name: string
   avatarSrc?: string
-  // onlogOut: () => void
-  // onAvatarChange: (newAvatar: string) => void
-  // onNameChange: (newName: string) => void
+  onlogOut: () => void
+  onAvatarChange: (fileData: File) => void
+  onNameChange: (newName: string) => void
 }
 
-export const PersonalInfo = ({ name, email, avatarSrc }: PersonalInfoProps) => {
+export const PersonalInfo = ({
+  name,
+  email,
+  avatarSrc,
+  onlogOut,
+  onAvatarChange,
+  onNameChange,
+}: PersonalInfoProps) => {
   const [editMode, setEditMode] = useState(false)
+
+  const updateAvatarHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    if (e.target.files && e.target.files.length) {
+      const file = e.target.files[0]
+
+      onAvatarChange(file)
+    }
+  }
 
   const updateNicknameHandler = (data: { name: string }) => {
     if (data.name === name) {
-      console.warn('you write the same nickname')
+      alert('you write the same nickname')
 
       return setEditMode(false)
     }
-    alert('Form was send')
+    onNameChange(data.name)
     setEditMode(false)
   }
 
@@ -75,7 +91,7 @@ export const PersonalInfo = ({ name, email, avatarSrc }: PersonalInfoProps) => {
       </Button>
     </form>
   ) : (
-    <StaticInfoRender email={email} name={name} editModeCallback={editModeOn} />
+    <StaticInfoRender email={email} name={name} editModeCallback={editModeOn} onlogOut={onlogOut} />
   )
 
   // для закрытия editMode
@@ -110,13 +126,15 @@ export const PersonalInfo = ({ name, email, avatarSrc }: PersonalInfoProps) => {
         <div>
           <Avatar name={name} src={avatarSrc} className={style.avatar} />
           {!editMode && (
-            <button
-              aria-label="Change avatar"
-              className={style.editAvatarButton}
-              onClick={() => alert('nedd Add logic')}
-            >
+            <Button as="label" variant="secondary" className={style.editAvatarButton}>
               <EditPenSvg />
-            </button>
+              <input
+                type="file"
+                aria-label="Change avatar"
+                style={{ display: 'none' }}
+                onChange={updateAvatarHandler}
+              />
+            </Button>
           )}
         </div>
       </div>
@@ -127,13 +145,9 @@ export const PersonalInfo = ({ name, email, avatarSrc }: PersonalInfoProps) => {
 
 type StaticInfoRenderProps = {
   editModeCallback: () => void
-} & Omit<PersonalInfoProps, 'avatarSrc'>
+} & Pick<PersonalInfoProps, 'email' | 'name' | 'onlogOut'>
 
-const StaticInfoRender = ({ email, name, editModeCallback }: StaticInfoRenderProps) => {
-  const logOutHandler = () => {
-    alert('You was log out')
-  }
-
+const StaticInfoRender = ({ email, name, editModeCallback, onlogOut }: StaticInfoRenderProps) => {
   return (
     <>
       <div className={style.nameContainer}>
@@ -150,7 +164,7 @@ const StaticInfoRender = ({ email, name, editModeCallback }: StaticInfoRenderPro
       <Typography variant="body2" className={style.email}>
         {email}
       </Typography>
-      <Button variant="secondary" className={style.button} onClick={logOutHandler}>
+      <Button variant="secondary" className={style.button} onClick={onlogOut}>
         <LogoutSvg />
         Logout
       </Button>
