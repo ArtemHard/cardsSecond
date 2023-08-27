@@ -45,7 +45,9 @@ export const TabSwither = ({
             className={style['TabsTrigger']}
             value={button.value}
           >
-            <Typography variant="body1">{button.label}</Typography>
+            <Typography variant="body1" as="span">
+              {button.label}
+            </Typography>
           </Tabs.Trigger>
         ))}
       </Tabs.List>

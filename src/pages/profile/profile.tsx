@@ -4,6 +4,8 @@ import { PersonalInfo } from '../../components/profile/personal-info'
 import { PATH } from '../../routes'
 import { useAuthMeQuery, useLogOutMutation, useUpdateUserMutation } from '../../services/auth'
 
+import style from './profile.style.module.scss'
+
 export const Profile = () => {
   const { data, currentData } = useAuthMeQuery()
   const [onLogOutHandler] = useLogOutMutation()
@@ -38,13 +40,15 @@ export const Profile = () => {
   if (!data) return <Navigate to={PATH.LOGIN} />
   else
     return (
-      <PersonalInfo
-        name={data?.name}
-        email={data?.email}
-        avatarSrc={data?.avatar}
-        onlogOut={onLogOutHandler}
-        onAvatarChange={onAvatarChange}
-        onNameChange={onNameChange}
-      />
+ <div className={style.root}>
+        <PersonalInfo
+          name={data?.name}
+          email={data?.email}
+          avatarSrc={data?.avatar}
+          onlogOut={onLogOutHandler}
+          onAvatarChange={onAvatarChange}
+          onNameChange={onNameChange}
+        />
+      </div>
     )
 }
