@@ -40,7 +40,7 @@ export const Profile = () => {
   if (!data) return <Navigate to={PATH.LOGIN} />
   else
     return (
-      <div className={style.root}>
+ <div className={style.root}>
         <PersonalInfo
           name={data?.name}
           email={data?.email}
