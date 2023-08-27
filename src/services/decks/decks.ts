@@ -26,13 +26,10 @@ const decksApi = baseApi.injectEndpoints({
       }),
     }),
     createDeck: builder.mutation<Deck, FormData>({
-      query: args => ({
+      query: data => ({
         url: 'decks',
         method: 'POST',
-        // headers: {
-        //   'Content-Type': 'multipart/form-data;',
-        // },
-        body: args,
+        body: data,
       }),
       async onQueryStarted(_, { dispatch, getState, queryFulfilled }) {
         const state = getState() as RootState

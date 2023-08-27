@@ -1,3 +1,4 @@
+import { RootState } from '../../app/store'
 import { baseApi } from '../common/base-api'
 
 import type {
@@ -19,15 +20,30 @@ const authApi = baseApi.injectEndpoints({
       },
       providesTags: ['me'],
     }),
-    updateUser: builder.mutation<Profile, Pick<Profile, 'name' | 'email'> & { avatar: File }>({
+    // FormData = {avatar: File, name: string, email: string}
+    updateUser: builder.mutation<Profile, FormData>({
       query: body => ({
-        url: `auth/sign-up`,
+        url: `auth/me`,
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'multipart/form-data;',
-        },
         body: body,
       }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          authApi.util.updateQueryData('authMe', undefined, draft => {
+            const name = arg.get('name')
+
+            if (typeof name === 'string' && draft) {
+              draft.name = name
+            }
+          })
+        )
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
+        }
+      },
       transformErrorResponse: response => {
         // if (isRejectedWithValue(response)) {
         //   console.warn('We got a rejected action!')
@@ -74,7 +90,9 @@ const authApi = baseApi.injectEndpoints({
         method: 'POST',
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const patchResult = dispatch(authApi.util.updateQueryData('authMe', _, () => null))
+        const patchResult = dispatch(
+          authApi.util.updateQueryData('authMe', undefined, draft => (draft = null))
+        )
 
         try {
           await queryFulfilled
@@ -116,4 +134,11 @@ const authApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useLogInMutation, useAuthMeQuery, useSignUpMutation, useLogOutMutation } = authApi
+export const {
+  useLogInMutation,
+  useAuthMeQuery,
+  useSignUpMutation,
+  useLogOutMutation,
+  useLazyAuthMeQuery,
+  useUpdateUserMutation,
+} = authApi

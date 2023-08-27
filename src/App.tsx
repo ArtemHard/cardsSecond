@@ -8,17 +8,10 @@ import { useAuthMeQuery, useLogOutMutation } from './services/auth'
 export function App() {
   const { data } = useAuthMeQuery()
   const [signOut] = useLogOutMutation()
-  const navigate = useNavigate()
   const userInfo = data
     ? { name: data?.name, email: data?.email, avatarSrc: data.avatar }
     : undefined
-  const signOutHandler = () => {
-    signOut()
-      .unwrap()
-      .then(() => {
-        navigate(PATH.LOGIN)
-      })
-  }
+
   // console.log(data)
   // console.log(isLoading)
   // console.log(isError)
@@ -26,7 +19,7 @@ export function App() {
 
   return (
     <div className={style.container}>
-      <Header isAuth={!!data} signOutClick={signOutHandler} userInfo={userInfo} />
+      <Header isAuth={!!data} signOutClick={signOut} userInfo={userInfo} />
       <div className={style.outletWrapper}>
         <Outlet />
       </div>

@@ -1,6 +1,7 @@
 import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
 import { App } from '../App'
+import { Profile } from '../pages/profile/profile'
 import { SignInPage } from '../pages/sign-in'
 import { SignUpPage } from '../pages/sign-up'
 import { useAuthMeQuery } from '../services/auth'
@@ -38,7 +39,7 @@ const privateRoutes: RouteObject[] = [
   },
   {
     path: PATH.PROFILE,
-    element: <div>PROFILE</div>,
+    element: <Profile />,
   },
   {
     path: PATH.LEARN,
