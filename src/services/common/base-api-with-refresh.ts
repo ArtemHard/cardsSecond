@@ -1,6 +1,9 @@
 import { BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { Mutex } from 'async-mutex'
 
+// import { PATH } from '../../routes'
+// import { globalNavigate } from '../../utils/GlovalNavigate'
+
 const baseUrl = import.meta.env.VITE_BASE_API_URL
 
 // Create a new mutex
