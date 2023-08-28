@@ -12,6 +12,7 @@ import style from './Input.module.scss'
 
 export type InputProps = {
   onValueChange?: (value: string) => void
+  onClearInput?: () => void
   label?: string
   errorMessage?: string
   className?: string
@@ -27,6 +28,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       label,
       onChange,
       onValueChange,
+      onClearInput,
       ...restProps
     },
     ref
@@ -39,6 +41,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const showIconHandler = () => setShowIcon(prev => !prev)
     const clearInputHandler = () => {
       onValueChange?.('')
+      onClearInput?.()
     }
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       onChange?.(e)

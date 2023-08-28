@@ -12,4 +12,3 @@ export * from './PlaySvg'
 export * from './StarSvg'
 export * from './PersonOutlineSvg'
 export * from './TrashOutline'
-
