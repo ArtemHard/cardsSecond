@@ -1,21 +1,2 @@
-
-.title__container {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    flex-direction: row;
-}
-.params__container {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-direction: row;
-    margin-top: 1.5rem;
-}
-
-.paramWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+.root {
 }
