@@ -20,13 +20,15 @@ export const Slider = forwardRef<HTMLSpanElement, RadixSlider.SliderProps>((prop
         </Typography>
       </div>
       <RadixSlider.Root
-        defaultValue={props.value}
+        // defaultValue={props.value}
         minStepsBetweenThumbs={1}
         className={style.SliderRoot}
-        onValueChange={props.onValueChange}
-        onValueCommit={props.onValueCommit}
-        max={props.max ?? 100}
-        min={props.min ?? 0}
+        // value={props.value}
+        // onValueChange={props.onValueChange}
+        // onValueCommit={props.onValueCommit}
+        // max={props.max ?? 100}
+        // min={props.min ?? 0}
+        {...props}
         ref={ref}
       >
         <RadixSlider.Track className={style.SliderTrack}>

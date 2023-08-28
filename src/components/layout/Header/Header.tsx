@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 import { LogoutSvg } from '../../../assets/icons'
 import { BrandSvg } from '../../../assets/icons/BrandSvg'
@@ -56,7 +56,9 @@ export const Header = ({ isAuth, userInfo, signOutClick }: HeaderProps) => {
 
   return (
     <header className={style.header}>
-      <BrandSvg />
+      <NavLink to={PATH.PACKS}>
+        <BrandSvg />
+      </NavLink>
       {isAuth && userInfo && (
         <div className={style.userContainer}>
           <Typography className={style.userNameText} as={Link} to={PATH.PROFILE}>

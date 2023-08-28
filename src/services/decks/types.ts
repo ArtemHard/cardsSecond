@@ -31,8 +31,8 @@ export type Author = {
 }
 
 export type GetDeckParams = {
-  minCardsCount?: string
-  maxCardsCount?: string
+  minCardsCount?: number
+  maxCardsCount?: number
   name?: string
   authorId?: string
   orderBy?: string

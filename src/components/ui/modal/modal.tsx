@@ -10,13 +10,20 @@ import style from './modal.module.scss'
 
 type ModalProps = {
   title: string
+  width?: '33.875rem' | '26.25rem'
 } & Dialog.DialogProps
 
-export const Modal: FC<ModalProps> = ({ open, onOpenChange, title, children }: ModalProps) => (
+export const Modal: FC<ModalProps> = ({
+  open,
+  onOpenChange,
+  title,
+  width = '33.875rem',
+  children,
+}: ModalProps) => (
   <Dialog.Root open={open} defaultOpen={false} onOpenChange={onOpenChange} modal={true}>
     <Dialog.Portal>
       <Dialog.Overlay className={style.DialogOverlay} />
-      <Dialog.Content className={style.DialogContent}>
+      <Dialog.Content className={style.DialogContent} style={{ width }}>
         <ModalTitle>{title}</ModalTitle>
         <div className={style.contentBox}>{children}</div>
         <ModalFooter>
