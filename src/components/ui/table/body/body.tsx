@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, FC } from 'react'
+import { ComponentProps, ComponentPropsWithoutRef, FC } from 'react'
 
 import clsx from 'clsx'
 
@@ -27,4 +27,14 @@ export const TableCell: FC<CellProps> = ({ className, ...rest }) => {
       {rest.children}
     </td>
   )
+}
+
+export type TableRootProps = ComponentProps<'table'>
+
+export const TableRoot: FC<TableRootProps> = ({ className, ...rest }) => {
+  const classNames = {
+    table: clsx(className, style.table),
+  }
+
+  return <table className={classNames.table} {...rest} />
 }

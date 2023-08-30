@@ -22,7 +22,7 @@ const dataAttributes = {
   key: 'data-key',
 } as const
 
-export const TableHeader = ({ columns, sort, onSort }: TableHeaderProps) => {
+export const TableHeader = ({ columns, sort, onSort, className }: TableHeaderProps) => {
   const handleSorting: MouseEventHandler<HTMLTableCellElement> = e => {
     // debugger
     const isSortable = e.currentTarget.getAttribute(dataAttributes.sortable)
@@ -38,8 +38,12 @@ export const TableHeader = ({ columns, sort, onSort }: TableHeaderProps) => {
     onSort(null)
   }
 
+  const classNames = {
+    thead: clsx(style.root, className),
+  }
+
   return (
-    <thead className={style.root}>
+    <thead className={classNames.thead}>
       <tr>
         {columns.map(column => {
           const showSort = column.isSortable && sort && sort.key === column.key
