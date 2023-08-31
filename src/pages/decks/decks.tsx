@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { ComponentPropsWithoutRef, useState } from 'react'
 
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { EditPenSvg, PlayCircleOutlineSvg, TrashOutline } from '../../assets/icons'
+import deckImg from '../../assets/images/reactJS.png'
 import { DecksFilter } from '../../components/decks/decks-filters/decks-filter'
 import { TableBody, TableCell, TableRoot, TableRow } from '../../components/ui/table/body'
 import { Column, Sort } from '../../components/ui/table/decks/decks-table.stories'
@@ -10,8 +11,8 @@ import { TableHeader } from '../../components/ui/table/header'
 import { Typography } from '../../components/ui/Typography'
 import { PATH } from '../../routes'
 import { useAuthMeQuery } from '../../services/auth'
-import { useDeleteDeckMutation, useGetDecksListQuery } from '../../services/decks'
-import { formatDate } from '../../utils'
+import { useDeleteDeckMutation, useLazyGetDecksListQuery } from '../../services/decks'
+import { cutStringParams, formatDate } from '../../utils'
 
 import style from './decks.style.module.scss'
 
@@ -44,7 +45,8 @@ const columns: Column[] = [
 
 export const Decks = () => {
   const [sort, setSort] = useState<Sort>(null)
-  const { data } = useGetDecksListQuery({})
+  // const { data } = useGetDecksListQuery({})
+  const [getDecks, { data }] = useLazyGetDecksListQuery()
   const { data: userData } = useAuthMeQuery()
   const [deleteDeck] = useDeleteDeckMutation()
   const navigate = useNavigate()
@@ -60,7 +62,13 @@ export const Decks = () => {
   // }
   return (
     <>
-      <DecksFilter />
+      <DecksFilter
+        sort={sort}
+        getDecks={getDecks}
+        data={data}
+        userData={userData}
+        onSort={setSort}
+      />
       {/* <div className={style.tableContainer}> */}
       <TableRoot className={style.tableRoot}>
         <TableHeader columns={columns} onSort={setSort} sort={sort} className={style.tableHeader} />
@@ -73,7 +81,17 @@ export const Decks = () => {
               return (
                 <TableRow key={deck.id}>
                   <TableCell>
-                    <Typography variant="body2">{deck.name}</Typography>
+                    <Link
+                      to={cutStringParams(PATH.DECK) + deck.id}
+                      className={style.deckNameContainer}
+                    >
+                      <ImageCard
+                        src={deck.cover ?? deckImg}
+                        alt="deck cover"
+                        className={style.deckCover}
+                      />
+                      <Typography variant="body2">{deck.name}</Typography>
+                    </Link>
                   </TableCell>
                   <TableCell>
                     <Typography variant="body2">{deck.cardsCount}</Typography>
@@ -123,4 +141,15 @@ const buttonActionStyle = (isActive: boolean) => {
       opacity: 0.5,
       marginLeft: '0.62rem',
     }
+}
+
+export const ImageCard = (props: ComponentPropsWithoutRef<'img'>) => {
+  const [isAvaBroken, setIsAvaBroken] = useState(false)
+  const errorHandler = () => {
+    setIsAvaBroken(true)
+  }
+
+  console.log(props.src)
+
+  return <img src={isAvaBroken ? deckImg : props.src} onError={errorHandler} {...props}></img>
 }

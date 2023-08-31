@@ -1,4 +1,3 @@
-import { RootState } from '../../app/store'
 import { baseApi } from '../common/base-api'
 
 import type {
