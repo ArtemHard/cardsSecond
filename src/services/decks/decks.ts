@@ -1,4 +1,3 @@
-import { RootState } from '../../app/store'
 import { baseApi } from '../common/base-api'
 
 import type {
@@ -31,56 +30,58 @@ const decksApi = baseApi.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      async onQueryStarted(_, { dispatch, getState, queryFulfilled }) {
-        const state = getState() as RootState
+      // async onQueryStarted(_, { dispatch, getState, queryFulfilled }) {
+      //   const state = getState() as RootState
 
-        try {
-          const res = await queryFulfilled
-          // вытащить из стейта аргументы необходимые для передачи
-          // const state = state.decksSlice
-          const patchResult = dispatch(
-            decksApi.util.updateQueryData(
-              'getDecksList',
-              { name: 'sdf', orderBy: 'asc-sd' },
-              draft => {
-                draft.items.push()
-                draft.items.unshift(res.data)
-              }
-            )
-          )
-        } catch {
-          // patchResult.undo()
-          /**
-           * Alternatively, on failure you can invalidate the corresponding cache tags
-           * to trigger a re-fetch:
-           * dispatch(api.util.invalidateTags(['Post']))
-           */
-        }
-      },
+      //   try {
+      //     const res = await queryFulfilled
+      //     // вытащить из стейта аргументы необходимые для передачи
+      //     // const state = state.decksSlice
+      //     const patchResult = dispatch(
+      //       decksApi.util.updateQueryData(
+      //         'getDecksList',
+      //         { name: 'sdf', orderBy: 'asc-sd' },
+      //         draft => {
+      //           draft.items.push()
+      //           draft.items.unshift(res.data)
+      //         }
+      //       )
+      //     )
+      //   } catch {
+      //     // patchResult.undo()
+      //     /**
+      //      * Alternatively, on failure you can invalidate the corresponding cache tags
+      //      * to trigger a re-fetch:
+      //      * dispatch(api.util.invalidateTags(['Post']))
+      //      */
+      //   }
+      // },
+      invalidatesTags: ['Decks'],
     }),
     updateDeck: builder.mutation<Deck, DeckId & FormData>({
       query: ({ id, ...bodyData }) => ({
         url: `decks/${id}`,
         method: 'PATCH',
-        // headers: {
-        //   'Content-Type': 'multipart/form-data;',
-        // },
         body: bodyData,
       }),
     }),
-    deleteDeck: builder.mutation<Omit<Deck, 'author'>, DeckId>({
-      query: ({ id }) => ({
+    deleteDeck: builder.mutation<Omit<Deck, 'author'>, Deck['id']>({
+      query: id => ({
         url: `decks/${id}`,
         method: 'DELETE',
       }),
-      async onQueryStarted({ id }, { dispatch, getState, queryFulfilled }) {
-        const state = getState() as RootState
-
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
         const patchResult = dispatch(
           decksApi.util.updateQueryData('getDecksList', { currentPage: 1 }, draft => {
             draft.items = draft.items.filter(deck => deck.id !== id)
           })
         )
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
+        }
       },
       invalidatesTags: ['Decks'],
     }),
@@ -119,4 +120,4 @@ const decksApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useGetDecksListQuery, useCreateDeckMutation } = decksApi
+export const { useGetDecksListQuery, useCreateDeckMutation, useDeleteDeckMutation } = decksApi

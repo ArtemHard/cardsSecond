@@ -1,18 +1,23 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
-import { TrashOutline } from '../../../assets/icons'
+import { DevTool } from '@hookform/devtools'
+
+import { ImageSvg, TrashOutline } from '../../../assets/icons'
+import deckImg from '../../../assets/images/reactJS.png'
 import { useAuthMeQuery } from '../../../services/auth'
 import { useCreateDeckMutation, useGetDecksListQuery } from '../../../services/decks'
 import Button from '../../ui/button/button'
+import { ControlledCheckbox } from '../../ui/controlled/controlled-checkbox'
+import { ControlledInput } from '../../ui/controlled/controlled-input'
 import { Input } from '../../ui/Input'
-import { Modal } from '../../ui/modal'
+import { Modal, ModalFooter } from '../../ui/modal'
 import { Slider } from '../../ui/slider'
 import { TabSwither } from '../../ui/tab-switcher'
 import { Typography } from '../../ui/Typography'
 
 import style from './decks-filter.module.scss'
 
-import { FormValuesCreateDeck } from '.'
+import { FormValuesCreateDeck, useAddDeckForm } from '.'
 
 const swithButtonsParams = [
   { label: 'My Cards', value: 'My Decks' },
@@ -85,7 +90,13 @@ export const DecksFilter = () => {
     if (data?.isPrivate) newFormData.append('isPrivate', JSON.stringify(data.isPrivate))
 
     createDeck(newFormData)
+      .unwrap()
+      .then(() => {
+        setIsOpenModal(false)
+      })
   }
+
+  const { handleSubmit, register, control } = useAddDeckForm({ onSubmit: onSubmitModalHandler })
 
   return (
     <>
@@ -94,7 +105,40 @@ export const DecksFilter = () => {
         <Button onClick={() => setIsOpenModal(true)}>Add New Deck</Button>
       </div>
       <Modal title="Add New Deck" open={isOpenModal} onOpenChange={onOpenChangeModal}>
-        <form></form>
+        <form onSubmit={handleSubmit}>
+          <DevTool control={control} />
+          <img src={deckImg} className={style.deckImg}></img>
+          <Button as="label" variant="secondary" fullWidth={true} className={style.addCoverBtn}>
+            <ImageSvg />
+            <Typography variant="subtitle2" as="span">
+              Change Cover
+            </Typography>
+            <input type="file" {...register('cover')} style={{ display: 'none' }} />
+          </Button>
+          <ControlledInput
+            control={control}
+            type="text"
+            name="name"
+            label="Name Pack"
+            className={style.packNameInput}
+          />
+          <ControlledCheckbox
+            control={control}
+            name="isPrivate"
+            label={'Private pack'}
+            position="left"
+            defaultValue={false}
+            className={style.isPrivate}
+          />
+          <ModalFooter>
+            <Button variant={'primary'} type="submit">
+              Create Deck
+            </Button>
+            <Button variant={'secondary'} type="submit" onClick={() => setIsOpenModal(false)}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </form>
       </Modal>
       <div className={style.params__container}>
         <Input
