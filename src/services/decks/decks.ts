@@ -70,7 +70,7 @@ const decksApi = baseApi.injectEndpoints({
         url: `decks/${id}`,
         method: 'DELETE',
       }),
-      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+      async onQueryStarted(id, { dispatch, queryFulfilled, getCacheEntry }) {
         const patchResult = dispatch(
           decksApi.util.updateQueryData('getDecksList', { currentPage: 1 }, draft => {
             draft.items = draft.items.filter(deck => deck.id !== id)

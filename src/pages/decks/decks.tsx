@@ -11,7 +11,7 @@ import { TableHeader } from '../../components/ui/table/header'
 import { Typography } from '../../components/ui/Typography'
 import { PATH } from '../../routes'
 import { useAuthMeQuery } from '../../services/auth'
-import { useDeleteDeckMutation, useLazyGetDecksListQuery } from '../../services/decks'
+import { Deck, useDeleteDeckMutation, useLazyGetDecksListQuery } from '../../services/decks'
 import { cutStringParams, formatDate } from '../../utils'
 
 import style from './decks.style.module.scss'
@@ -45,7 +45,7 @@ const columns: Column[] = [
 
 export const Decks = () => {
   const [sort, setSort] = useState<Sort>(null)
-  // const { data } = useGetDecksListQuery({})
+  const [isEditDeckModal, setIsEditDeckModal] = useState(false)
   const [getDecks, { data }] = useLazyGetDecksListQuery()
   const { data: userData } = useAuthMeQuery()
   const [deleteDeck] = useDeleteDeckMutation()
@@ -59,7 +59,10 @@ export const Decks = () => {
     deleteDeck(deckId)
   }
 
-  // }
+  const updateDeckHandler = () => {
+    setIsEditDeckModal(true)
+  }
+
   return (
     <>
       <DecksFilter
@@ -110,7 +113,11 @@ export const Decks = () => {
                     >
                       <PlayCircleOutlineSvg />
                     </button>
-                    <button style={buttonActionStyle(isMyDeck)} disabled={isMyDeck}>
+                    <button
+                      style={buttonActionStyle(isMyDeck)}
+                      disabled={isMyDeck}
+                      onClick={() => setIsEditDeckModal(true)}
+                    >
                       <EditPenSvg />
                     </button>
                     <button
