@@ -8,7 +8,7 @@ import { Column, Sort } from '../decks/decks-table.stories'
 
 import style from './tableHeader.module.scss'
 
-type TableHeaderProps = Omit<
+export type TableHeaderProps = Omit<
   {
     columns: Array<Column>
     sort: Sort

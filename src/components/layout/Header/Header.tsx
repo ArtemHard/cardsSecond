@@ -56,7 +56,7 @@ export const Header = ({ isAuth, userInfo, signOutClick }: HeaderProps) => {
 
   return (
     <header className={style.header}>
-      <NavLink to={PATH.PACKS}>
+      <NavLink to={PATH.DECKS}>
         <BrandSvg />
       </NavLink>
       {isAuth && userInfo && (

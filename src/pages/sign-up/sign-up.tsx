@@ -19,7 +19,7 @@ export const SignUpPage = () => {
     signUp({ email, password, sendConfirmationEmail: false })
       .unwrap()
       .then(() => {
-        navigate(PATH.PACKS)
+        navigate(PATH.DECKS)
       })
       .catch(err => {
         alert(err?.data?.message)
@@ -28,7 +28,7 @@ export const SignUpPage = () => {
   }
 
   if (isLoadingMe) return <div>LOADING...</div>
-  if (meData) return <Navigate to={PATH.PACKS} />
+  if (meData) return <Navigate to={PATH.DECKS} />
 
   return <SignUpForm onSubmit={submitHandler} isSubmitting={isSugnUpFetching} />
 }

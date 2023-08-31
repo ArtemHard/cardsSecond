@@ -18,7 +18,7 @@ export type Deck = {
   name: string
   isPrivate: boolean
   shots: number
-  cover: string
+  cover: string | null
   rating: number
   created: Date
   updated: Date

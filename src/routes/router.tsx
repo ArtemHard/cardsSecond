@@ -35,7 +35,7 @@ const publicRoutes: RouteObject[] = [
 
 const privateRoutes: RouteObject[] = [
   {
-    path: PATH.CARDS,
+    path: PATH.DECK,
     element: <div>CARDS</div>,
   },
   {
@@ -47,7 +47,7 @@ const privateRoutes: RouteObject[] = [
     element: <div>LEARN</div>,
   },
   {
-    path: PATH.PACKS,
+    path: PATH.DECKS,
     element: <Decks />,
   },
 ]

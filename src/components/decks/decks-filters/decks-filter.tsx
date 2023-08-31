@@ -1,11 +1,18 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 
 import { DevTool } from '@hookform/devtools'
+import {
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
+  QueryDefinition,
+} from '@reduxjs/toolkit/dist/query'
+import { LazyQueryTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks'
 
 import { ImageSvg, TrashOutline } from '../../../assets/icons'
 import deckImg from '../../../assets/images/reactJS.png'
-import { useAuthMeQuery } from '../../../services/auth'
-import { useCreateDeckMutation, useGetDecksListQuery } from '../../../services/decks'
+import { Profile } from '../../../services/auth'
+import { Decks, GetDeckParams, useCreateDeckMutation } from '../../../services/decks'
 import Button from '../../ui/button/button'
 import { ControlledCheckbox } from '../../ui/controlled/controlled-checkbox'
 import { ControlledInput } from '../../ui/controlled/controlled-input'
@@ -13,6 +20,8 @@ import { Input } from '../../ui/Input'
 import { Modal, ModalFooter } from '../../ui/modal'
 import { Slider } from '../../ui/slider'
 import { TabSwither } from '../../ui/tab-switcher'
+import { Sort } from '../../ui/table/decks/decks-table.stories'
+import { TableHeaderProps } from '../../ui/table/header'
 import { Typography } from '../../ui/Typography'
 
 import style from './decks-filter.module.scss'
@@ -24,23 +33,46 @@ const swithButtonsParams = [
   { label: 'All Cards', value: 'All Decks' },
 ]
 
-export const DecksFilter = () => {
-  const { data: userData } = useAuthMeQuery()
+type DecksFilterProps = Pick<TableHeaderProps, 'sort'> & {
+  getDecks: LazyQueryTrigger<
+    QueryDefinition<
+      GetDeckParams,
+      BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError>,
+      'me' | 'Decks',
+      Decks,
+      'baseApi'
+    >
+  >
+  data?: Decks
+  onSort: (data: Sort) => void
+  userData: Profile | null | undefined
+}
+export const DecksFilter = ({ sort, getDecks, onSort, data, userData }: DecksFilterProps) => {
   const [createDeck] = useCreateDeckMutation()
   const [search, setSearch] = useState('')
   const [showAllDeck, setShowAllDeck] = useState(true)
   const [range, setRange] = useState([0, 100])
   const [rangeValue, setRangeValue] = useState([0, 100])
   const [isOpenModal, setIsOpenModal] = useState(false)
-  const getDecksParams = {
-    itemsPerPage: 100,
-    minCardsCount: range[0],
-    maxCardsCount: range[1],
-    name: search,
-    authorId: showAllDeck ? '' : userData?.id,
-  }
+  // const getDecksParams = {
+  //   itemsPerPage: 100,
+  //   minCardsCount: range[0],
+  //   maxCardsCount: range[1],
+  //   name: search,
+  //   authorId: showAllDeck ? '' : userData?.id,
+  //   orderBy: sort ? `${sort.key}-${sort.direction}` : '',
+  // }
 
-  const { data } = useGetDecksListQuery(getDecksParams, { refetchOnMountOrArgChange: true })
+  useEffect(() => {
+    getDecks({
+      itemsPerPage: 100,
+      minCardsCount: range[0],
+      maxCardsCount: range[1],
+      name: search,
+      authorId: showAllDeck ? '' : userData?.id,
+      orderBy: sort ? `${sort.key}-${sort.direction}` : '',
+    })
+  }, [range, search, showAllDeck, sort])
 
   useEffect(() => {
     if (rangeValue[1] !== data?.maxCardsCount && data?.maxCardsCount) {
@@ -63,6 +95,7 @@ export const DecksFilter = () => {
     setShowAllDeck(true)
     setRange([0, data?.maxCardsCount ?? 100])
     setRangeValue([0, data?.maxCardsCount ?? 100])
+    onSort(null)
   }
 
   const onValueChangeTabSwither = (value: string) => {
@@ -86,7 +119,7 @@ export const DecksFilter = () => {
     const newFormData = new FormData()
 
     newFormData.append('name', data.name)
-    if (data?.cover) newFormData.append('cover', data.cover)
+    if (data?.cover) newFormData.append('cover', data.cover[0])
     if (data?.isPrivate) newFormData.append('isPrivate', JSON.stringify(data.isPrivate))
 
     createDeck(newFormData)
