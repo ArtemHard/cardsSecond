@@ -7,7 +7,7 @@ export const PATH = {
   PROFILE: '/profile',
   PACKS: '/',
   CARDS: '/cards/:cardId',
-  LEARN: '/learn/:pack_id',
+  LEARN: '/learn/:deck_id',
   NOT_FOUND: '404',
   //   CURRENT_URL: window.location.href.split('#')[0],
 }

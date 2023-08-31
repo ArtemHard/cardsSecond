@@ -3,7 +3,6 @@ import { ComponentPropsWithoutRef, FC, ReactNode } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 
 import { CloseOutlineSvg } from '../../../assets/icons'
-import Button from '../button/button'
 import { Typography } from '../Typography'
 
 import style from './modal.module.scss'
@@ -11,12 +10,14 @@ import style from './modal.module.scss'
 type ModalProps = {
   title: string
   width?: '33.875rem' | '26.25rem'
+  // footer: ReactNode
 } & Dialog.DialogProps
 
 export const Modal: FC<ModalProps> = ({
   open,
   onOpenChange,
   title,
+  // footer,
   width = '33.875rem',
   children,
 }: ModalProps) => (
@@ -25,10 +26,7 @@ export const Modal: FC<ModalProps> = ({
       <Dialog.Overlay className={style.DialogOverlay} />
       <Dialog.Content className={style.DialogContent} style={{ width }}>
         <ModalTitle>{title}</ModalTitle>
-        <div className={style.contentBox}>{children}</div>
-        <ModalFooter>
-          <Button variant={'primary'}>Button primary</Button>
-        </ModalFooter>
+        {children}
       </Dialog.Content>
     </Dialog.Portal>
   </Dialog.Root>

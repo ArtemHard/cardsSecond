@@ -23,18 +23,21 @@ input {
 .DialogContent {
   position: fixed;
   // z-index: 101;
-  top: 30%;
+  top: 15%;
   left: 30%;
   background-color: var(--color-dark-700);
   border-radius: 0.125rem;
   border: 1px solid var(--color-dark-500);
   animation: contentShow 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.contentBox {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
 }
+// .contentBox {
+//   padding: 1.5rem;
+//   display: flex;
+//   flex-direction: column;
+// }
 
 .DialogTitle {
   display: flex;
@@ -42,14 +45,15 @@ input {
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 0;
-  padding: 1.12rem 1.5rem;
+  margin-bottom: 1.12rem;
+  // padding: 1.12rem 1.5rem;
 }
 
 .ModalContentTextProps {
   padding: 1.12rem 1.5rem;
 }
 .ModalFooter {
-  padding: 0.75rem 2.25rem 1.5rem;
+  padding: 0.75rem 0rem 0.75rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

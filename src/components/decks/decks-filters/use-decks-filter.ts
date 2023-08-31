@@ -3,8 +3,12 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const schema = z.object({
-  name: z.string().trim().nonempty('Enter deck name'),
-  cover: z.instanceof(File).optional() ?? z.any().optional(),
+  name: z
+    .string()
+    .trim()
+    .min(3, { message: 'Must be 3 or more characters long' })
+    .nonempty('Enter deck name'),
+  cover: z.any().optional(),
   isPrivate: z.boolean().optional(),
 })
 
