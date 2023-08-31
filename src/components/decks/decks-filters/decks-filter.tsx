@@ -1,6 +1,5 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
-import { DevTool } from '@hookform/devtools'
 import {
   BaseQueryFn,
   FetchArgs,
@@ -9,15 +8,12 @@ import {
 } from '@reduxjs/toolkit/dist/query'
 import { LazyQueryTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks'
 
-import { ImageSvg, TrashOutline } from '../../../assets/icons'
-import deckImg from '../../../assets/images/reactJS.png'
+import { TrashOutline } from '../../../assets/icons'
 import { Profile } from '../../../services/auth'
 import { Decks, GetDeckParams, useCreateDeckMutation } from '../../../services/decks'
 import Button from '../../ui/button/button'
-import { ControlledCheckbox } from '../../ui/controlled/controlled-checkbox'
-import { ControlledInput } from '../../ui/controlled/controlled-input'
 import { Input } from '../../ui/Input'
-import { Modal, ModalFooter } from '../../ui/modal'
+import { Modal } from '../../ui/modal'
 import { Slider } from '../../ui/slider'
 import { TabSwither } from '../../ui/tab-switcher'
 import { Sort } from '../../ui/table/decks/decks-table.stories'
@@ -26,7 +22,8 @@ import { Typography } from '../../ui/Typography'
 
 import style from './decks-filter.module.scss'
 
-import { FormValuesCreateDeck, useAddDeckForm } from '.'
+import { FormValuesCreateDeck } from '.'
+import { CreateDeckFrom } from './create-deck-form'
 
 const swithButtonsParams = [
   { label: 'My Cards', value: 'My Decks' },
@@ -129,8 +126,6 @@ export const DecksFilter = ({ sort, getDecks, onSort, data, userData }: DecksFil
       })
   }
 
-  const { handleSubmit, register, control } = useAddDeckForm({ onSubmit: onSubmitModalHandler })
-
   return (
     <>
       <div className={style.title__container}>
@@ -138,40 +133,10 @@ export const DecksFilter = ({ sort, getDecks, onSort, data, userData }: DecksFil
         <Button onClick={() => setIsOpenModal(true)}>Add New Deck</Button>
       </div>
       <Modal title="Add New Deck" open={isOpenModal} onOpenChange={onOpenChangeModal}>
-        <form onSubmit={handleSubmit}>
-          <DevTool control={control} />
-          <img src={deckImg} className={style.deckImg}></img>
-          <Button as="label" variant="secondary" fullWidth={true} className={style.addCoverBtn}>
-            <ImageSvg />
-            <Typography variant="subtitle2" as="span">
-              Change Cover
-            </Typography>
-            <input type="file" {...register('cover')} style={{ display: 'none' }} />
-          </Button>
-          <ControlledInput
-            control={control}
-            type="text"
-            name="name"
-            label="Name Pack"
-            className={style.packNameInput}
-          />
-          <ControlledCheckbox
-            control={control}
-            name="isPrivate"
-            label={'Private pack'}
-            position="left"
-            defaultValue={false}
-            className={style.isPrivate}
-          />
-          <ModalFooter>
-            <Button variant={'primary'} type="submit">
-              Create Deck
-            </Button>
-            <Button variant={'secondary'} type="submit" onClick={() => setIsOpenModal(false)}>
-              Cancel
-            </Button>
-          </ModalFooter>
-        </form>
+        <CreateDeckFrom
+          onSubmitModalHandler={onSubmitModalHandler}
+          setIsOpenModal={setIsOpenModal}
+        />
       </Modal>
       <div className={style.params__container}>
         <Input

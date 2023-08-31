@@ -1,6 +1,4 @@
-@mixin marginBottom() {
-  margin-bottom: 1.5rem;
-}
+
 .title__container {
   display: flex;
   width: 100%;
@@ -21,18 +19,4 @@
   flex-direction: column;
   gap: 0.5rem;
 }
-.deckImg {
-  width: 100%;
-  object-fit: cover;
-  height: 7.4375rem;
-  padding: 1.5rem 0;
-}
-.addCoverBtn {
-  @include marginBottom();
-}
-.packNameInput {
-  @include marginBottom();
-}
-.isPrivate {
-  @include marginBottom();
-}
+
