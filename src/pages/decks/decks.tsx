@@ -4,14 +4,24 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { EditPenSvg, PlayCircleOutlineSvg, TrashOutline } from '../../assets/icons'
 import deckImg from '../../assets/images/reactJS.png'
+import {
+  DeckModal,
+  FormValuesCreateDeck,
+} from '../../components/decks/decks-filters/create-deck-form'
 import { DecksFilter } from '../../components/decks/decks-filters/decks-filter'
+import { Modal } from '../../components/ui/modal'
 import { TableBody, TableCell, TableRoot, TableRow } from '../../components/ui/table/body'
 import { Column, Sort } from '../../components/ui/table/decks/decks-table.stories'
 import { TableHeader } from '../../components/ui/table/header'
 import { Typography } from '../../components/ui/Typography'
 import { PATH } from '../../routes'
 import { useAuthMeQuery } from '../../services/auth'
-import { Deck, useDeleteDeckMutation, useLazyGetDecksListQuery } from '../../services/decks'
+import {
+  DeckId,
+  useDeleteDeckMutation,
+  useLazyGetDecksListQuery,
+  useUpdateDeckMutation,
+} from '../../services/decks'
 import { cutStringParams, formatDate } from '../../utils'
 
 import style from './decks.style.module.scss'
@@ -46,9 +56,13 @@ const columns: Column[] = [
 export const Decks = () => {
   const [sort, setSort] = useState<Sort>(null)
   const [isEditDeckModal, setIsEditDeckModal] = useState(false)
+  const [currentEditDeckData, setCurrentEditDeckData] = useState<
+    (FormValuesCreateDeck & DeckId) | null
+  >()
   const [getDecks, { data }] = useLazyGetDecksListQuery()
   const { data: userData } = useAuthMeQuery()
   const [deleteDeck] = useDeleteDeckMutation()
+  const [updateDeck] = useUpdateDeckMutation()
   const navigate = useNavigate()
 
   const learnPackHandler = (deckId: string) => () => {
@@ -59,8 +73,28 @@ export const Decks = () => {
     deleteDeck(deckId)
   }
 
-  const updateDeckHandler = () => {
-    setIsEditDeckModal(true)
+  const onSubmitUpdateModalHandler = (data: FormValuesCreateDeck) => {
+    const newFormData = new FormData()
+
+    newFormData.append('name', data.name)
+    if (data?.cover) newFormData.append('cover', data.cover[0])
+    if (data?.isPrivate) newFormData.append('isPrivate', JSON.stringify(data.isPrivate))
+
+    if (currentEditDeckData?.id) {
+      updateDeck({ id: currentEditDeckData?.id, formdata: newFormData })
+        .unwrap()
+        .then(() => {
+          setIsEditDeckModal(false)
+        })
+    }
+  }
+
+  const defaultData = () => {
+    if (currentEditDeckData) {
+      const { cover, name, isPrivate } = currentEditDeckData
+
+      return { cover, name, isPrivate }
+    } else return undefined
   }
 
   return (
@@ -72,6 +106,14 @@ export const Decks = () => {
         userData={userData}
         onSort={setSort}
       />
+      <Modal title="Edit Deck" onOpenChange={setIsEditDeckModal} open={isEditDeckModal}>
+        <DeckModal
+          setIsOpenModal={setIsEditDeckModal}
+          onSubmit={onSubmitUpdateModalHandler}
+          defaultData={defaultData()}
+          submitTextButton="Update Deck"
+        />
+      </Modal>
       {/* <div className={style.tableContainer}> */}
       <TableRoot className={style.tableRoot}>
         <TableHeader columns={columns} onSort={setSort} sort={sort} className={style.tableHeader} />
@@ -115,8 +157,13 @@ export const Decks = () => {
                     </button>
                     <button
                       style={buttonActionStyle(isMyDeck)}
-                      disabled={isMyDeck}
-                      onClick={() => setIsEditDeckModal(true)}
+                      disabled={!isMyDeck}
+                      onClick={() => {
+                        const { id, cover, name, isPrivate } = deck
+
+                        setCurrentEditDeckData({ id, name, cover, isPrivate })
+                        setIsEditDeckModal(true)
+                      }}
                     >
                       <EditPenSvg />
                     </button>
@@ -155,8 +202,6 @@ export const ImageCard = (props: ComponentPropsWithoutRef<'img'>) => {
   const errorHandler = () => {
     setIsAvaBroken(true)
   }
-
-  console.log(props.src)
 
   return <img src={isAvaBroken ? deckImg : props.src} onError={errorHandler} {...props}></img>
 }

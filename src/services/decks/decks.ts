@@ -58,12 +58,13 @@ const decksApi = baseApi.injectEndpoints({
       // },
       invalidatesTags: ['Decks'],
     }),
-    updateDeck: builder.mutation<Deck, DeckId & FormData>({
-      query: ({ id, ...bodyData }) => ({
+    updateDeck: builder.mutation<Deck, DeckId & { formdata: FormData }>({
+      query: ({ id, formdata }) => ({
         url: `decks/${id}`,
         method: 'PATCH',
-        body: bodyData,
+        body: formdata,
       }),
+      invalidatesTags: ['Decks'],
     }),
     deleteDeck: builder.mutation<Omit<Deck, 'author'>, Deck['id']>({
       query: id => ({
@@ -125,4 +126,5 @@ export const {
   useCreateDeckMutation,
   useDeleteDeckMutation,
   useLazyGetDecksListQuery,
+  useUpdateDeckMutation,
 } = decksApi

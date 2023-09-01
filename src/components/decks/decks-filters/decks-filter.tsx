@@ -20,10 +20,10 @@ import { Sort } from '../../ui/table/decks/decks-table.stories'
 import { TableHeaderProps } from '../../ui/table/header'
 import { Typography } from '../../ui/Typography'
 
+import { DeckModal } from './create-deck-form'
 import style from './decks-filter.module.scss'
 
 import { FormValuesCreateDeck } from '.'
-import { CreateDeckFrom } from './create-deck-form'
 
 const swithButtonsParams = [
   { label: 'My Cards', value: 'My Decks' },
@@ -133,9 +133,10 @@ export const DecksFilter = ({ sort, getDecks, onSort, data, userData }: DecksFil
         <Button onClick={() => setIsOpenModal(true)}>Add New Deck</Button>
       </div>
       <Modal title="Add New Deck" open={isOpenModal} onOpenChange={onOpenChangeModal}>
-        <CreateDeckFrom
-          onSubmitModalHandler={onSubmitModalHandler}
+        <DeckModal
+          onSubmit={onSubmitModalHandler}
           setIsOpenModal={setIsOpenModal}
+          submitTextButton="Create Deck"
         />
       </Modal>
       <div className={style.params__container}>

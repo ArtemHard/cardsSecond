@@ -23,7 +23,6 @@ export const SignUpPage = () => {
       })
       .catch(err => {
         alert(err?.data?.message)
-        console.log(error)
       })
   }
 
