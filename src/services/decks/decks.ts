@@ -70,19 +70,19 @@ const decksApi = baseApi.injectEndpoints({
         url: `decks/${id}`,
         method: 'DELETE',
       }),
-      async onQueryStarted(id, { dispatch, queryFulfilled, getCacheEntry }) {
-        const patchResult = dispatch(
-          decksApi.util.updateQueryData('getDecksList', { currentPage: 1 }, draft => {
-            draft.items = draft.items.filter(deck => deck.id !== id)
-          })
-        )
+      // async onQueryStarted(id, { dispatch, queryFulfilled }) {
+      //   const patchResult = dispatch(
+      //     decksApi.util.updateQueryData('getDecksList', { currentPage: 1 }, draft => {
+      //       draft.items = draft.items.filter(deck => deck.id !== id)
+      //     })
+      //   )
 
-        try {
-          await queryFulfilled
-        } catch {
-          patchResult.undo()
-        }
-      },
+      //   try {
+      //     await queryFulfilled
+      //   } catch {
+      //     patchResult.undo()
+      //   }
+      // },
       invalidatesTags: ['Decks'],
     }),
     retriveCardsInDeck: builder.query<
