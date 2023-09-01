@@ -1,20 +1,30 @@
-import { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 
-import { Select } from '.'
+import { SelectRoot } from './select.tsx'
 
 const meta = {
   title: 'Components/Select',
-  component: Select,
+  component: SelectRoot,
   tags: ['autodocs'],
-} satisfies Meta<typeof Select>
+  argTypes: {
+    disabled: ['true', 'false'],
+    value: ['HTML', 'SCC', 'React'],
+  },
+} satisfies Meta<typeof SelectRoot>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Select: Story = {
+  args: {
+    disabled: false,
+    value: ['HTML', 'SCSS', 'React'],
+  },
+}
 
-// export const SelectVariants = {
-//   render: () => {
-//     return <></>
-//   },
-// }
+export const SelectDisabled: Story = {
+  args: {
+    disabled: true,
+    value: ['HTML', 'SCC', 'React'],
+  },
+}
