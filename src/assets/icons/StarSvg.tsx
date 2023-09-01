@@ -67,8 +67,6 @@ const OutlinedStar = memo(
 
 export const StarSVG = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement> & StarProps>(
   ({ fill, marked, starId }, ref) => {
-    console.log(marked ? 1 : 2)
-
     return (
       <>
         {marked ? (
