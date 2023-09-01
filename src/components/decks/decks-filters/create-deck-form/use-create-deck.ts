@@ -13,14 +13,30 @@ const schema = z.object({
 })
 
 export type FormValuesCreateDeck = z.infer<typeof schema>
-type useAddDeckFormType = {
+export type useAddDeckFormType = {
   onSubmit: (data: FormValuesCreateDeck) => void
+  defaultData?: FormValuesCreateDeck
 }
-export const useAddDeckForm = ({ onSubmit }: useAddDeckFormType) => {
+export const useAddDeckForm = ({ onSubmit, defaultData }: useAddDeckFormType) => {
   const { handleSubmit, ...rest } = useForm<FormValuesCreateDeck>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
+    defaultValues: defauldValuesFromProps(defaultData),
   })
 
   return { handleSubmit: handleSubmit(onSubmit), ...rest }
+}
+
+const defauldValuesFromProps = (
+  defaultData: useAddDeckFormType['defaultData']
+): FormValuesCreateDeck | undefined => {
+  if (defaultData) {
+    const { cover, name, isPrivate } = defaultData
+
+    return {
+      cover: cover,
+      name: name,
+      isPrivate: isPrivate,
+    }
+  } else return undefined
 }

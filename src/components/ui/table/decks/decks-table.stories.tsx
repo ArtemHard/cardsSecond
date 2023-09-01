@@ -57,8 +57,6 @@ export const WithSort = {
 
     const sortString = sort ? `${sort.key}-${sort.direction}` : null
 
-    console.log(sortString)
-
     const columns: Column[] = [
       {
         key: 'name',
@@ -155,8 +153,6 @@ export const HeaderStory = {
     ]
 
     // const sortString = sort ? `${sort.key}-${sort.direction}` : null
-
-    // console.log(sort)
 
     return (
       <table style={{ borderCollapse: 'collapse', width: '100%' }}>
