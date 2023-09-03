@@ -1,6 +1,7 @@
 import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
 import { App } from '../App'
+import { Cards } from '../pages/cards'
 import { Decks } from '../pages/decks'
 import { Profile } from '../pages/profile/profile'
 import { SignInPage } from '../pages/sign-in'
@@ -35,8 +36,8 @@ const publicRoutes: RouteObject[] = [
 
 const privateRoutes: RouteObject[] = [
   {
-    path: PATH.DECK,
-    element: <div>CARDS</div>,
+    path: PATH.CARDS,
+    element: <Cards />,
   },
   {
     path: PATH.PROFILE,

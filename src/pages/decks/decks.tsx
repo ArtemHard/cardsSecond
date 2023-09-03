@@ -127,7 +127,7 @@ export const Decks = () => {
                 <TableRow key={deck.id}>
                   <TableCell>
                     <Link
-                      to={cutStringParams(PATH.DECK) + deck.id}
+                      to={cutStringParams(PATH.CARDS) + deck.id}
                       className={style.deckNameContainer}
                     >
                       <ImageCard

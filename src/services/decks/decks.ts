@@ -2,6 +2,7 @@ import { baseApi } from '../common/base-api'
 
 import type {
   Card,
+  Cards,
   Deck,
   DeckId,
   Decks,
@@ -19,7 +20,7 @@ const decksApi = baseApi.injectEndpoints({
       }),
       providesTags: ['Decks'],
     }),
-    getDeck: builder.query<Decks, DeckId>({
+    getDeck: builder.query<Deck, DeckId>({
       query: ({ id }) => ({
         url: 'decks/' + id,
       }),
@@ -86,10 +87,7 @@ const decksApi = baseApi.injectEndpoints({
       // },
       invalidatesTags: ['Decks'],
     }),
-    retriveCardsInDeck: builder.query<
-      Omit<Decks, 'maxCardsCount'>,
-      DeckId & RetriveCardsInDeckParams
-    >({
+    retriveCardsInDeck: builder.query<Cards, DeckId & RetriveCardsInDeckParams>({
       query: ({ id, ...params }) => ({
         url: `decks/${id}/cards`,
         params,
@@ -127,4 +125,6 @@ export const {
   useDeleteDeckMutation,
   useLazyGetDecksListQuery,
   useUpdateDeckMutation,
+  useRetriveCardsInDeckQuery,
+  useGetDeckQuery,
 } = decksApi
