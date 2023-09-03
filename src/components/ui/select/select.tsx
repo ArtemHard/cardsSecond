@@ -3,30 +3,37 @@ import { forwardRef } from 'react'
 import * as Select from '@radix-ui/react-select'
 import { SelectItemProps } from '@radix-ui/react-select'
 
-import { ArrowDown } from '../../../assets/icons'
+import { ChevronUp } from '../../../assets/icons'
 
 import s from './select.module.scss'
 
-type Props = {
+type SelectType = {
   disabled?: boolean
   value?: string[]
+  onChangeValue: (value: string) => void
 }
 
-export const SelectRoot = (props: Props) => {
+export const SelectRoot = (props: SelectType) => {
+  const { disabled, value, onChangeValue } = props
+  const changeCurrentValue = (value: string) => {
+    onChangeValue(value)
+    console.log(value)
+  }
+
   return (
-    <Select.Root>
+    <Select.Root onValueChange={changeCurrentValue}>
       <div className={s.headerSelect}>
         Select-Box
-        <Select.Trigger disabled={props.disabled} className={s.trigger}>
+        <Select.Trigger disabled={disabled} className={s.trigger}>
           <Select.Value placeholder="Select-Box" />
-          <ArrowDown />
+          <ChevronUp />
         </Select.Trigger>
       </div>
       <Select.Portal>
         <Select.Content className={s.SelectContent} position="popper" sideOffset={0}>
           <Select.Viewport>
-            {props.value &&
-              props.value.map(el => {
+            {value &&
+              value.map(el => {
                 return (
                   <SelectItem key={el} className={s.item} value={el}>
                     {el}
