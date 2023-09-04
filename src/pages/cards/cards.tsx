@@ -1,22 +1,42 @@
+import { debug } from 'console'
+
 import { ComponentPropsWithoutRef, useEffect, useState } from 'react'
 
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { useAppSelector } from '../../app/store'
-import { ArrowBackOutline, MoreVerticalOutline } from '../../assets/icons'
+import {
+  ArrowBackOutline,
+  EditPenSvg,
+  MoreVerticalOutline,
+  PlayCircleOutlineSvg,
+  TrashOutline,
+} from '../../assets/icons'
 import deckBrokenImg from '../../assets/images/reactJS.png'
+import { CardFrom } from '../../components/cards/forms'
+import {
+  DeckModal,
+  FormValuesCreateDeck,
+} from '../../components/decks/decks-filters/create-deck-form'
 import Button from '../../components/ui/button/button'
 import { ControlledInput } from '../../components/ui/controlled/controlled-input'
+import { DropDownMenu, DropDownMenuIcon } from '../../components/ui/drop-down-menu'
 import { Input } from '../../components/ui/Input'
+import { Modal } from '../../components/ui/modal'
 import { StarRating } from '../../components/ui/star'
 import { TableBody, TableCell, TableRoot, TableRow } from '../../components/ui/table/body'
 import { Column, Sort } from '../../components/ui/table/decks/decks-table.stories'
 import { TableHeader } from '../../components/ui/table/header'
 import { Typography } from '../../components/ui/Typography'
 import { PATH } from '../../routes'
-import { useAuthMeQuery } from '../../services/auth'
+import { useAuthMeQuery, useUpdateUserMutation } from '../../services/auth'
 import { useActions } from '../../services/common/useActions'
-import { useGetDeckQuery, useRetriveCardsInDeckQuery } from '../../services/decks'
+import {
+  useDeleteDeckMutation,
+  useGetDeckQuery,
+  useRetriveCardsInDeckQuery,
+  useUpdateDeckMutation,
+} from '../../services/decks'
 import { formatDate } from '../../utils'
 import { ImageCard } from '../decks'
 
@@ -35,6 +55,7 @@ import {
 export const Cards = () => {
   const { deckId } = useParams()
   const [skip, setSkip] = useState(true)
+  const [openModal, setOpenModal] = useState<ModalsCardsVariant | null>(null)
   //   const navigate = useNavigate()
   const id = useAppSelector(selectorDeckId)
   const question = useAppSelector(selectorCardsQuestion)
@@ -48,7 +69,8 @@ export const Cards = () => {
   const { data: authData } = useAuthMeQuery()
 
   const { data: deckData, isLoading: isDeckFetching } = useGetDeckQuery({ id: id ?? '' }, { skip })
-
+  const [updateDeck] = useUpdateDeckMutation()
+  const [deleteDeck] = useDeleteDeckMutation()
   const { data, isLoading: isCardsDeckFetching } = useRetriveCardsInDeckQuery(
     {
       id: id ?? '',
@@ -72,10 +94,21 @@ export const Cards = () => {
 
   if (!id) return <div>Deck not found</div>
 
-  const isUserDeck = authData?.id === deckData?.author?.id
+  const isUserDeck = authData?.id === deckData?.userId
 
+  const isHaveDecks = data?.items.length ? data?.items.length > 0 : false
   const addNewCardClickHandler = () => {
-    alert('open modal logic')
+    setOpenModal('Add New Card')
+  }
+  const editDeckClickHandler = () => {
+    setOpenModal('Edit Deck')
+  }
+  const deleteDeckClickHandler = () => {
+    setOpenModal('Delete Deck')
+  }
+
+  const ModalChangeType = (value: ModalsCardsVariant | null) => (open: boolean) => {
+    open ? setOpenModal(value) : setOpenModal(null)
   }
 
   const learnDeckClickHandler = () => {
@@ -95,9 +128,35 @@ export const Cards = () => {
     if (isUserDeck) return columns
     else return columns.filter(el => el.key !== 'actions')
   }
+  const onSubmitUpdateDeck = (data: FormValuesCreateDeck) => {
+    const newFormData = new FormData()
+
+    newFormData.append('name', data.name)
+    if (data?.cover) newFormData.append('cover', data.cover[0])
+    if (typeof data?.isPrivate === 'boolean')
+      newFormData.append('isPrivate', JSON.stringify(data.isPrivate))
+    if (deckData?.id) {
+      updateDeck({ id: deckData?.id, formdata: newFormData })
+        .unwrap()
+        .then(() => {
+          setOpenModal(null)
+        })
+    }
+  }
 
   return (
     <>
+      <Modal title={openModal ?? ''} onOpenChange={ModalChangeType(openModal)} open={!!openModal}>
+        {openModal === 'Edit Deck' && isUserDeck && (
+          <DeckModal
+            onSubmit={onSubmitUpdateDeck}
+            setIsOpenModal={ModalChangeType(openModal)}
+            submitTextButton="Update Deck"
+            defaultData={deckData}
+          />
+        )}
+        {openModal === 'Add New Card' && <CardFrom />}
+      </Modal>
       <section className={style.backNavigateContainer}>
         <Button as={Link} variant="link" to={PATH.DECKS} className={style.backButton}>
           <ArrowBackOutline className={style.BackOutline} />
@@ -108,7 +167,19 @@ export const Cards = () => {
         <div className={style.titleContainer}>
           <div className={style.deckName}>
             <Typography variant="large">{deckData?.name}</Typography>
-            <MoreVerticalOutline />
+            {isUserDeck && (
+              <DropDownMenu trigger={<MoreVerticalOutline />}>
+                <DropDownMenuIcon icon={<PlayCircleOutlineSvg />} disabled={!isHaveDecks}>
+                  Learn
+                </DropDownMenuIcon>
+                <DropDownMenuIcon icon={<EditPenSvg />} onClick={editDeckClickHandler}>
+                  Edit
+                </DropDownMenuIcon>
+                <DropDownMenuIcon icon={<TrashOutline />} onClick={deleteDeckClickHandler}>
+                  Delete
+                </DropDownMenuIcon>
+              </DropDownMenu>
+            )}
           </div>
           <Button onClick={isUserDeck ? addNewCardClickHandler : learnDeckClickHandler}>
             {isUserDeck ? 'Add New Card' : 'Learn Pack'}
@@ -157,3 +228,26 @@ const columns: Column[] = [
   { key: 'grade', isSortable: true, title: 'Grade' },
   { key: 'actions', isSortable: false, title: '' },
 ]
+
+type ModalsCardsVariant =
+  | 'Edit Card'
+  | 'Add New Card'
+  | 'Edit Deck'
+  | 'Delete Card'
+  | 'Delete Deck'
+  | 'Add New Deck'
+// const generateModalTitle = (type: ModalsCardsVariant) => {
+//   switch (type) {
+//     case 'addCard':
+//       return 'Add New Card'
+//     case 'editPack':
+//       return 'Edit Pack'
+//     case 'editCard':
+//       return 'Edit'
+//     case 'addCard':
+//       return 'Add New Card'
+
+//     default:
+//       break
+//   }
+// }

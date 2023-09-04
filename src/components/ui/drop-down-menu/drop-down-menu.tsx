@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import style from './drop-down-menu.module.scss'
 
 export type DropdownProps = {
-  children: ReactNode
+  // children: ReactNode
   align?: 'start' | 'center' | 'end'
   trigger?: ReactNode
   className?: string
@@ -19,24 +19,17 @@ export const DropDownMenu: FC<DropdownProps> = ({ children, trigger, ...restProp
   return (
     <DropdownMenu.Root onOpenChange={setOpen} modal {...restProps}>
       <DropdownMenu.Trigger asChild>
-        <div
-          style={{
-            height: 'fit-content',
-            width: 'fit-content',
-            position: 'relative',
-            cursor: 'pointer',
-          }}
-        >
+        <button className={style.triggerButton}>
           {trigger}
           {open && <div className={style.DropdownMenuArrow3}></div>}
-        </div>
+        </button>
       </DropdownMenu.Trigger>
       {/* forceMount Useful when controlling animation */}
 
       <DropdownMenu.Portal className={style.portal}>
         <DropdownMenu.Content
           className={style.DropdownMenuContent}
-          align="start"
+          align="center"
           sideOffset={5}
           hideWhenDetached
         >
