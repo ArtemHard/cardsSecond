@@ -3,6 +3,9 @@ export type Decks = {
   pagination: Pagination
   maxCardsCount: number
 }
+export type Cards = {
+  items: Card[]
+} & Pick<Decks, 'pagination'>
 
 export type Pagination = {
   currentPage: number

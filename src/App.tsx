@@ -14,9 +14,9 @@ export function App() {
   return (
     <div className={style.container}>
       <Header isAuth={!!data} signOutClick={signOut} userInfo={userInfo} />
-      <div className={style.outletWrapper}>
+      <main className={style.outletWrapper}>
         <Outlet />
-      </div>
+      </main>
     </div>
   )
 }

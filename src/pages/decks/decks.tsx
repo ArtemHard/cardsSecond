@@ -78,7 +78,8 @@ export const Decks = () => {
 
     newFormData.append('name', data.name)
     if (data?.cover) newFormData.append('cover', data.cover[0])
-    if (data?.isPrivate) newFormData.append('isPrivate', JSON.stringify(data.isPrivate))
+    if (typeof data?.isPrivate === 'boolean')
+      newFormData.append('isPrivate', JSON.stringify(data.isPrivate))
 
     if (currentEditDeckData?.id) {
       updateDeck({ id: currentEditDeckData?.id, formdata: newFormData })
@@ -127,7 +128,7 @@ export const Decks = () => {
                 <TableRow key={deck.id}>
                   <TableCell>
                     <Link
-                      to={cutStringParams(PATH.DECK) + deck.id}
+                      to={cutStringParams(PATH.CARDS) + deck.id}
                       className={style.deckNameContainer}
                     >
                       <ImageCard

@@ -6,7 +6,7 @@ export const PATH = {
   SET_NEW_PASSWORD: '/set-new-password/:token',
   PROFILE: '/profile',
   DECKS: '/',
-  DECK: '/decks/:deckId',
+  CARDS: '/decks/:deckId',
   LEARN: '/learn/:deck_id',
   NOT_FOUND: '404',
   //   CURRENT_URL: window.location.href.split('#')[0],
