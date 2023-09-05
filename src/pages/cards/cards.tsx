@@ -13,7 +13,7 @@ import {
   TrashOutline,
 } from '../../assets/icons'
 import deckBrokenImg from '../../assets/images/reactJS.png'
-import { CardFrom } from '../../components/cards/forms'
+import { CardFrom, FormValuesCreateCard } from '../../components/cards/forms'
 import {
   DeckModal,
   FormValuesCreateDeck,
@@ -96,7 +96,7 @@ export const Cards = () => {
 
   const isUserDeck = authData?.id === deckData?.userId
 
-  const isHaveDecks = data?.items.length ? data?.items.length > 0 : false
+  const isHaveCards = data?.items.length ? data?.items.length > 0 : false
   const addNewCardClickHandler = () => {
     setOpenModal('Add New Card')
   }
@@ -144,6 +144,11 @@ export const Cards = () => {
     }
   }
 
+  const onSubmitCreateCard = (data: FormValuesCreateCard) => {
+    console.log(data)
+    setOpenModal(null)
+  }
+
   return (
     <>
       <Modal title={openModal ?? ''} onOpenChange={ModalChangeType(openModal)} open={!!openModal}>
@@ -155,7 +160,13 @@ export const Cards = () => {
             defaultData={deckData}
           />
         )}
-        {openModal === 'Add New Card' && <CardFrom />}
+        {openModal === 'Add New Card' && (
+          <CardFrom
+            onSubmit={onSubmitCreateCard}
+            setIsOpenModal={ModalChangeType(openModal)}
+            submitTextButton="Add New Card"
+          />
+        )}
       </Modal>
       <section className={style.backNavigateContainer}>
         <Button as={Link} variant="link" to={PATH.DECKS} className={style.backButton}>
@@ -169,7 +180,7 @@ export const Cards = () => {
             <Typography variant="large">{deckData?.name}</Typography>
             {isUserDeck && (
               <DropDownMenu trigger={<MoreVerticalOutline />}>
-                <DropDownMenuIcon icon={<PlayCircleOutlineSvg />} disabled={!isHaveDecks}>
+                <DropDownMenuIcon icon={<PlayCircleOutlineSvg />} disabled={!isHaveCards}>
                   Learn
                 </DropDownMenuIcon>
                 <DropDownMenuIcon icon={<EditPenSvg />} onClick={editDeckClickHandler}>
@@ -181,9 +192,12 @@ export const Cards = () => {
               </DropDownMenu>
             )}
           </div>
-          <Button onClick={isUserDeck ? addNewCardClickHandler : learnDeckClickHandler}>
-            {isUserDeck ? 'Add New Card' : 'Learn Pack'}
-          </Button>
+
+          {isHaveCards && (
+            <Button onClick={isUserDeck ? addNewCardClickHandler : learnDeckClickHandler}>
+              {isUserDeck ? 'Add New Card' : 'Learn Pack'}
+            </Button>
+          )}
         </div>
         <ImageCard src={deckData?.cover ?? deckBrokenImg} className={style.deckCover}></ImageCard>
         <Input
@@ -195,7 +209,17 @@ export const Cards = () => {
           className={style.searchInput}
         />
       </section>
-      {!!data?.items.length && (
+      {!isHaveCards && isUserDeck && (
+        <div className={style.emptyTableContainer}>
+          <Typography variant="body2">
+            This deck is empty. Click add new card to fill this deck
+          </Typography>
+          <div className={style.emptyButtonContainer}>
+            <Button onClick={addNewCardClickHandler}>{'Add New Card'}</Button>
+          </div>
+        </div>
+      )}
+      {isHaveCards && (
         <TableRoot className={style.rootTable}>
           <TableHeader columns={columnsActionDelete()} onSort={onSort} sort={orderBy ?? null} />
           <TableBody>
@@ -229,7 +253,7 @@ const columns: Column[] = [
   { key: 'actions', isSortable: false, title: '' },
 ]
 
-type ModalsCardsVariant =
+export type ModalsCardsVariant =
   | 'Edit Card'
   | 'Add New Card'
   | 'Edit Deck'

@@ -58,3 +58,14 @@
   align-items: center;
   cursor: pointer;
 }
+.emptyTableContainer {
+  margin-top: 4.31rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.87rem;
+}
+.emptyButtonContainer {
+  display: flex;
+  justify-content: center;
+}
