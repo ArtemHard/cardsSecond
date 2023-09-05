@@ -11,6 +11,7 @@ import { LazyQueryTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks'
 import { TrashOutline } from '../../../assets/icons'
 import { Profile } from '../../../services/auth'
 import { Decks, GetDeckParams, useCreateDeckMutation } from '../../../services/decks'
+import { useDebounce } from '../../../utils/hooks'
 import Button from '../../ui/button/button'
 import { Input } from '../../ui/Input'
 import { Modal } from '../../ui/modal'
@@ -59,17 +60,19 @@ export const DecksFilter = ({ sort, getDecks, onSort, data, userData }: DecksFil
   //   authorId: showAllDeck ? '' : userData?.id,
   //   orderBy: sort ? `${sort.key}-${sort.direction}` : '',
   // }
+  const debouncedSearch = useDebounce(search, 800)
+  const debouncedRange = useDebounce(range, 1200)
 
   useEffect(() => {
     getDecks({
       itemsPerPage: 100,
-      minCardsCount: range[0],
-      maxCardsCount: range[1],
-      name: search,
+      minCardsCount: debouncedRange[0],
+      maxCardsCount: debouncedRange[1],
+      name: debouncedSearch,
       authorId: showAllDeck ? '' : userData?.id,
       orderBy: sort ? `${sort.key}-${sort.direction}` : '',
     })
-  }, [range, search, showAllDeck, sort])
+  }, [debouncedRange, debouncedSearch, showAllDeck, sort])
 
   useEffect(() => {
     if (rangeValue[1] !== data?.maxCardsCount && data?.maxCardsCount) {
