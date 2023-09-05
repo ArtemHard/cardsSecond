@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 
 import { ChevronUp } from '../../../assets/icons'
+import { SelectRoot } from '../select'
 import { Typography } from '../Typography'
 
 import style from './pagination.module.scss'
@@ -12,11 +13,18 @@ export type PaginationProps = {
   onChange: (page: number) => void
   siblings?: number
   perPage?: number
-  perPageOptions?: number[]
-  onPerPageChange?: (itemPerPage: number) => void
+  perPageOptions: number[]
+  onPerPageChange: (itemPerPage: number) => void
 }
 
-export const Pagination = ({ count, siblings, page, onChange }: PaginationProps) => {
+export const Pagination = ({
+  count,
+  siblings,
+  page,
+  onChange,
+  perPageOptions,
+  onPerPageChange,
+}: PaginationProps) => {
   const {
     handleNextPageClicked,
     handlePreviousPageClicked,
@@ -30,6 +38,10 @@ export const Pagination = ({ count, siblings, page, onChange }: PaginationProps)
     page,
     onChange,
   })
+
+  const onValueChange = (value: string) => {
+    onPerPageChange(+value)
+  }
 
   return (
     <div className={style.root}>
@@ -46,15 +58,12 @@ export const Pagination = ({ count, siblings, page, onChange }: PaginationProps)
         <Typography variant="body2" as="span">
           Показать
         </Typography>
-        <div
-          style={{
-            backgroundColor: 'red',
-            marginLeft: '0.38rem',
-            marginRight: '0.56rem',
-          }}
-        >
-          Select
-        </div>
+        <SelectRoot
+          options={perPageOptions}
+          defaultValue={perPageOptions[0].toString()}
+          onValueChange={onValueChange}
+          className={style.selectButton}
+        />
         <Typography variant="body2" as="span">
           на странице
         </Typography>
