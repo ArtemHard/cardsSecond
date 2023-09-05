@@ -6,25 +6,31 @@ const meta = {
   title: 'Components/Select',
   component: SelectRoot,
   tags: ['autodocs'],
-  argTypes: {
-    disabled: ['true', 'false'],
-    value: ['HTML', 'SCC', 'React'],
-  },
+  // argTypes: {
+  //   // disabled: ['true', 'false'],
+  //   // value: ['HTML', 'SCC', 'React'],
+  // },
 } satisfies Meta<typeof SelectRoot>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
+const options = ['HTML', 'SCSS', 'React']
+const placeholder = 'select variants'
+
 export const Select: Story = {
   args: {
-    disabled: false,
-    value: ['HTML', 'SCSS', 'React'],
+    options,
+    placeholder: placeholder,
+    defaultValue: options[0],
   },
 }
 
 export const SelectDisabled: Story = {
   args: {
     disabled: true,
-    value: ['HTML', 'SCC', 'React'],
+    options,
+    placeholder: placeholder,
+    defaultValue: options[0],
   },
 }
