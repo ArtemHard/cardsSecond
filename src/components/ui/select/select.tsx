@@ -1,45 +1,50 @@
-import { forwardRef } from 'react'
+import { ReactNode, forwardRef } from 'react'
 
 import * as Select from '@radix-ui/react-select'
 import { SelectItemProps } from '@radix-ui/react-select'
 
 import { ChevronUp } from '../../../assets/icons'
+import { Typography } from '../Typography'
 
 import s from './select.module.scss'
 
 type SelectType = {
-  disabled?: boolean
-  value?: string[]
-  onChangeValue: (value: string) => void
-}
+  options: string[]
+  placeholder?: ReactNode
+} & Select.SelectProps
 
-export const SelectRoot = (props: SelectType) => {
-  const { disabled, value, onChangeValue } = props
+export const SelectRoot = ({
+  disabled,
+  value,
+  onValueChange,
+  options,
+  placeholder,
+  defaultValue,
+  ...restProps
+}: SelectType) => {
   const changeCurrentValue = (value: string) => {
-    onChangeValue(value)
-    console.log(value)
+    onValueChange?.(value)
   }
 
   return (
-    <Select.Root onValueChange={changeCurrentValue}>
-      <div className={s.headerSelect}>
-        Select-Box
-        <Select.Trigger disabled={disabled} className={s.trigger}>
-          <Select.Value placeholder="Select-Box" />
-          <ChevronUp />
-        </Select.Trigger>
-      </div>
+    <Select.Root onValueChange={changeCurrentValue} disabled={disabled} {...restProps}>
+      {!!placeholder && (
+        <Typography variant="body2" className={s.placeholder}>
+          {placeholder}
+        </Typography>
+      )}
+      <Select.Trigger className={s.trigger}>
+        <Select.Value placeholder={defaultValue} className={s.selectValue} />
+        <ChevronUp style={{ rotate: '180deg' }} />
+      </Select.Trigger>
       <Select.Portal>
-        <Select.Content className={s.SelectContent} position="popper" sideOffset={0}>
+        <Select.Content className={s.content} position="popper">
           <Select.Viewport>
-            {value &&
-              value.map(el => {
-                return (
-                  <SelectItem key={el} className={s.item} value={el}>
-                    {el}
-                  </SelectItem>
-                )
-              })}
+            {options.map(el => (
+              <SelectItem key={el} className={s.item} value={el}>
+                {el}
+              </SelectItem>
+            ))}
           </Select.Viewport>
         </Select.Content>
       </Select.Portal>

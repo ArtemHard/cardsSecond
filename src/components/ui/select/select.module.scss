@@ -1,24 +1,22 @@
-.headerSelect {
-  width: 210px;
-  height: 60px;
 
-  font-size: var(--font-size-s);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-m);
+.placeholder {
+  margin-bottom: 0.5rem;
   color: var(--color-dark-100);
-
 }
-
+.itemText {
+  background-color: red;
+  padding: 0.44rem 0.75rem;
+}
 .trigger {
   display: flex;
   flex-shrink: 0;
+  cursor: pointer;
   align-items: center;
   justify-content: space-between;
-
-  width: 210px;
-  height: 36px;
-  padding: 0 12px;
-
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.44rem 0.75rem;
+  height: 2.25rem;
   font-size: var(--font-size-m);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-m);
@@ -27,46 +25,71 @@
   background-color: var(--color-dark-900);
   border: 1px solid var(--color-dark-100);
   border-radius: 2px;
-
-  &:disabled {
-    opacity: 0.3;
-  }
-
+  outline: 2px solid transparent;
   &:focus {
-    border: 1px solid var(--color-info-700);
+    border: 1px solid transparent;
+    outline: 2px solid var(--color-info-700);
+    cursor: pointer;
     border-radius: 2px;
-    outline: none;
+    // outline: none;
   }
 
   &:hover {
     background-color: var(--color-dark-300);
-    outline: none;
+    cursor: pointer;
+    // outline: none;
+  }
+  &:disabled {
+    opacity: 0.3;
+    background-color: var(--color-dark-900);
+    cursor: default;
   }
 }
 
 .trigger[data-state='open'] {
-  & svg{
-    transform: rotate(180deg)
+  cursor: pointer;
+  & svg {
+    transition: transform 0.3s ease-in-out;
+    transform: rotate(180deg);
+  }
+}
+.trigger[data-state='closed'] {
+  & svg {
+    transition: transform 0.3s ease-in-out;
   }
 }
 
-.SelectContent {
-  float: left;
-  width: 235px;
-  max-height: 300px;
+.content {
+  cursor: pointer;
+  width: var(--radix-select-trigger-width);
   border: 1px solid var(--color-dark-100);
+  border-top: none;
 }
 
+.content[data-state='open'] {
+  animation: fadeIn 0.3s ease-in;
+}
 .item {
-  padding-left: 12px ;
+  padding: 0.44rem 0.75rem;
 
   &:focus {
     background-color: var(--color-accent-900);
+    color: var(--color-accent-300);
     outline: none;
   }
 
   &:hover {
     background-color: var(--color-accent-900);
+    color: var(--color-accent-300);
     outline: none;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
