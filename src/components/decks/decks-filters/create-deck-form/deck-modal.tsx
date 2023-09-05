@@ -30,7 +30,7 @@ export const DeckModal = ({
   const checkCoverType = (cover: any): string | undefined => {
     if (typeof cover === 'string') return cover
     if (cover instanceof FileList) {
-      return window.URL.createObjectURL(watch('cover')[0])
+      return watch('cover')[0] ? window.URL.createObjectURL(watch('cover')[0]) : undefined
     }
 
     return undefined
