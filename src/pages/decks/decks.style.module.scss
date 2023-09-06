@@ -1,8 +1,10 @@
 .root {
 }
 .tableRoot {
+  border-collapse: collapse;
   width: 100%;
   margin-top: 2.25rem;
+  table-layout: fixed;
   & p {
     padding-top: 6px;
     padding-bottom: 6px;

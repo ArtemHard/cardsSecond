@@ -1,8 +1,6 @@
-import { debug } from 'console'
+import { useEffect, useState } from 'react'
 
-import { ComponentPropsWithoutRef, useEffect, useState } from 'react'
-
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import { useAppSelector } from '../../app/store'
 import {
@@ -19,17 +17,17 @@ import {
   FormValuesCreateDeck,
 } from '../../components/decks/decks-filters/create-deck-form'
 import Button from '../../components/ui/button/button'
-import { ControlledInput } from '../../components/ui/controlled/controlled-input'
 import { DropDownMenu, DropDownMenuIcon } from '../../components/ui/drop-down-menu'
 import { Input } from '../../components/ui/Input'
 import { Modal } from '../../components/ui/modal'
+import { Pagination } from '../../components/ui/pagination'
 import { StarRating } from '../../components/ui/star'
 import { TableBody, TableCell, TableRoot, TableRow } from '../../components/ui/table/body'
 import { Column, Sort } from '../../components/ui/table/decks/decks-table.stories'
 import { TableHeader } from '../../components/ui/table/header'
 import { Typography } from '../../components/ui/Typography'
 import { PATH } from '../../routes'
-import { useAuthMeQuery, useUpdateUserMutation } from '../../services/auth'
+import { useAuthMeQuery } from '../../services/auth'
 import { useActions } from '../../services/common/useActions'
 import {
   useDeleteDeckMutation,
@@ -38,6 +36,7 @@ import {
   useUpdateDeckMutation,
 } from '../../services/decks'
 import { formatDate } from '../../utils'
+import { useDebounce } from '../../utils/hooks'
 import { ImageCard } from '../decks'
 
 import style from './cards.module.scss'
@@ -64,7 +63,10 @@ export const Cards = () => {
   const currentPage = useAppSelector(selectorCardsCurrentPage)
   const itemsPerPage = useAppSelector(selectorCardsItemsPerPage)
 
-  const { updateQuestion, updateId, updateOrderBy } = useActions(cardsActions)
+  const questionDebounce = useDebounce(question, 800)
+
+  const { updateQuestion, updateId, updateOrderBy, updateCurrentPage, updateItemsPerPage } =
+    useActions(cardsActions)
 
   const { data: authData } = useAuthMeQuery()
 
@@ -74,7 +76,7 @@ export const Cards = () => {
   const { data, isLoading: isCardsDeckFetching } = useRetriveCardsInDeckQuery(
     {
       id: id ?? '',
-      question,
+      question: questionDebounce,
       answer,
       orderBy: orderBy ? `${orderBy.key}-${orderBy.direction}` : undefined,
       currentPage,
@@ -149,6 +151,13 @@ export const Cards = () => {
     setOpenModal(null)
   }
 
+  const onChangeItemsPerPage = (itemPerPage: number) => {
+    updateItemsPerPage(itemPerPage.toString())
+  }
+  const onChangePage = (page: number) => {
+    updateCurrentPage(page.toString())
+  }
+
   return (
     <>
       <Modal title={openModal ?? ''} onOpenChange={ModalChangeType(openModal)} open={!!openModal}>
@@ -220,26 +229,38 @@ export const Cards = () => {
         </div>
       )}
       {isHaveCards && (
-        <TableRoot className={style.rootTable}>
-          <TableHeader columns={columnsActionDelete()} onSort={onSort} sort={orderBy ?? null} />
-          <TableBody>
-            {data?.items.map(card => {
-              const { question, answer, updated, rating, id, deckId } = card
+        <>
+          <TableRoot className={style.rootTable}>
+            <TableHeader columns={columnsActionDelete()} onSort={onSort} sort={orderBy ?? null} />
+            <TableBody>
+              {data?.items.map(card => {
+                const { question, answer, updated, rating, id, deckId } = card
 
-              return (
-                <TableRow key={id}>
-                  <TableCell className={style.cellQuestion}>{question}</TableCell>
-                  <TableCell>{answer}</TableCell>
-                  <TableCell>{formatDate(updated)}</TableCell>
-                  <TableCell align="left">
-                    <StarRating rating={rating} setLengthRating={5} />
-                  </TableCell>
-                  {isUserDeck && <TableCell>ACTIONS</TableCell>}
-                </TableRow>
-              )
-            })}
-          </TableBody>
-        </TableRoot>
+                return (
+                  <TableRow key={id}>
+                    <TableCell className={style.cellQuestion}>{question}</TableCell>
+                    <TableCell>{answer}</TableCell>
+                    <TableCell>{formatDate(updated)}</TableCell>
+                    <TableCell align="left">
+                      <StarRating rating={rating} setLengthRating={5} />
+                    </TableCell>
+                    {isUserDeck && <TableCell>ACTIONS</TableCell>}
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </TableRoot>
+          <div className={style.paginationContainer}>
+            <Pagination
+              perPageOptions={[10, 20, 30, 50, 100]}
+              count={data?.pagination?.totalItems ?? 0}
+              onChange={onChangePage}
+              onPerPageChange={onChangeItemsPerPage}
+              page={currentPage ? +currentPage : 1}
+              defaultValue={itemsPerPage ? +itemsPerPage : undefined}
+            />
+          </div>
+        </>
       )}
     </>
   )
@@ -260,18 +281,3 @@ export type ModalsCardsVariant =
   | 'Delete Card'
   | 'Delete Deck'
   | 'Add New Deck'
-// const generateModalTitle = (type: ModalsCardsVariant) => {
-//   switch (type) {
-//     case 'addCard':
-//       return 'Add New Card'
-//     case 'editPack':
-//       return 'Edit Pack'
-//     case 'editCard':
-//       return 'Edit'
-//     case 'addCard':
-//       return 'Add New Card'
-
-//     default:
-//       break
-//   }
-// }
