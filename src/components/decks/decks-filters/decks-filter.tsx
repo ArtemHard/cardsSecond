@@ -44,8 +44,18 @@ type DecksFilterProps = Pick<TableHeaderProps, 'sort'> & {
   data?: Decks
   onSort: (data: Sort) => void
   userData: Profile | null | undefined
+  perPage: number
+  page: number
 }
-export const DecksFilter = ({ sort, getDecks, onSort, data, userData }: DecksFilterProps) => {
+export const DecksFilter = ({
+  sort,
+  getDecks,
+  onSort,
+  data,
+  userData,
+  page,
+  perPage,
+}: DecksFilterProps) => {
   const [createDeck] = useCreateDeckMutation()
   const [search, setSearch] = useState('')
   const [showAllDeck, setShowAllDeck] = useState(true)
@@ -65,14 +75,15 @@ export const DecksFilter = ({ sort, getDecks, onSort, data, userData }: DecksFil
 
   useEffect(() => {
     getDecks({
-      itemsPerPage: 100,
+      itemsPerPage: perPage,
+      currentPage: page,
       minCardsCount: debouncedRange[0],
       maxCardsCount: debouncedRange[1],
       name: debouncedSearch,
       authorId: showAllDeck ? '' : userData?.id,
       orderBy: sort ? `${sort.key}-${sort.direction}` : '',
     })
-  }, [debouncedRange, debouncedSearch, showAllDeck, sort])
+  }, [debouncedRange, debouncedSearch, showAllDeck, sort, page, perPage])
 
   useEffect(() => {
     if (rangeValue[1] !== data?.maxCardsCount && data?.maxCardsCount) {
