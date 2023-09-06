@@ -19,14 +19,15 @@ export const Default: Story = {
     page: 10,
     onChange: (page: number) => console.log(page),
     siblings: 1,
+    perPageOptions: [10, 20, 30],
   },
 }
-export const InComponent = {
-  render: () => {
-    const [page, setPage] = useState(1)
+// export const InComponent = {
+//   render: () => {
+//     const [page, setPage] = useState(1)
 
-    return (
-      <Pagination count={100} onChange={(page: number) => setPage(page)} page={page} siblings={1} />
-    )
-  },
-}
+//     return (
+//       <Pagination count={100} onChange={(page: number) => setPage(page)} page={page} siblings={1} />
+//     )
+//   },
+// }
