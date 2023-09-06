@@ -17,8 +17,8 @@ const initialState: initialStateType = {
   question: undefined,
   answer: undefined,
   orderBy: null,
-  currentPage: undefined,
-  itemsPerPage: undefined,
+  currentPage: '1',
+  itemsPerPage: '50',
 }
 
 const cardsSlice = createSlice({
