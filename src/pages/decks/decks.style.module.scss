@@ -15,6 +15,7 @@
   gap: 0.62rem;
   cursor: pointer;
   width: fit-content;
+  text-decoration: none;
 }
 .deckCover {
   width: 7.39156rem;
@@ -22,4 +23,10 @@
   border-radius: 0.125rem;
   object-fit: contain;
   background-color: var(--color-bg);
+}
+.paginationContainer {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  margin-top: 1rem;
 }

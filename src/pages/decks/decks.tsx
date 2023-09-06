@@ -10,6 +10,7 @@ import {
 } from '../../components/decks/decks-filters/create-deck-form'
 import { DecksFilter } from '../../components/decks/decks-filters/decks-filter'
 import { Modal } from '../../components/ui/modal'
+import { Pagination } from '../../components/ui/pagination'
 import { TableBody, TableCell, TableRoot, TableRow } from '../../components/ui/table/body'
 import { Column, Sort } from '../../components/ui/table/decks/decks-table.stories'
 import { TableHeader } from '../../components/ui/table/header'
@@ -59,6 +60,8 @@ export const Decks = () => {
   const [currentEditDeckData, setCurrentEditDeckData] = useState<
     (FormValuesCreateDeck & DeckId) | null
   >()
+  const [perPage, setPerPage] = useState(50)
+  const [page, setPage] = useState(1)
   const [getDecks, { data }] = useLazyGetDecksListQuery()
   const { data: userData } = useAuthMeQuery()
   const [deleteDeck] = useDeleteDeckMutation()
@@ -106,6 +109,8 @@ export const Decks = () => {
         data={data}
         userData={userData}
         onSort={setSort}
+        perPage={perPage}
+        page={page}
       />
       <Modal title="Edit Deck" onOpenChange={setIsEditDeckModal} open={isEditDeckModal}>
         <DeckModal
@@ -115,7 +120,6 @@ export const Decks = () => {
           submitTextButton="Update Deck"
         />
       </Modal>
-      {/* <div className={style.tableContainer}> */}
       <TableRoot className={style.tableRoot}>
         <TableHeader columns={columns} onSort={setSort} sort={sort} className={style.tableHeader} />
         {!!data && (
@@ -182,7 +186,16 @@ export const Decks = () => {
           </TableBody>
         )}
       </TableRoot>
-      {/* </div> */}
+      <div className={style.paginationContainer}>
+        <Pagination
+          perPageOptions={[10, 20, 30, 50, 100]}
+          count={data?.maxCardsCount ?? 0}
+          onChange={setPage}
+          onPerPageChange={setPerPage}
+          page={page}
+          defaultValue={perPage}
+        />
+      </div>
     </>
   )
 }

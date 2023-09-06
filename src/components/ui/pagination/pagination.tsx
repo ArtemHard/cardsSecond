@@ -15,6 +15,7 @@ export type PaginationProps = {
   perPage?: number
   perPageOptions: number[]
   onPerPageChange: (itemPerPage: number) => void
+  defaultValue?: number
 }
 
 export const Pagination = ({
@@ -24,6 +25,7 @@ export const Pagination = ({
   onChange,
   perPageOptions,
   onPerPageChange,
+  defaultValue,
 }: PaginationProps) => {
   const {
     handleNextPageClicked,
@@ -60,7 +62,7 @@ export const Pagination = ({
         </Typography>
         <SelectRoot
           options={perPageOptions}
-          defaultValue={perPageOptions[0].toString()}
+          defaultValue={defaultValue?.toString()}
           onValueChange={onValueChange}
           className={style.selectButton}
         />

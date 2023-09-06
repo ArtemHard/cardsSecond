@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode, forwardRef } from 'react'
+import { ReactNode, forwardRef } from 'react'
 
 import * as Select from '@radix-ui/react-select'
 import { SelectItemProps } from '@radix-ui/react-select'
