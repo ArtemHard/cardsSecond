@@ -63,7 +63,6 @@
   cursor: pointer;
   width: var(--radix-select-trigger-width);
   border: 1px solid var(--color-dark-100);
-  border-top: none;
 }
 
 .content[data-state='open'] {
