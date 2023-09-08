@@ -2,7 +2,7 @@ import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
 import { Input, InputProps } from '../../Input'
 
-type ControlledInputProps<T extends FieldValues> = UseControllerProps<T> &
+export type ControlledInputProps<T extends FieldValues> = UseControllerProps<T> &
   Omit<InputProps, 'value' | 'onValueChange' | 'onChange' | 'id'>
 export const ControlledInput = <T extends FieldValues>({
   control,
