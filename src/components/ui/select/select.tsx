@@ -41,7 +41,7 @@ export const SelectRoot = ({
         <ChevronUp style={{ rotate: '180deg' }} />
       </Select.Trigger>
       <Select.Portal>
-        <Select.Content className={s.content} position="popper">
+        <Select.Content className={s.content} position="popper" sideOffset={-1}>
           <Select.Viewport>
             {options.map(el => (
               <SelectItem key={el} className={s.item} value={el.toString()}>
