@@ -186,16 +186,18 @@ export const Decks = () => {
           </TableBody>
         )}
       </TableRoot>
-      <div className={style.paginationContainer}>
-        <Pagination
-          perPageOptions={[10, 20, 30, 50, 100]}
-          count={data?.maxCardsCount ?? 0}
-          onChange={setPage}
-          onPerPageChange={setPerPage}
-          page={page}
-          defaultValue={perPage}
-        />
-      </div>
+      {!!data?.items.length && (
+        <div className={style.paginationContainer}>
+          <Pagination
+            perPageOptions={[10, 20, 30, 50, 100]}
+            count={data?.maxCardsCount ?? 0}
+            onChange={setPage}
+            onPerPageChange={setPerPage}
+            page={page}
+            defaultValue={perPage}
+          />
+        </div>
+      )}
     </>
   )
 }

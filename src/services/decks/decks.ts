@@ -92,13 +92,15 @@ const decksApi = baseApi.injectEndpoints({
         url: `decks/${id}/cards`,
         params,
       }),
+      providesTags: ['cards'],
     }),
-    createCard: builder.mutation<Card, DeckId & createCardArgs>({
-      query: ({ id, ...restArgs }) => ({
+    createCard: builder.mutation<Card, DeckId & { formdata: FormData }>({
+      query: ({ id, formdata }) => ({
         url: `decks/${id}/cards`,
         method: 'POST',
-        body: restArgs,
+        body: formdata,
       }),
+      invalidatesTags: ['cards'],
     }),
     retriveRandomCard: builder.query<Card, DeckId & { previousCardId?: string }>({
       query: ({ id, ...previousCardId }) => ({
@@ -127,4 +129,5 @@ export const {
   useUpdateDeckMutation,
   useRetriveCardsInDeckQuery,
   useGetDeckQuery,
+  useCreateCardMutation,
 } = decksApi
