@@ -11,7 +11,7 @@ import type {
   createCardArgs,
 } from './types'
 
-const decksApi = baseApi.injectEndpoints({
+export const decksApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getDecksList: builder.query<Decks, GetDeckParams>({
       query: args => ({

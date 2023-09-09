@@ -75,3 +75,21 @@
   align-items: flex-start;
   margin-top: 1rem;
 }
+.cardImgQuestion {
+  width: 7.39156rem;
+  height: 3rem;
+  border-radius: 0.125rem;
+  object-fit: contain;
+  background-color: var(--color-bg);
+}
+.actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.starsActionsContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+  width: 100%;
+}

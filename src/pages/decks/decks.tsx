@@ -152,7 +152,7 @@ export const Decks = () => {
                   <TableCell>
                     <Typography variant="body2">{deck.author.name}</Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="right">
                     <button
                       style={buttonActionStyle(isHaveCrads)}
                       disabled={!isHaveCrads}
@@ -202,7 +202,7 @@ export const Decks = () => {
   )
 }
 
-const buttonActionStyle = (isActive: boolean) => {
+export const buttonActionStyle = (isActive: boolean) => {
   if (isActive) {
     return { cursor: 'pointer', opacity: 1, marginLeft: '0.62rem' }
   } else
