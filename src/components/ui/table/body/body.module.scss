@@ -7,7 +7,7 @@
   border: 1px solid var(--color-dark-500);
 }
 .tableCell {
-  text-align: left;
+  // text-align: left;
   background-color: var(--color-bg);
   border-bottom: 1px solid var(--color-dark-500);
   padding: 0.375rem 1.5rem;
@@ -16,4 +16,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.tableCell:last-of-type {
+  // text-align: end;
 }

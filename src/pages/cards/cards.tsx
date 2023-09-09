@@ -11,15 +11,11 @@ import {
   TrashOutline,
 } from '../../assets/icons'
 import deckBrokenImg from '../../assets/images/reactJS.png'
-import { CardFrom, FormValuesCreateCard } from '../../components/cards/forms'
-import {
-  DeckModal,
-  FormValuesCreateDeck,
-} from '../../components/decks/decks-filters/create-deck-form'
+import { CardModalLayout } from '../../components/layout/Header/Modal'
 import Button from '../../components/ui/button/button'
 import { DropDownMenu, DropDownMenuIcon } from '../../components/ui/drop-down-menu'
 import { Input } from '../../components/ui/Input'
-import { Modal, ModalContentText, ModalFooter } from '../../components/ui/modal'
+import { Modal } from '../../components/ui/modal'
 import { Pagination } from '../../components/ui/pagination'
 import { StarRating } from '../../components/ui/star'
 import { TableBody, TableCell, TableRoot, TableRow } from '../../components/ui/table/body'
@@ -29,16 +25,10 @@ import { Typography } from '../../components/ui/Typography'
 import { PATH } from '../../routes'
 import { useAuthMeQuery } from '../../services/auth'
 import { useActions } from '../../services/common/useActions'
-import {
-  useCreateCardMutation,
-  useDeleteDeckMutation,
-  useGetDeckQuery,
-  useRetriveCardsInDeckQuery,
-  useUpdateDeckMutation,
-} from '../../services/decks'
+import { Card, useGetDeckQuery, useRetriveCardsInDeckQuery } from '../../services/decks'
 import { formatDate } from '../../utils'
 import { useDebounce } from '../../utils/hooks'
-import { ImageCard } from '../decks'
+import { buttonActionStyle, ImageCard } from '../decks'
 
 import style from './cards.module.scss'
 
@@ -56,6 +46,7 @@ export const Cards = () => {
   const { deckId } = useParams()
   const [skip, setSkip] = useState(true)
   const [openModal, setOpenModal] = useState<ModalsCardsVariant | null>(null)
+  const [currentEditCardData, setCurrentEditCardData] = useState<Card | undefined>(undefined)
   const navigate = useNavigate()
   const id = useAppSelector(selectorDeckId)
   const question = useAppSelector(selectorCardsQuestion)
@@ -72,9 +63,7 @@ export const Cards = () => {
   const { data: authData } = useAuthMeQuery()
 
   const { data: deckData, isLoading: isDeckFetching } = useGetDeckQuery({ id: id ?? '' }, { skip })
-  const [updateDeck] = useUpdateDeckMutation()
-  const [deleteDeck] = useDeleteDeckMutation()
-  const [createCard] = useCreateCardMutation()
+
   const { data, isLoading: isCardsDeckFetching } = useRetriveCardsInDeckQuery(
     {
       id: id ?? '',
@@ -132,48 +121,6 @@ export const Cards = () => {
     if (isUserDeck) return columns
     else return columns.filter(el => el.key !== 'actions')
   }
-  const onSubmitUpdateDeck = (data: FormValuesCreateDeck) => {
-    const newFormData = new FormData()
-
-    newFormData.append('name', data.name)
-    if (data?.cover[0]) newFormData.append('cover', data.cover[0])
-    if (typeof data?.isPrivate === 'boolean')
-      newFormData.append('isPrivate', JSON.stringify(data.isPrivate))
-    if (deckData?.id) {
-      updateDeck({ id: deckData?.id, formdata: newFormData })
-        .unwrap()
-        .then(() => {
-          setOpenModal(null)
-        })
-    }
-  }
-
-  const onSubmitCreateCard = (data: FormValuesCreateCard) => {
-    console.log(data)
-
-    const newFormData = new FormData()
-
-    if (data?.question) newFormData.append('question', data.question)
-    if (data?.questionImg?.[0]) newFormData.append('questionImg', data.questionImg[0])
-    // if (data?.questionVideo) newFormData.append('questionImg', data.questionVideo[0])
-    if (data?.answer) newFormData.append('answer', data.answer)
-    if (data?.answerImg?.[0]) newFormData.append('answerImg', data.answerImg[0])
-    // if (data?.answerVideo) newFormData.append('answerVideo', data.answerVideo[0])
-    const newFormDataLength = Array.from(newFormData.entries(), ([key, prop]) => ({
-      [key]: {
-        ContentLength: typeof prop === 'string' ? prop.length : prop.size,
-      },
-    }))
-
-    if (newFormDataLength.length && deckId) {
-      createCard({ id: deckId, formdata: newFormData })
-        .unwrap()
-        .then(() => {
-          setOpenModal(null)
-        })
-        .catch(() => alert('Error'))
-    }
-  }
 
   const onChangeItemsPerPage = (itemPerPage: number) => {
     updateItemsPerPage(itemPerPage.toString())
@@ -182,48 +129,16 @@ export const Cards = () => {
     updateCurrentPage(page.toString())
   }
 
-  const deleteDeckSubmitHandler = (deckId: string) => () => {
-    deleteDeck(deckId)
-      .unwrap()
-      .then(() => {
-        alert('deck was deleted')
-        navigate(PATH.DECKS)
-      })
-      .catch(() => {})
-  }
-
   return (
     <>
       <Modal title={openModal ?? ''} onOpenChange={ModalChangeType(openModal)} open={!!openModal}>
-        {openModal === 'Edit Deck' && isUserDeck && (
-          <DeckModal
-            onSubmit={onSubmitUpdateDeck}
-            setIsOpenModal={ModalChangeType(openModal)}
-            submitTextButton="Update Deck"
-            defaultData={deckData}
-          />
-        )}
-        {openModal === 'Add New Card' && (
-          <CardFrom
-            onSubmit={onSubmitCreateCard}
-            setIsOpenModal={ModalChangeType(openModal)}
-            submitTextButton="Add New Card"
-          />
-        )}
-        {openModal === 'Delete Deck' && deckData && (
-          <>
-            <ModalContentText>
-              Do you really want to remove deck: <b>{deckData?.name}?</b>
-              <Typography variant="body2">All cards will be deleted.</Typography>
-            </ModalContentText>
-            <ModalFooter>
-              <Button onClick={deleteDeckSubmitHandler(deckData?.id)}>Delete Deck</Button>
-              <Button variant="secondary" onClick={() => setOpenModal(null)}>
-                Cancel
-              </Button>
-            </ModalFooter>
-          </>
-        )}
+        <CardModalLayout
+          setOpenModal={setOpenModal}
+          deckData={deckData}
+          modalType={openModal}
+          cardData={currentEditCardData}
+          deckId={id}
+        />
       </Modal>
       <section className={style.backNavigateContainer}>
         <Button as={Link} variant="link" to={PATH.DECKS} className={style.backButton}>
@@ -287,17 +202,50 @@ export const Cards = () => {
             <TableHeader columns={columnsActionDelete()} onSort={onSort} sort={orderBy ?? null} />
             <TableBody>
               {data?.items.map(card => {
-                const { question, answer, updated, rating, id, deckId } = card
+                const { question, answer, updated, rating, id, deckId, questionImg } = card
 
                 return (
                   <TableRow key={id}>
-                    <TableCell className={style.cellQuestion}>{question}</TableCell>
+                    <TableCell className={style.cellQuestion}>
+                      {questionImg ? (
+                        <ImageCard
+                          src={questionImg ?? deckBrokenImg}
+                          alt="card question"
+                          className={style.cardImgQuestion}
+                        />
+                      ) : (
+                        question
+                      )}
+                    </TableCell>
                     <TableCell>{answer}</TableCell>
                     <TableCell>{formatDate(updated)}</TableCell>
-                    <TableCell align="left">
+                    <TableCell>
                       <StarRating rating={rating} setLengthRating={5} />
                     </TableCell>
-                    {isUserDeck && <TableCell>ACTIONS</TableCell>}
+                    {isUserDeck && (
+                      <TableCell align="right">
+                        <button
+                          style={buttonActionStyle(isUserDeck)}
+                          disabled={!isUserDeck}
+                          onClick={() => {
+                            setCurrentEditCardData(card)
+                            setOpenModal('Edit Card')
+                          }}
+                        >
+                          <EditPenSvg />
+                        </button>
+                        <button
+                          style={buttonActionStyle(isUserDeck)}
+                          disabled={!isUserDeck}
+                          onClick={() => {
+                            setCurrentEditCardData(card)
+                            setOpenModal('Delete Card')
+                          }}
+                        >
+                          <TrashOutline />
+                        </button>
+                      </TableCell>
+                    )}
                   </TableRow>
                 )
               })}
@@ -336,3 +284,4 @@ export type ModalsCardsVariant =
   | 'Delete Card'
   | 'Delete Deck'
   | 'Add New Deck'
+  | null
