@@ -92,7 +92,7 @@ export const CardFrom = ({
     if (value === 'Picture' || value === 'Text') setFormat(value)
   }
 
-  const { handleSubmit, register, control, watch, resetField } = useForm<FormValuesCreateCard>({
+  const { handleSubmit, register, control, watch } = useForm<FormValuesCreateCard>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
     defaultValues: {
