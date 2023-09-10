@@ -211,8 +211,7 @@ export const Cards = () => {
             <TableHeader columns={columnsActionDelete()} onSort={onSort} sort={orderBy ?? null} />
             <TableBody>
               {data?.items.map(card => {
-                const { question, answer, updated, grade, id, deckId, questionImg, answerImg } =
-                  card
+                const { question, answer, updated, grade, id, questionImg, answerImg } = card
 
                 return (
                   <TableRow key={id}>

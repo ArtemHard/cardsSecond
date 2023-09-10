@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FieldPath, UseControllerProps, useForm, UseFormWatch } from 'react-hook-form'
+import { FieldPath, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { ImageSvg } from '../../../assets/icons'
