@@ -26,7 +26,7 @@ import { PATH } from '../../routes'
 import { useAuthMeQuery } from '../../services/auth'
 import { useActions } from '../../services/common/useActions'
 import { Card, useGetDeckQuery, useRetriveCardsInDeckQuery } from '../../services/decks'
-import { formatDate } from '../../utils'
+import { cutStringParams, formatDate } from '../../utils'
 import { useDebounce } from '../../utils/hooks'
 import { buttonActionStyle, ImageCard } from '../decks'
 
@@ -129,6 +129,11 @@ export const Cards = () => {
     updateCurrentPage(page.toString())
   }
 
+  const learnPackHandler = () => {
+    if (id) return navigate(cutStringParams(PATH.LEARN) + deckId)
+    else alert("don't have useParams")
+  }
+
   return (
     <>
       <Modal title={openModal ?? ''} onOpenChange={ModalChangeType(openModal)} open={!!openModal}>
@@ -152,7 +157,11 @@ export const Cards = () => {
             <Typography variant="large">{deckData?.name}</Typography>
             {isUserDeck && (
               <DropDownMenu trigger={<MoreVerticalOutline />}>
-                <DropDownMenuIcon icon={<PlayCircleOutlineSvg />} disabled={!isHaveCards}>
+                <DropDownMenuIcon
+                  icon={<PlayCircleOutlineSvg />}
+                  disabled={!isHaveCards}
+                  onClick={learnPackHandler}
+                >
                   Learn
                 </DropDownMenuIcon>
                 <DropDownMenuIcon icon={<EditPenSvg />} onClick={editDeckClickHandler}>
@@ -202,7 +211,7 @@ export const Cards = () => {
             <TableHeader columns={columnsActionDelete()} onSort={onSort} sort={orderBy ?? null} />
             <TableBody>
               {data?.items.map(card => {
-                const { question, answer, updated, rating, id, deckId, questionImg } = card
+                const { question, answer, updated, grade, id, questionImg, answerImg } = card
 
                 return (
                   <TableRow key={id}>
@@ -217,10 +226,20 @@ export const Cards = () => {
                         question
                       )}
                     </TableCell>
-                    <TableCell>{answer}</TableCell>
+                    <TableCell>
+                      {questionImg ? (
+                        <ImageCard
+                          src={answerImg ?? deckBrokenImg}
+                          alt="card answer"
+                          className={style.cardImgQuestion}
+                        />
+                      ) : (
+                        answer
+                      )}
+                    </TableCell>
                     <TableCell>{formatDate(updated)}</TableCell>
                     <TableCell>
-                      <StarRating rating={rating} setLengthRating={5} />
+                      <StarRating rating={grade} setLengthRating={5} />
                     </TableCell>
                     {isUserDeck && (
                       <TableCell align="right">

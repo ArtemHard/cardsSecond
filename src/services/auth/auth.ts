@@ -89,9 +89,7 @@ const authApi = baseApi.injectEndpoints({
         method: 'POST',
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const patchResult = dispatch(
-          authApi.util.updateQueryData('authMe', undefined, draft => (draft = null))
-        )
+        const patchResult = dispatch(authApi.util.updateQueryData('authMe', undefined, () => null))
 
         try {
           await queryFulfilled

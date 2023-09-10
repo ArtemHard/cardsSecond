@@ -7,12 +7,12 @@ import { Typography } from '../Typography'
 
 import style from './radio-button.module.scss'
 
-type Option = {
+export type OptionRadio = {
   label: string
   value: string
 }
 export type RadioGroupProps = {
-  options: Option[]
+  options: OptionRadio[]
   defaultValue?: string
   // value?: string
   onValueChange?: (value: string) => void
