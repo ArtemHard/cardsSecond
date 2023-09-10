@@ -7,7 +7,7 @@ export const PATH = {
   PROFILE: '/profile',
   DECKS: '/',
   CARDS: '/decks/:deckId',
-  LEARN: '/learn/:deck_id',
+  LEARN: '/learn/:deckId',
   NOT_FOUND: '404',
   //   CURRENT_URL: window.location.href.split('#')[0],
 }

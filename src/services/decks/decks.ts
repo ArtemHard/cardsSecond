@@ -8,7 +8,6 @@ import type {
   Decks,
   GetDeckParams,
   RetriveCardsInDeckParams,
-  createCardArgs,
 } from './types'
 
 export const decksApi = baseApi.injectEndpoints({
@@ -72,19 +71,6 @@ export const decksApi = baseApi.injectEndpoints({
         url: `decks/${id}`,
         method: 'DELETE',
       }),
-      // async onQueryStarted(id, { dispatch, queryFulfilled }) {
-      //   const patchResult = dispatch(
-      //     decksApi.util.updateQueryData('getDecksList', { currentPage: 1 }, draft => {
-      //       draft.items = draft.items.filter(deck => deck.id !== id)
-      //     })
-      //   )
-
-      //   try {
-      //     await queryFulfilled
-      //   } catch {
-      //     patchResult.undo()
-      //   }
-      // },
       invalidatesTags: ['Decks'],
     }),
     retriveCardsInDeck: builder.query<Cards, DeckId & RetriveCardsInDeckParams>({
@@ -110,10 +96,10 @@ export const decksApi = baseApi.injectEndpoints({
     }),
     saveGradeCard: builder.mutation<
       unknown,
-      { id: DeckId; cardId: Card['id']; grade: Card['rating'] }
+      { deckId: Deck['id']; cardId: Card['id']; grade: Card['grade'] }
     >({
-      query: ({ id, ...restArgs }) => ({
-        url: `decks/${id}/cards`,
+      query: ({ deckId, ...restArgs }) => ({
+        url: `decks/${deckId}/learn`,
         method: 'POST',
         body: restArgs,
       }),
@@ -130,4 +116,7 @@ export const {
   useRetriveCardsInDeckQuery,
   useGetDeckQuery,
   useCreateCardMutation,
+  useLazyRetriveRandomCardQuery,
+  useRetriveRandomCardQuery,
+  useSaveGradeCardMutation,
 } = decksApi
