@@ -10,7 +10,6 @@ import {
   useDeleteDeckMutation,
   useUpdateDeckMutation,
 } from '../../../../services/decks'
-import { cutStringParams } from '../../../../utils'
 import { CardFrom, FormValuesCreateCard } from '../../../cards/forms'
 import { FormValuesCreateDeck } from '../../../decks/decks-filters'
 import { DeckModal } from '../../../decks/decks-filters/create-deck-form'

@@ -55,8 +55,6 @@ export const WithSort = {
   render: () => {
     const [sort, setSort] = useState<Sort>(null)
 
-    const sortString = sort ? `${sort.key}-${sort.direction}` : null
-
     const columns: Column[] = [
       {
         key: 'name',
@@ -90,10 +88,6 @@ export const WithSort = {
               {Object.values(item).map(value => (
                 <TableCell key={value}>{value}</TableCell>
               ))}
-              {/* <TableCell>{item.title}</TableCell>
-              <td>{item.cardsCount}</td>
-              <td>{item.updated}</td>
-              <td>{item.createdBy}</td> */}
               <TableCell>icons...</TableCell>
             </tr>
           ))}
@@ -112,10 +106,6 @@ export const BodyTableStory = {
             {Object.values(item).map(value => (
               <TableCell key={value}>{value}</TableCell>
             ))}
-            {/* <TableCell>{item.title}</TableCell>
-              <td>{item.cardsCount}</td>
-              <td>{item.updated}</td>
-              <td>{item.createdBy}</td> */}
             <TableCell>icons...</TableCell>
           </tr>
         ))}
@@ -151,8 +141,6 @@ export const HeaderStory = {
       },
       { key: 'options', title: '', isSortable: false },
     ]
-
-    // const sortString = sort ? `${sort.key}-${sort.direction}` : null
 
     return (
       <table style={{ borderCollapse: 'collapse', width: '100%' }}>

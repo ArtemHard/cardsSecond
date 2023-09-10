@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FieldPath, UseControllerProps, useForm, UseFormWatch } from 'react-hook-form'
+import { FieldPath, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { ImageSvg } from '../../../assets/icons'
@@ -92,7 +92,7 @@ export const CardFrom = ({
     if (value === 'Picture' || value === 'Text') setFormat(value)
   }
 
-  const { handleSubmit, register, control, watch, resetField } = useForm<FormValuesCreateCard>({
+  const { handleSubmit, register, control, watch } = useForm<FormValuesCreateCard>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
     defaultValues: {

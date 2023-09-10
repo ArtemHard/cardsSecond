@@ -10,7 +10,7 @@ import { useAuthMeQuery, useSignUpMutation } from '../../services/auth'
 // }
 export const SignUpPage = () => {
   const { data: meData, isLoading: isLoadingMe } = useAuthMeQuery()
-  const [signUp, { isLoading: isSugnUpFetching, error }] = useSignUpMutation()
+  const [signUp, { isLoading: isSugnUpFetching }] = useSignUpMutation()
   const navigate = useNavigate()
 
   const submitHandler = (data: FormValuesSignUp) => {

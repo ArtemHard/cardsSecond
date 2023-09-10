@@ -1,0 +1,27 @@
+.root {
+    padding: 3rem 2.25rem;
+    width: 26.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.title {
+    margin-bottom: 2.81rem;
+}
+.questionContainer {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 0;
+    gap: 1rem;
+}
+.cardImgQuestion {
+    width: 21.875rem;
+    height: 7.5rem;
+    object-fit: contain;
+    background-color: transparent;
+    // margin-bottom: 1.2rem;
+}

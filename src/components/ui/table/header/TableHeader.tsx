@@ -23,8 +23,6 @@ const dataAttributes = {
 } as const
 
 export const TableHeader = ({ columns, sort, onSort, className }: TableHeaderProps) => {
-  console.log(columns)
-
   const handleSorting: MouseEventHandler<HTMLTableCellElement> = e => {
     // debugger
     const isSortable = e.currentTarget.getAttribute(dataAttributes.sortable)
