@@ -114,5 +114,5 @@ const ImageOrQuestion = ({ img, text, title }: { text: string; img?: string; tit
         </Typography>
       </div>
     )
-  } else return 'Bag in ImageOrQuestion Component'
+  } else return <div>Bag in ImageOrQuestion Component</div>
 }
