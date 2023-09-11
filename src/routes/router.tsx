@@ -1,6 +1,7 @@
 import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
 import { App } from '../App'
+import { Loader } from '../components/loader'
 import { Cards } from '../pages/cards'
 import { Decks } from '../pages/decks'
 import { Learn } from '../pages/learn'
@@ -58,7 +59,7 @@ function PrivateRoutes() {
   const { data, isLoading } = useAuthMeQuery()
   const isAuth = !!data
 
-  if (isLoading) return <div>Loading... Add normal loader</div>
+  if (isLoading) return <Loader />
 
   return isAuth ? <Outlet /> : <Navigate to={PATH.LOGIN} />
 }

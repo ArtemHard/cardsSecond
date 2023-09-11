@@ -1,9 +1,12 @@
 import { Navigate, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { SignUpForm } from '../../components/auth/sign-up-form'
 import { FormValuesSignUp } from '../../components/auth/sign-up-form/sign-up-form'
+import { Loader } from '../../components/loader'
 import { PATH } from '../../routes'
 import { useAuthMeQuery, useSignUpMutation } from '../../services/auth'
+import { errorCommonHandler } from '../../services/common'
 // {
 //   "email": rasselCrow@mail.ru,
 //   "password": 1234,
@@ -22,11 +25,11 @@ export const SignUpPage = () => {
         navigate(PATH.DECKS)
       })
       .catch(err => {
-        alert(err?.data?.message)
+        toast.error(errorCommonHandler(err))
       })
   }
 
-  if (isLoadingMe) return <div>LOADING...</div>
+  if (isLoadingMe) return <Loader />
   if (meData) return <Navigate to={PATH.DECKS} />
 
   return <SignUpForm onSubmit={submitHandler} isSubmitting={isSugnUpFetching} />

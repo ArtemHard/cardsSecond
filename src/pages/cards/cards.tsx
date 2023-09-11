@@ -12,6 +12,7 @@ import {
 } from '../../assets/icons'
 import deckBrokenImg from '../../assets/images/reactJS.png'
 import { CardModalLayout } from '../../components/layout/Header/Modal'
+import { Loader } from '../../components/loader'
 import Button from '../../components/ui/button/button'
 import { DropDownMenu, DropDownMenuIcon } from '../../components/ui/drop-down-menu'
 import { Input } from '../../components/ui/Input'
@@ -60,7 +61,7 @@ export const Cards = () => {
   const { updateQuestion, updateId, updateOrderBy, updateCurrentPage, updateItemsPerPage } =
     useActions(cardsActions)
 
-  const { data: authData } = useAuthMeQuery()
+  const { data: authData, isLoading: authMeLoading } = useAuthMeQuery()
 
   const { data: deckData, isLoading: isDeckFetching } = useGetDeckQuery({ id: id ?? '' }, { skip })
 
@@ -83,7 +84,7 @@ export const Cards = () => {
     } else updateId(undefined)
   }, [deckId])
 
-  if (isCardsDeckFetching || isDeckFetching) return <div>loading...</div>
+  if (isCardsDeckFetching || isDeckFetching || authMeLoading) return <Loader />
 
   if (!id) return <div>Deck not found</div>
 
@@ -105,7 +106,7 @@ export const Cards = () => {
   }
 
   const learnDeckClickHandler = () => {
-    alert('learn logic')
+    navigate(cutStringParams(PATH.LEARN) + deckId)
   }
 
   const searchCardOnValueChange = (value: string) => {

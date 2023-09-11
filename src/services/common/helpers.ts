@@ -18,3 +18,9 @@ export function isErrorWithMessage(error: unknown): error is { message: string }
     typeof (error as any).message === 'string'
   )
 }
+// my func
+export const errorCommonHandler = (err: any): string => {
+  if (isFetchBaseQueryError(err) && err.status === 'FETCH_ERROR') return 'No internet connection'
+  if (typeof err?.data?.message === 'string') return err.data.message
+  else return 'Some error'
+}
