@@ -4,10 +4,11 @@ import { ModalsCardsVariant } from '../../../../pages/cards'
 import { PATH } from '../../../../routes'
 import { useDeleteCardMutation, useUpdateCardMutation } from '../../../../services/cards'
 import {
-  Card,
+  CardType,
   Deck,
   useCreateCardMutation,
   useDeleteDeckMutation,
+  useGetDeckQuery,
   useUpdateDeckMutation,
 } from '../../../../services/decks'
 import { CardFrom, FormValuesCreateCard } from '../../../cards/forms'
@@ -21,7 +22,7 @@ type CardModalLayoutProps = {
   modalType: ModalsCardsVariant
   setOpenModal: (variants: ModalsCardsVariant) => void
   deckData?: Deck
-  cardData?: Card
+  cardData?: CardType
   deckId: string
 }
 

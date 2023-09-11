@@ -7,7 +7,7 @@ import { z } from 'zod'
 
 import { ImageSvg } from '../../../assets/icons'
 import deckImg from '../../../assets/images/reactJS.png'
-import { Card } from '../../../services/decks'
+import { CardType } from '../../../services/decks'
 import Button from '../../ui/button/button'
 import { ControlledInput } from '../../ui/controlled/controlled-input'
 import { ModalFooter } from '../../ui/modal'
@@ -77,7 +77,7 @@ type CardFromProps = {
   submitTextButton: string
   onSubmit: (data: FormValuesCreateCard) => void
   setIsOpenModal: (isOpen: boolean) => void
-  defaultData?: Card
+  defaultData?: CardType
 }
 
 export const CardFrom = ({

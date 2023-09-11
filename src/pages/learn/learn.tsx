@@ -9,6 +9,7 @@ import { OptionRadio, RadioButtons } from '../../components/ui/radio-buttons'
 import { Typography } from '../../components/ui/Typography'
 import { PATH } from '../../routes'
 import {
+  CardType,
   useGetDeckQuery,
   useLazyRetriveRandomCardQuery,
   useSaveGradeCardMutation,
@@ -46,6 +47,7 @@ export const Learn = () => {
         const { deckId, id } = data
 
         updateGrade({ deckId, cardId: id, grade: +grade })
+        setIsShowAnswer(false)
         retriveRandomCard({ id: deckId, previousCardId: id })
       }
   }
@@ -62,28 +64,14 @@ export const Learn = () => {
         </Link>
       </Typography>
       <div className={style.questionContainer}>
-        <Typography as="h3" variant={'subtitle2'} style={{ margin: 0 }}>
-          Question:
-        </Typography>
-        <ImageCard
-          src={data?.questionImg ?? brokenImg}
-          alt="card question"
-          className={style.cardImgQuestion}
-        />
+        <ImageOrQuestion text={data?.question ?? ''} img={data?.questionImg} title="Question" />
         <Typography as="span" variant="subtitle2" style={{ opacity: 0.5 }}>
           Количество попыток ответов на вопрос: <b>{data?.shots}</b>
         </Typography>
         {!isShowAnswer && <Button onClick={() => setIsShowAnswer(true)}>Show Answer</Button>}
         {isShowAnswer && (
           <>
-            <Typography as="h3" variant={'subtitle2'} style={{ margin: 0 }}>
-              Answer:
-            </Typography>
-            <ImageCard
-              src={data?.questionImg ?? brokenImg}
-              alt="card answer"
-              className={style.cardImgQuestion}
-            />
+            <ImageOrQuestion text={data?.answer ?? ''} img={data?.answerImg} title="Answer" />
             <Typography as="h3" variant={'subtitle2'} style={{ margin: 0 }}>
               Rate yourself:
             </Typography>
@@ -103,3 +91,29 @@ const options: OptionRadio[] = [
   { value: '4', label: 'Confused' },
   { value: '5', label: 'Knew the answer' },
 ]
+
+const ImageOrQuestion = ({ img, text, title }: { text: string; img?: string; title: string }) => {
+  if (img) {
+    return (
+      <>
+        <Typography as="h3" variant={'subtitle2'} style={{ margin: 0 }}>
+          {title}:
+        </Typography>
+
+        <ImageCard src={img ?? brokenImg} alt={'card ' + title} className={style.cardImgQuestion} />
+      </>
+    )
+  }
+  if (text) {
+    return (
+      <div className={style.textContainer}>
+        <Typography as="h3" variant={'subtitle2'} style={{ margin: 0 }}>
+          {title}:
+        </Typography>
+        <Typography as="span" variant={'subtitle2'} style={{ margin: 0, marginLeft: '0.5rem' }}>
+          {text}
+        </Typography>
+      </div>
+    )
+  }
+}
