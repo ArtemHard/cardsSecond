@@ -7,9 +7,11 @@ import {
   QueryDefinition,
 } from '@reduxjs/toolkit/dist/query'
 import { LazyQueryTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks'
+import { toast } from 'react-toastify'
 
 import { TrashOutline } from '../../../assets/icons'
 import { Profile } from '../../../services/auth'
+import { errorCommonHandler } from '../../../services/common'
 import { Decks, GetDeckParams, useCreateDeckMutation } from '../../../services/decks'
 import { useDebounce } from '../../../utils/hooks'
 import Button from '../../ui/button/button'
@@ -83,6 +85,8 @@ export const DecksFilter = ({
       authorId: showAllDeck ? '' : userData?.id,
       orderBy: sort ? `${sort.key}-${sort.direction}` : '',
     })
+      .unwrap()
+      .catch(err => toast.error(errorCommonHandler(err)))
   }, [debouncedRange, debouncedSearch, showAllDeck, sort, page, perPage])
 
   useEffect(() => {
@@ -168,6 +172,7 @@ export const DecksFilter = ({
             buttons={swithButtonsParams}
             onValueChange={onValueChangeTabSwither}
             defaultValue={swithButtonsParams[1].value}
+            value={showAllDeck ? swithButtonsParams[1].value : swithButtonsParams[0].value}
           />
         </div>
         <div className={style.paramWrapper}>

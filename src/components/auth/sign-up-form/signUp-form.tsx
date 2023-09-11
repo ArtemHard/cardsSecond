@@ -1,4 +1,5 @@
 import { DevTool } from '@hookform/devtools'
+import { Link } from 'react-router-dom'
 
 import { PATH } from '../../../routes'
 import Button from '../../ui/button/button'
@@ -57,7 +58,7 @@ export const SignUpForm = ({ onSubmit, isSubmitting }: SignUpFormPropsType) => {
       <Typography variant="body2" className={style.dontHaveAccount}>
         {'Already have an account?'}
       </Typography>
-      <Typography as={'a'} href={PATH.LOGIN} className={style.signUpLink}>
+      <Typography as={Link} to={PATH.LOGIN} className={style.signUpLink}>
         Sign In
       </Typography>
     </Card>

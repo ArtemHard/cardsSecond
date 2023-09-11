@@ -9,6 +9,7 @@ import {
   FormValuesCreateDeck,
 } from '../../components/decks/decks-filters/create-deck-form'
 import { DecksFilter } from '../../components/decks/decks-filters/decks-filter'
+import { Loader } from '../../components/loader'
 import { Modal } from '../../components/ui/modal'
 import { Pagination } from '../../components/ui/pagination'
 import { TableBody, TableCell, TableRoot, TableRow } from '../../components/ui/table/body'
@@ -63,7 +64,7 @@ export const Decks = () => {
   const [perPage, setPerPage] = useState(50)
   const [page, setPage] = useState(1)
   const [getDecks, { data }] = useLazyGetDecksListQuery()
-  const { data: userData } = useAuthMeQuery()
+  const { data: userData, isLoading } = useAuthMeQuery()
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
   const navigate = useNavigate()
@@ -100,6 +101,8 @@ export const Decks = () => {
       return { cover, name, isPrivate }
     } else return undefined
   }
+
+  if (isLoading) return <Loader />
 
   return (
     <>

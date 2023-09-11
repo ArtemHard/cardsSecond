@@ -1,4 +1,5 @@
 import { DevTool } from '@hookform/devtools'
+import { Link } from 'react-router-dom'
 
 import { PATH } from '../../../routes'
 import Button from '../../ui/button/button'
@@ -54,8 +55,8 @@ export const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
         />
         <Typography
           variant="body2"
-          as="a"
-          href={PATH.FORGOT_PASSWORD}
+          as={Link}
+          to={PATH.FORGOT_PASSWORD}
           className={style.forgotPassword}
         >
           Forgot Password?
@@ -67,7 +68,7 @@ export const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
       <Typography variant="body2" className={style.dontHaveAccount}>
         {"Don't have an account?"}
       </Typography>
-      <Typography as={'a'} href={PATH.REGISTRATION} className={style.signUpLink}>
+      <Typography as={Link} to={PATH.REGISTRATION} className={style.signUpLink}>
         Sign Up
       </Typography>
     </Card>

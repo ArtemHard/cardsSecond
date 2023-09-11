@@ -24,6 +24,7 @@ export const TabSwither = ({
   defaultValue,
   onValueChange,
   className,
+  value,
   ref,
 }: TabSwitherProps) => {
   const onChange = (value: string) => {
@@ -35,6 +36,7 @@ export const TabSwither = ({
       onValueChange={onChange}
       className={clsx(style.TabsRoot, className)}
       defaultValue={defaultValue}
+      value={value}
       ref={ref}
     >
       <Tabs.List className={style['TabsList']} aria-label="Choose option">
