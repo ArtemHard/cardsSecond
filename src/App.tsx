@@ -8,7 +8,7 @@ import { useAuthMeQuery, useLogOutMutation } from './services/auth'
 import 'react-toastify/dist/ReactToastify.css'
 
 export function App() {
-  const { data, isLoading } = useAuthMeQuery()
+  const { data } = useAuthMeQuery()
   const [signOut] = useLogOutMutation()
   const userInfo = data
     ? { name: data?.name, email: data?.email, avatarSrc: data.avatar }
