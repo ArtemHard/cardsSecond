@@ -9,7 +9,6 @@ import { OptionRadio, RadioButtons } from '../../components/ui/radio-buttons'
 import { Typography } from '../../components/ui/Typography'
 import { PATH } from '../../routes'
 import {
-  CardType,
   useGetDeckQuery,
   useLazyRetriveRandomCardQuery,
   useSaveGradeCardMutation,
@@ -115,5 +114,5 @@ const ImageOrQuestion = ({ img, text, title }: { text: string; img?: string; tit
         </Typography>
       </div>
     )
-  }
+  } else return 'Bag in ImageOrQuestion Component'
 }

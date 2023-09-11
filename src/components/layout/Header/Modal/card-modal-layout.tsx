@@ -8,7 +8,6 @@ import {
   Deck,
   useCreateCardMutation,
   useDeleteDeckMutation,
-  useGetDeckQuery,
   useUpdateDeckMutation,
 } from '../../../../services/decks'
 import { CardFrom, FormValuesCreateCard } from '../../../cards/forms'
