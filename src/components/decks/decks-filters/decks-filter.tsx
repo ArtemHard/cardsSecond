@@ -64,14 +64,6 @@ export const DecksFilter = ({
   const [range, setRange] = useState([0, 100])
   const [rangeValue, setRangeValue] = useState([0, 100])
   const [isOpenModal, setIsOpenModal] = useState(false)
-  // const getDecksParams = {
-  //   itemsPerPage: 100,
-  //   minCardsCount: range[0],
-  //   maxCardsCount: range[1],
-  //   name: search,
-  //   authorId: showAllDeck ? '' : userData?.id,
-  //   orderBy: sort ? `${sort.key}-${sort.direction}` : '',
-  // }
   const debouncedSearch = useDebounce(search, 800)
   const debouncedRange = useDebounce(range, 1200)
 

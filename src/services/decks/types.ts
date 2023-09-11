@@ -4,7 +4,7 @@ export type Decks = {
   maxCardsCount: number
 }
 export type Cards = {
-  items: Card[]
+  items: CardType[]
 } & Pick<Decks, 'pagination'>
 
 export type Pagination = {
@@ -53,7 +53,7 @@ export type RetriveCardsInDeckParams = {
   itemsPerPage?: string
 }
 
-export type Card = {
+export type CardType = {
   id: string
   deckId: string
   userId: string

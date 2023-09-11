@@ -1,7 +1,7 @@
 import { baseApi } from '../common/base-api'
 
 import type {
-  Card,
+  CardType,
   Cards,
   Deck,
   DeckId,
@@ -23,6 +23,7 @@ export const decksApi = baseApi.injectEndpoints({
       query: ({ id }) => ({
         url: 'decks/' + id,
       }),
+      providesTags: ['deckInfo'],
     }),
     createDeck: builder.mutation<Deck, FormData>({
       query: data => ({
@@ -64,7 +65,24 @@ export const decksApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body: formdata,
       }),
-      invalidatesTags: ['Decks'],
+      // async onQueryStarted(arg, { dispatch, getState, queryFulfilled }) {
+      //   const res = await queryFulfilled
+
+      //   console.log(res)
+
+      //   const patchResult = dispatch(
+      //     decksApi.util.updateQueryData('getDeck', { id: arg.id }, draft => {
+      //       Object.assign(draft, res.data)
+      //     })
+      //   )
+
+      //   try {
+      //     await queryFulfilled
+      //   } catch {
+      //     patchResult.undo()
+      //   }
+      // },
+      invalidatesTags: ['Decks', 'deckInfo'],
     }),
     deleteDeck: builder.mutation<Omit<Deck, 'author'>, Deck['id']>({
       query: id => ({
@@ -80,7 +98,7 @@ export const decksApi = baseApi.injectEndpoints({
       }),
       providesTags: ['cards'],
     }),
-    createCard: builder.mutation<Card, DeckId & { formdata: FormData }>({
+    createCard: builder.mutation<CardType, DeckId & { formdata: FormData }>({
       query: ({ id, formdata }) => ({
         url: `decks/${id}/cards`,
         method: 'POST',
@@ -88,7 +106,7 @@ export const decksApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['cards'],
     }),
-    retriveRandomCard: builder.query<Card, DeckId & { previousCardId?: string }>({
+    retriveRandomCard: builder.query<CardType, DeckId & { previousCardId?: string }>({
       query: ({ id, ...previousCardId }) => ({
         url: `decks/${id}/learn`,
         params: previousCardId,
@@ -96,7 +114,7 @@ export const decksApi = baseApi.injectEndpoints({
     }),
     saveGradeCard: builder.mutation<
       unknown,
-      { deckId: Deck['id']; cardId: Card['id']; grade: Card['grade'] }
+      { deckId: Deck['id']; cardId: CardType['id']; grade: CardType['grade'] }
     >({
       query: ({ deckId, ...restArgs }) => ({
         url: `decks/${deckId}/learn`,

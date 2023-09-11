@@ -26,7 +26,7 @@ import { Typography } from '../../components/ui/Typography'
 import { PATH } from '../../routes'
 import { useAuthMeQuery } from '../../services/auth'
 import { useActions } from '../../services/common/useActions'
-import { Card, useGetDeckQuery, useRetriveCardsInDeckQuery } from '../../services/decks'
+import { CardType, useGetDeckQuery, useRetriveCardsInDeckQuery } from '../../services/decks'
 import { cutStringParams, formatDate } from '../../utils'
 import { useDebounce } from '../../utils/hooks'
 import { buttonActionStyle, ImageCard } from '../decks'
@@ -47,7 +47,7 @@ export const Cards = () => {
   const { deckId } = useParams()
   const [skip, setSkip] = useState(true)
   const [openModal, setOpenModal] = useState<ModalsCardsVariant | null>(null)
-  const [currentEditCardData, setCurrentEditCardData] = useState<Card | undefined>(undefined)
+  const [currentEditCardData, setCurrentEditCardData] = useState<CardType | undefined>(undefined)
   const navigate = useNavigate()
   const id = useAppSelector(selectorDeckId)
   const question = useAppSelector(selectorCardsQuestion)

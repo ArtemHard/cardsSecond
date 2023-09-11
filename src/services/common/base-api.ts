@@ -5,6 +5,6 @@ import { customFetchBase } from './base-api-with-refresh'
 export const baseApi = createApi({
   reducerPath: 'baseApi',
   baseQuery: customFetchBase,
-  tagTypes: ['me', 'Decks', 'cards'],
+  tagTypes: ['me', 'Decks', 'cards', 'deckInfo'],
   endpoints: () => ({}),
 })

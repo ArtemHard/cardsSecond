@@ -1,15 +1,15 @@
 import { RootState } from '../../app/store'
 import { baseApi } from '../common/base-api'
-import { Card, decksApi } from '../decks'
+import { CardType, decksApi } from '../decks'
 
 const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getCard: builder.query<Card, string>({
+    getCard: builder.query<CardType, string>({
       query: id => ({
         url: 'cards/' + id,
       }),
     }),
-    updateCard: builder.mutation<Card, { id: Card['id']; formdata: FormData }>({
+    updateCard: builder.mutation<CardType, { id: CardType['id']; formdata: FormData }>({
       query: ({ id, formdata }) => ({
         url: 'cards/' + id,
         method: 'PATCH',
@@ -18,7 +18,7 @@ const cardsApi = baseApi.injectEndpoints({
       invalidatesTags: ['cards'],
     }),
 
-    deleteCard: builder.mutation<void, Card['id']>({
+    deleteCard: builder.mutation<void, CardType['id']>({
       query: id => ({
         url: `cards/${id}`,
         method: 'DELETE',
