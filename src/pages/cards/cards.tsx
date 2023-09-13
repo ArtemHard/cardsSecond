@@ -277,7 +277,7 @@ export const Cards = () => {
         <div className={style.paginationContainer}>
           <Pagination
             perPageOptions={[10, 20, 30, 50, 100]}
-            count={data?.pagination?.totalItems ?? 0}
+            count={data?.pagination?.totalPages ?? 0}
             onChange={onChangePage}
             onPerPageChange={onChangeItemsPerPage}
             page={currentPage ? +currentPage : 1}

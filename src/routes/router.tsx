@@ -3,7 +3,9 @@ import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router
 import { App } from '../App'
 import { Loader } from '../components/loader'
 import { Cards } from '../pages/cards'
+import { CheckEmailPage } from '../pages/check-email'
 import { Decks } from '../pages/decks'
+import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password'
 import { Learn } from '../pages/learn'
 import { Profile } from '../pages/profile/profile'
 import { SignInPage } from '../pages/sign-in'
@@ -24,11 +26,11 @@ const publicRoutes: RouteObject[] = [
   },
   {
     path: PATH.CHECK_EMAIL,
-    element: <div>CHECK_EMAIL</div>,
+    element: <CheckEmailPage />,
   },
   {
     path: PATH.FORGOT_PASSWORD,
-    element: <div>FORGOT_PASSWORD</div>,
+    element: <ForgotPasswordPage />,
   },
   {
     path: PATH.SET_NEW_PASSWORD,

@@ -66,8 +66,8 @@ export const CardModalLayout = ({
         })
         .catch(() => alert('Error'))
     }
-    if (newFormDataLength.length && deckId && modalType === 'Edit Card') {
-      updateCard({ id: deckId, formdata: newFormData })
+    if (newFormDataLength.length && cardData?.id && modalType === 'Edit Card') {
+      updateCard({ id: cardData?.id, formdata: newFormData })
         .unwrap()
         .then(() => {
           setOpenModal(null)

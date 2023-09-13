@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import { CheckEmailSvg } from '../../../assets/icons/CheckEmailSvg'
 import { PATH } from '../../../routes'
 import Button from '../../ui/button/button'
@@ -22,7 +24,7 @@ export const CheckEmail = ({ email }: CheckEmailProps) => {
       <Typography variant="body2" className={style.text}>
         We’ve sent an Email with instructions to {email}
       </Typography>
-      <Button as={'a'} path={PATH.LOGIN} fullWidth className={style.button}>
+      <Button as={Link} to={PATH.LOGIN} fullWidth className={style.button}>
         Back to Sign In
       </Button>
     </Card>

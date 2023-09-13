@@ -22,9 +22,9 @@ export type LoginResponse = {
 }
 
 export type ResendVerificationEmailArgs = {
-  html: string
-  userId: string
-  subject: string
+  html?: string
+  email: string
+  subject?: string
 }
 export type RecoveryPasswordArgsArgs = Omit<ResendVerificationEmailArgs, 'userId'> & {
   email: string

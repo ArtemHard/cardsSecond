@@ -193,7 +193,7 @@ export const Decks = () => {
         <div className={style.paginationContainer}>
           <Pagination
             perPageOptions={[10, 20, 30, 50, 100]}
-            count={data?.maxCardsCount ?? 0}
+            count={data?.pagination.totalPages ?? 0}
             onChange={setPage}
             onPerPageChange={setPerPage}
             page={page}

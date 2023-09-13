@@ -6,11 +6,11 @@ const schema = z.object({
   email: z.string().trim().nonempty('Enter email').email({ message: 'Invalid email address' }),
 })
 
-export type FormValues = z.infer<typeof schema>
-export type ForgotPasswordFormProps = { onSubmit: (data: FormValues) => void }
+export type RecoverPasswordValues = z.infer<typeof schema>
+export type ForgotPasswordFormProps = { onSubmit: (data: RecoverPasswordValues) => void }
 
 export const useForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
-  const { handleSubmit, ...rest } = useForm<FormValues>({
+  const { handleSubmit, ...rest } = useForm<RecoverPasswordValues>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
   })
