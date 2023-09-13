@@ -113,7 +113,7 @@ const authApi = baseApi.injectEndpoints({
     }),
     recoverPassword: builder.mutation<void, ResendVerificationEmailArgs>({
       query: body => ({
-        url: 'auth/resend-verification-email',
+        url: 'auth/recover-password',
         method: 'POST',
         body: body,
       }),
@@ -138,4 +138,5 @@ export const {
   useLogOutMutation,
   useLazyAuthMeQuery,
   useUpdateUserMutation,
+  useRecoverPasswordMutation,
 } = authApi

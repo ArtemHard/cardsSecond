@@ -4,8 +4,11 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { cardsReducer } from '../pages/cards'
 import { baseApi } from '../services/common/base-api'
 
+import { appReducer } from './app.slice'
+
 export const store = configureStore({
   reducer: {
+    app: appReducer,
     cards: cardsReducer,
     [baseApi.reducerPath]: baseApi.reducer,
   },

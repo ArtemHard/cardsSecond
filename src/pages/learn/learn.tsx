@@ -18,11 +18,13 @@ import { ImageCard } from '../decks'
 
 import style from './learn.module.scss'
 
+const defaultGrade = 1
+
 export const Learn = () => {
   const { deckId } = useParams()
 
   const [isShowAnswer, setIsShowAnswer] = useState(false)
-  const [grade, setGrade] = useState<number>()
+  const [grade, setGrade] = useState<number>(defaultGrade)
   const [retriveRandomCard, { data }] = useLazyRetriveRandomCardQuery()
   const [updateGrade] = useSaveGradeCardMutation()
 
@@ -47,6 +49,7 @@ export const Learn = () => {
 
         updateGrade({ deckId, cardId: id, grade: +grade })
         setIsShowAnswer(false)
+        setGrade(defaultGrade)
         retriveRandomCard({ id: deckId, previousCardId: id })
       }
   }
