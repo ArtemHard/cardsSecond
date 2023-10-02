@@ -120,12 +120,11 @@ const authApi = baseApi.injectEndpoints({
     }),
     resetPassword: builder.mutation<void, Pick<SignUpArgs, 'password'> & { token: string }>({
       query: body => ({
-        url: 'auth/resend-verification-email',
+        url: 'auth/reset-password/' + body.token,
         method: 'POST',
-        params: {
-          token: body.token,
+        body: {
+          password: body.password,
         },
-        body: body.password,
       }),
     }),
   }),
@@ -139,4 +138,5 @@ export const {
   useLazyAuthMeQuery,
   useUpdateUserMutation,
   useRecoverPasswordMutation,
+  useResetPasswordMutation,
 } = authApi

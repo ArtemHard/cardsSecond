@@ -8,6 +8,7 @@ import { Decks } from '../pages/decks'
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password'
 import { Learn } from '../pages/learn'
 import { Profile } from '../pages/profile/profile'
+import { SetNewPasswordPage } from '../pages/set-new-password'
 import { SignInPage } from '../pages/sign-in'
 import { SignUpPage } from '../pages/sign-up'
 import { useAuthMeQuery } from '../services/auth'
@@ -34,7 +35,7 @@ const publicRoutes: RouteObject[] = [
   },
   {
     path: PATH.SET_NEW_PASSWORD,
-    element: <div>SET_PASSWORD</div>,
+    element: <SetNewPasswordPage />,
   },
 ]
 

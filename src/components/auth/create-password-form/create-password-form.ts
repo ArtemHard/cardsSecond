@@ -10,11 +10,11 @@ const schema = z.object({
     .nonempty('Enter password'),
 })
 
-export type FormValues = z.infer<typeof schema>
-export type CreatePasswordFormProps = { onSubmit: (data: FormValues) => void }
+export type FormValuesCreatePassword = z.infer<typeof schema>
+export type CreatePasswordFormProps = { onSubmit: (data: FormValuesCreatePassword) => void }
 
 export const useCreatePasswordForm = ({ onSubmit }: CreatePasswordFormProps) => {
-  const { handleSubmit, ...rest } = useForm<FormValues>({
+  const { handleSubmit, ...rest } = useForm<FormValuesCreatePassword>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
   })

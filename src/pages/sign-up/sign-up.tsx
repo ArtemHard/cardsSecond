@@ -22,7 +22,8 @@ export const SignUpPage = () => {
     signUp({ email, password, sendConfirmationEmail: false })
       .unwrap()
       .then(() => {
-        navigate(PATH.DECKS)
+        toast.success('register was sucess')
+        navigate(PATH.LOGIN)
       })
       .catch(err => {
         toast.error(errorCommonHandler(err))

@@ -16,7 +16,10 @@ export const ForgotPasswordPage = () => {
   const [recoverPassword] = useRecoverPasswordMutation()
   const navigate = useNavigate()
   const onSubmit = (data: RecoverPasswordValues) => {
-    recoverPassword({ email: data.email })
+    recoverPassword({
+      email: data.email,
+      html: "<h1>Hi, ##name##</h1><p>Click <a href='https://cards-ecru-three.vercel.app/set-new-password/##token##'>here</a> to recover your password</p>",
+    })
       .unwrap()
       .then(() => {
         updateEmail(data.email)
