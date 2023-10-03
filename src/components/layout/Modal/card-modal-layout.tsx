@@ -103,7 +103,8 @@ export const CardModalLayout = ({
       const newFormData = new FormData()
 
       newFormData.append('name', data.name)
-      if (data?.cover[0]) newFormData.append('cover', data.cover[0])
+
+      if (data.cover && data?.cover[0]) newFormData.append('cover', data.cover[0])
       if (typeof data?.isPrivate === 'boolean')
         newFormData.append('isPrivate', JSON.stringify(data.isPrivate))
       if (deckData?.id) {

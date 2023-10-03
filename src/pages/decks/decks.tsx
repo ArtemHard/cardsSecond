@@ -1,14 +1,9 @@
 import { ComponentPropsWithoutRef, useState } from 'react'
 
 import { Link, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
 
 import { EditPenSvg, PlayCircleOutlineSvg, TrashOutline } from '../../assets/icons'
 import deckImg from '../../assets/images/reactJS.png'
-import {
-  DeckModal,
-  FormValuesCreateDeck,
-} from '../../components/decks/decks-filters/create-deck-form'
 import { DecksFilter } from '../../components/decks/decks-filters/decks-filter'
 import { CardModalLayout } from '../../components/layout/Modal'
 import { Loader } from '../../components/loader'
@@ -20,14 +15,7 @@ import { TableHeader } from '../../components/ui/table/header'
 import { Typography } from '../../components/ui/Typography'
 import { PATH } from '../../routes'
 import { useAuthMeQuery } from '../../services/auth'
-import { errorCommonHandler } from '../../services/common'
-import {
-  Deck,
-  DeckId,
-  useDeleteDeckMutation,
-  useLazyGetDecksListQuery,
-  useUpdateDeckMutation,
-} from '../../services/decks'
+import { Deck, useLazyGetDecksListQuery } from '../../services/decks'
 import { cutStringParams, formatDate } from '../../utils'
 import { ModalsCardsVariant } from '../cards'
 
@@ -62,18 +50,13 @@ const columns: Column[] = [
 
 export const Decks = () => {
   const [sort, setSort] = useState<Sort>(null)
-  const [isEditDeckModal, setIsEditDeckModal] = useState(false)
   const [openModal, setOpenModal] = useState<ModalsCardsVariant | null>(null)
   const [deckData, setDeckData] = useState<Deck | null>(null)
-  const [currentEditDeckData, setCurrentEditDeckData] = useState<
-    (FormValuesCreateDeck & DeckId) | null
-  >()
+
   const [perPage, setPerPage] = useState(50)
   const [page, setPage] = useState(1)
   const [getDecks, { data }] = useLazyGetDecksListQuery()
   const { data: userData, isLoading } = useAuthMeQuery()
-  // const [deleteDeck] = useDeleteDeckMutation()
-  const [updateDeck] = useUpdateDeckMutation()
   const navigate = useNavigate()
 
   const learnPackHandler = (deckId: string) => () => {
@@ -83,32 +66,6 @@ export const Decks = () => {
   const deleteDeckHandler = (deck: Deck) => () => {
     setOpenModal('Delete Deck')
     setDeckData(deck)
-  }
-
-  const onSubmitUpdateModalHandler = (data: FormValuesCreateDeck) => {
-    const newFormData = new FormData()
-
-    newFormData.append('name', data.name)
-    if (data?.cover) newFormData.append('cover', data.cover[0])
-    if (typeof data?.isPrivate === 'boolean')
-      newFormData.append('isPrivate', JSON.stringify(data.isPrivate))
-
-    if (currentEditDeckData?.id) {
-      updateDeck({ id: currentEditDeckData?.id, formdata: newFormData })
-        .unwrap()
-        .then(() => {
-          setIsEditDeckModal(false)
-        })
-        .catch(err => toast.error(errorCommonHandler(err)))
-    }
-  }
-
-  const defaultData = () => {
-    if (currentEditDeckData) {
-      const { cover, name, isPrivate } = currentEditDeckData
-
-      return { cover, name, isPrivate }
-    } else return undefined
   }
 
   const ModalChangeType = (value: ModalsCardsVariant | null) => (open: boolean) => {
@@ -128,14 +85,6 @@ export const Decks = () => {
         perPage={perPage}
         page={page}
       />
-      {/* <Modal title="Edit Deck" onOpenChange={setIsEditDeckModal} open={isEditDeckModal}>
-        <DeckModal
-          setIsOpenModal={setIsEditDeckModal}
-          onSubmit={onSubmitUpdateModalHandler}
-          defaultData={defaultData()}
-          submitTextButton="Update Deck"
-        />
-      </Modal> */}
       <Modal title={openModal ?? ''} onOpenChange={ModalChangeType(openModal)} open={!!openModal}>
         <CardModalLayout
           setOpenModal={setOpenModal}
@@ -188,12 +137,8 @@ export const Decks = () => {
                       style={buttonActionStyle(isMyDeck)}
                       disabled={!isMyDeck}
                       onClick={() => {
-                        const { id, cover, name, isPrivate } = deck
-
                         setOpenModal('Edit Deck')
                         setDeckData(deck)
-                        setCurrentEditDeckData({ id, name, cover, isPrivate })
-                        setIsEditDeckModal(true)
                       }}
                     >
                       <EditPenSvg />
