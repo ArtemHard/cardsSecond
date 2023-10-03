@@ -11,7 +11,7 @@ import {
   TrashOutline,
 } from '../../assets/icons'
 import deckBrokenImg from '../../assets/images/reactJS.png'
-import { CardModalLayout } from '../../components/layout/Header/Modal'
+import { CardModalLayout } from '../../components/layout/Modal'
 import { Loader } from '../../components/loader'
 import Button from '../../components/ui/button/button'
 import { DropDownMenu, DropDownMenuIcon } from '../../components/ui/drop-down-menu'

@@ -1,4 +1,3 @@
-import { DevTool } from '@hookform/devtools'
 import { Link } from 'react-router-dom'
 
 import { PATH } from '../../../routes'
@@ -28,7 +27,6 @@ export const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
         Sign In
       </Typography>
       <form onSubmit={handleSubmit}>
-        <DevTool control={control} />
         <ControlledInput
           control={control}
           name="email"

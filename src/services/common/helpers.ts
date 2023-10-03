@@ -22,5 +22,7 @@ export function isErrorWithMessage(error: unknown): error is { message: string }
 export const errorCommonHandler = (err: any): string => {
   if (isFetchBaseQueryError(err) && err.status === 'FETCH_ERROR') return 'No internet connection'
   if (typeof err?.data?.message === 'string') return err.data.message
+  if (typeof err?.data?.errorMessages[0]?.message === 'string')
+    return err?.data?.errorMessages[0]?.message
   else return 'Some error'
 }

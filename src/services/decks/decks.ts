@@ -1,3 +1,4 @@
+import { RootState } from '../../app/store'
 import { baseApi } from '../common/base-api'
 
 import type {
@@ -65,23 +66,47 @@ export const decksApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body: formdata,
       }),
-      // async onQueryStarted(arg, { dispatch, getState, queryFulfilled }) {
-      //   const res = await queryFulfilled
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        const cover = arg.formdata.get('cover')
+        const name = arg.formdata.get('name')
 
-      //   console.log(res)
+        let coverUrl: string | null = null
 
-      //   const patchResult = dispatch(
-      //     decksApi.util.updateQueryData('getDeck', { id: arg.id }, draft => {
-      //       Object.assign(draft, res.data)
-      //     })
-      //   )
+        if (cover instanceof File) {
+          if (cover.type && cover.type.indexOf('image') !== -1) {
+            const blobToUrl = (blob: File) =>
+              new Promise((resolve, reject) => {
+                const reader = new FileReader()
 
-      //   try {
-      //     await queryFulfilled
-      //   } catch {
-      //     patchResult.undo()
-      //   }
-      // },
+                reader.readAsDataURL(blob)
+                reader.onload = () => resolve(reader.result)
+                reader.onerror = error => reject(error)
+              })
+
+            await blobToUrl(cover).then(res => {
+              if (typeof res == 'string') {
+                coverUrl = res
+              }
+            })
+          }
+        }
+        const patchResult = dispatch(
+          decksApi.util.updateQueryData('getDeck', { id: arg.id }, draft => {
+            if (typeof coverUrl === 'string') {
+              draft.cover = coverUrl
+            }
+            if (typeof name === 'string') {
+              draft.name = name
+            }
+          })
+        )
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
+        }
+      },
       invalidatesTags: ['Decks', 'deckInfo'],
     }),
     deleteDeck: builder.mutation<Omit<Deck, 'author'>, Deck['id']>({

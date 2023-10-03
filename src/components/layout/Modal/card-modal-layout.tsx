@@ -1,21 +1,23 @@
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
-import { ModalsCardsVariant } from '../../../../pages/cards'
-import { PATH } from '../../../../routes'
-import { useDeleteCardMutation, useUpdateCardMutation } from '../../../../services/cards'
+import { ModalsCardsVariant } from '../../../pages/cards'
+import { PATH } from '../../../routes'
+import { useDeleteCardMutation, useUpdateCardMutation } from '../../../services/cards'
+import { errorCommonHandler } from '../../../services/common'
 import {
   CardType,
   Deck,
   useCreateCardMutation,
   useDeleteDeckMutation,
   useUpdateDeckMutation,
-} from '../../../../services/decks'
-import { CardFrom, FormValuesCreateCard } from '../../../cards/forms'
-import { FormValuesCreateDeck } from '../../../decks/decks-filters'
-import { DeckModal } from '../../../decks/decks-filters/create-deck-form'
-import Button from '../../../ui/button/button'
-import { ModalContentText, ModalFooter } from '../../../ui/modal'
-import { Typography } from '../../../ui/Typography'
+} from '../../../services/decks'
+import { CardFrom, FormValuesCreateCard } from '../../cards/forms'
+import { FormValuesCreateDeck } from '../../decks/decks-filters'
+import { DeckModal } from '../../decks/decks-filters/create-deck-form'
+import Button from '../../ui/button/button'
+import { ModalContentText, ModalFooter } from '../../ui/modal'
+import { Typography } from '../../ui/Typography'
 
 type CardModalLayoutProps = {
   modalType: ModalsCardsVariant
@@ -105,11 +107,10 @@ export const CardModalLayout = ({
       if (typeof data?.isPrivate === 'boolean')
         newFormData.append('isPrivate', JSON.stringify(data.isPrivate))
       if (deckData?.id) {
+        setOpenModal(null)
         updateDeck({ id: deckData?.id, formdata: newFormData })
           .unwrap()
-          .then(() => {
-            setOpenModal(null)
-          })
+          .catch(err => toast.error(errorCommonHandler(err)))
       }
     }
 
@@ -127,8 +128,8 @@ export const CardModalLayout = ({
       deleteDeck(deckId)
         .unwrap()
         .then(() => {
-          // setOpenModal(null)
-          alert('deck was deleted')
+          setOpenModal(null)
+          toast.success('deck was deleted')
           navigate(PATH.DECKS)
         })
         .catch(() => {})

@@ -11,13 +11,24 @@ input {
   background-color: transparent;
   cursor: pointer;
 }
+// .DialogOverlay {
+//   background-color: var(--color-dark-500);
+//   animation: overlayShow 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+//   position: fixed;
+//   background-color: rgb(0 0 0 / 50%);
+//   // z-index: 100;
+//   inset: 0;
+// }
 .DialogOverlay {
-  background-color: var(--color-dark-500);
-  animation: overlayShow 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(0 0 0 / 0.5);
   position: fixed;
-  background-color: rgb(0 0 0 / 50%);
-  // z-index: 100;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
 }
 
 .DialogContent {

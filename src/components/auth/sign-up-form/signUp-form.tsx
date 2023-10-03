@@ -1,4 +1,3 @@
-import { DevTool } from '@hookform/devtools'
 import { Link } from 'react-router-dom'
 
 import { PATH } from '../../../routes'
@@ -29,7 +28,6 @@ export const SignUpForm = ({ onSubmit, isSubmitting }: SignUpFormPropsType) => {
         Sign Up
       </Typography>
       <form onSubmit={handleSubmit}>
-        <DevTool control={control} />
         <Input
           {...register('email')}
           errorMessage={errors.email?.message}

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FieldPath, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -92,7 +91,13 @@ export const CardFrom = ({
     if (value === 'Picture' || value === 'Text') setFormat(value)
   }
 
-  const { handleSubmit, register, control, watch } = useForm<FormValuesCreateCard>({
+  const {
+    handleSubmit,
+    register,
+    control,
+    watch,
+    formState: { errors },
+  } = useForm<FormValuesCreateCard>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
     defaultValues: {
@@ -129,7 +134,6 @@ export const CardFrom = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={style.paramsContainer}>
-      <DevTool control={control} />
       <div>
         <SelectRoot
           onValueChange={onChange}
@@ -140,8 +144,20 @@ export const CardFrom = ({
       </div>
       {format === 'Text' && (
         <>
-          <ControlledInput type={'text'} control={control} name="question" label="Question" />
-          <ControlledInput type={'text'} control={control} name="answer" label="Answer" />
+          <ControlledInput
+            type={'text'}
+            control={control}
+            name="question"
+            label="Question"
+            errorMessage={errors.question?.message}
+          />
+          <ControlledInput
+            type={'text'}
+            control={control}
+            name="answer"
+            label="Answer"
+            errorMessage={errors.answer?.message}
+          />
         </>
       )}
 

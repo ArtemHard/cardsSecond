@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, useState } from 'react'
 
 import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { EditPenSvg, PlayCircleOutlineSvg, TrashOutline } from '../../assets/icons'
 import deckImg from '../../assets/images/reactJS.png'
@@ -9,6 +10,7 @@ import {
   FormValuesCreateDeck,
 } from '../../components/decks/decks-filters/create-deck-form'
 import { DecksFilter } from '../../components/decks/decks-filters/decks-filter'
+import { CardModalLayout } from '../../components/layout/Modal'
 import { Loader } from '../../components/loader'
 import { Modal } from '../../components/ui/modal'
 import { Pagination } from '../../components/ui/pagination'
@@ -18,13 +20,16 @@ import { TableHeader } from '../../components/ui/table/header'
 import { Typography } from '../../components/ui/Typography'
 import { PATH } from '../../routes'
 import { useAuthMeQuery } from '../../services/auth'
+import { errorCommonHandler } from '../../services/common'
 import {
+  Deck,
   DeckId,
   useDeleteDeckMutation,
   useLazyGetDecksListQuery,
   useUpdateDeckMutation,
 } from '../../services/decks'
 import { cutStringParams, formatDate } from '../../utils'
+import { ModalsCardsVariant } from '../cards'
 
 import style from './decks.style.module.scss'
 
@@ -58,6 +63,8 @@ const columns: Column[] = [
 export const Decks = () => {
   const [sort, setSort] = useState<Sort>(null)
   const [isEditDeckModal, setIsEditDeckModal] = useState(false)
+  const [openModal, setOpenModal] = useState<ModalsCardsVariant | null>(null)
+  const [deckData, setDeckData] = useState<Deck | null>(null)
   const [currentEditDeckData, setCurrentEditDeckData] = useState<
     (FormValuesCreateDeck & DeckId) | null
   >()
@@ -65,7 +72,7 @@ export const Decks = () => {
   const [page, setPage] = useState(1)
   const [getDecks, { data }] = useLazyGetDecksListQuery()
   const { data: userData, isLoading } = useAuthMeQuery()
-  const [deleteDeck] = useDeleteDeckMutation()
+  // const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
   const navigate = useNavigate()
 
@@ -73,8 +80,9 @@ export const Decks = () => {
     navigate(/learn/ + deckId)
   }
 
-  const deleteDeckHandler = (deckId: string) => () => {
-    deleteDeck(deckId)
+  const deleteDeckHandler = (deck: Deck) => () => {
+    setOpenModal('Delete Deck')
+    setDeckData(deck)
   }
 
   const onSubmitUpdateModalHandler = (data: FormValuesCreateDeck) => {
@@ -91,6 +99,7 @@ export const Decks = () => {
         .then(() => {
           setIsEditDeckModal(false)
         })
+        .catch(err => toast.error(errorCommonHandler(err)))
     }
   }
 
@@ -100,6 +109,10 @@ export const Decks = () => {
 
       return { cover, name, isPrivate }
     } else return undefined
+  }
+
+  const ModalChangeType = (value: ModalsCardsVariant | null) => (open: boolean) => {
+    open ? setOpenModal(value) : setOpenModal(null)
   }
 
   if (isLoading) return <Loader />
@@ -115,12 +128,20 @@ export const Decks = () => {
         perPage={perPage}
         page={page}
       />
-      <Modal title="Edit Deck" onOpenChange={setIsEditDeckModal} open={isEditDeckModal}>
+      {/* <Modal title="Edit Deck" onOpenChange={setIsEditDeckModal} open={isEditDeckModal}>
         <DeckModal
           setIsOpenModal={setIsEditDeckModal}
           onSubmit={onSubmitUpdateModalHandler}
           defaultData={defaultData()}
           submitTextButton="Update Deck"
+        />
+      </Modal> */}
+      <Modal title={openModal ?? ''} onOpenChange={ModalChangeType(openModal)} open={!!openModal}>
+        <CardModalLayout
+          setOpenModal={setOpenModal}
+          modalType={openModal}
+          deckData={deckData ?? undefined}
+          deckId={deckData?.id ?? ''}
         />
       </Modal>
       <TableRoot className={style.tableRoot}>
@@ -169,6 +190,8 @@ export const Decks = () => {
                       onClick={() => {
                         const { id, cover, name, isPrivate } = deck
 
+                        setOpenModal('Edit Deck')
+                        setDeckData(deck)
                         setCurrentEditDeckData({ id, name, cover, isPrivate })
                         setIsEditDeckModal(true)
                       }}
@@ -178,7 +201,7 @@ export const Decks = () => {
                     <button
                       style={buttonActionStyle(isMyDeck)}
                       disabled={!isMyDeck}
-                      onClick={deleteDeckHandler(deck.id)}
+                      onClick={deleteDeckHandler(deck)}
                     >
                       <TrashOutline />
                     </button>

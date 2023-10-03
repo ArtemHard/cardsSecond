@@ -1,5 +1,3 @@
-import { DevTool } from '@hookform/devtools'
-
 import { useAddDeckForm, useAddDeckFormType } from '..'
 import { ImageSvg } from '../../../../assets/icons'
 import deckImg from '../../../../assets/images/reactJS.png'
@@ -22,7 +20,13 @@ export const DeckModal = ({
   defaultData,
   submitTextButton,
 }: CreateDeckFromProps) => {
-  const { handleSubmit, register, control, watch } = useAddDeckForm({
+  const {
+    handleSubmit,
+    register,
+    control,
+    watch,
+    formState: { errors },
+  } = useAddDeckForm({
     onSubmit: onSubmit,
     defaultData,
   })
@@ -38,7 +42,6 @@ export const DeckModal = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <DevTool control={control} />
       <img src={checkCoverType(watch('cover')) ?? deckImg} className={style.deckImg}></img>
       <Button as="label" variant="secondary" fullWidth={true} className={style.addCoverBtn}>
         <ImageSvg />
@@ -53,6 +56,7 @@ export const DeckModal = ({
         name="name"
         label="Name Pack"
         className={style.packNameInput}
+        errorMessage={errors.name?.message}
       />
       <ControlledCheckbox
         control={control}
