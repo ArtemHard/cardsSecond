@@ -2,6 +2,7 @@ import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router
 
 import { App } from '../App'
 import { Loader } from '../components/loader'
+import { ErrorPage } from '../pages/404/ErrorPage'
 import { Cards } from '../pages/cards'
 import { CheckEmailPage } from '../pages/check-email'
 import { Decks } from '../pages/decks'
@@ -70,6 +71,7 @@ function PrivateRoutes() {
 export const router = createBrowserRouter([
   {
     element: <GlobalHistory />,
+    errorElement: <ErrorPage />,
     children: [
       {
         // path: '/',

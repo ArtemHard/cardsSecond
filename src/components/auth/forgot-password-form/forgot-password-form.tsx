@@ -37,7 +37,7 @@ export const ForgotPasswordForm = (onSubmit: ForgotPasswordFormProps) => {
       <Typography variant="body2" className={style.dontHaveAccount}>
         {'Did you remember your password?'}
       </Typography>
-      <Typography as={'a'} href={PATH.REGISTRATION} className={style.signUpLink}>
+      <Typography as={'a'} href={PATH.LOGIN} className={style.signUpLink}>
         Try logging in
       </Typography>
     </Card>

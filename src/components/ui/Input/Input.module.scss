@@ -16,25 +16,22 @@
   gap: 0.56rem;
   padding: 0.37rem 0.75rem;
   border-radius: 0.125rem;
-  background-color: transparent;
+  background-color: inherit;
   border: 1px solid var(--color-dark-300);
-  outline: 2px transparent;
+  outline: 2px solid transparent;
   width: 100%;
-  // &:focus-visible {
-  //   border: 1px solid var(--color-light-100);
-  //   color: var(--color-light-100);
-  // }
+
   &:hover {
     background-color: var(--color-dark-700);
   }
   &:focus-within {
     outline: 2px solid var(--color-info-700);
-    border: 1px transparent;
+    border: 1px solid transparent;
   }
   &.error {
     border: 1px solid var(--color-danger-300);
     color: var(--color-danger-300);
-    outline: 2px transparent;
+    outline: 2px solid transparent;
   }
   &.error .input {
     color: var(--color-danger-300);
@@ -50,7 +47,7 @@
   border: none;
   outline: none;
   width: 100%;
-  color: var(--color-light-100)
+  color: var(--color-light-100);
 }
 
 .label {
@@ -60,6 +57,7 @@
 .errorLabel {
   @include typograpthy(var(--font-size-xs), var(--line-height-m));
   color: var(--color-danger-300);
+  position: absolute;
 }
 
 .rightIcon {
