@@ -1,4 +1,3 @@
-import { RootState } from '../../app/store'
 import { baseApi } from '../common/base-api'
 
 import type {
@@ -146,6 +145,7 @@ export const decksApi = baseApi.injectEndpoints({
         method: 'POST',
         body: restArgs,
       }),
+      invalidatesTags: ['cards'],
     }),
   }),
 })

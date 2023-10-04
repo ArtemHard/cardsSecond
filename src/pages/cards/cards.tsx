@@ -77,6 +77,8 @@ export const Cards = () => {
     { skip }
   )
 
+  console.log(data)
+
   useEffect(() => {
     if (deckId) {
       updateId(deckId)
@@ -90,7 +92,8 @@ export const Cards = () => {
 
   const isUserDeck = authData?.id === deckData?.userId
 
-  const isHaveCards = deckData?.cardsCount
+  const isHaveCards = data?.items.length
+
   const addNewCardClickHandler = () => {
     setOpenModal('Add New Card')
   }
@@ -175,7 +178,7 @@ export const Cards = () => {
             )}
           </div>
 
-          {isHaveCards && (
+          {!!isHaveCards && (
             <Button onClick={isUserDeck ? addNewCardClickHandler : learnDeckClickHandler}>
               {isUserDeck ? 'Add New Card' : 'Learn Pack'}
             </Button>
@@ -191,7 +194,7 @@ export const Cards = () => {
           className={style.searchInput}
         />
       </section>
-      {!deckData?.cardsCount && isUserDeck && (
+      {!isHaveCards && isUserDeck && (
         <div className={style.emptyTableContainer}>
           <Typography variant="body2">
             This deck is empty. Click add new card to fill this deck
