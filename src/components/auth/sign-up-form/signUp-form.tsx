@@ -17,7 +17,6 @@ type SignUpFormPropsType = {
 export const SignUpForm = ({ onSubmit, isSubmitting }: SignUpFormPropsType) => {
   const {
     handleSubmit,
-    control,
     register,
     formState: { errors },
   } = useSignUpForm(onSubmit)
