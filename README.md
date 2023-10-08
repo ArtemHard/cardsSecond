@@ -8,7 +8,7 @@ and learn yours or public sets another users.
 #### [Demonstration](https://cards-git-storybook-deploy-kabaktema1-gmailcom.vercel.app/)
 #### [UI library](https://cards-ecru-three.vercel.app/)
 
-*note*: **deck** = cards kit
+note: **deck** = cards kit
 
 > ### Possibilities of app:
 >
