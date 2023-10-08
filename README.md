@@ -5,7 +5,7 @@ can use text or images. User can create private or public sets of words,
 and learn yours or public sets another users.
 </p>
 
-#### <a href="https://cards-ecru-three.vercel.app/" target="_blank">Demonstration</a>
+<a href="https://cards-ecru-three.vercel.app/" target="_blank">Demonstration</a>
 #### [UI library](https://cards-git-storybook-deploy-kabaktema1-gmailcom.vercel.app/)
 
 *note*: **deck** = cards kit
