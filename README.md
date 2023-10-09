@@ -28,9 +28,9 @@ and learn yours or public sets another users.
 > - Have validation on all forms
 
 > ### Difference:
-> BLL based on RTKQuery
-> Have polymorh components
-> Used SCSS, all components was styled from zero-style
-> Different style
-> another file structure
-> Different backend server
+> - BLL based on RTKQuery
+> - Have polymorh components
+> - Used SCSS, all components was styled from zero-style
+> - Different style
+> - another file structure
+> - Different backend server
