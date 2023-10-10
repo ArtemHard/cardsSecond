@@ -4,15 +4,20 @@
 can use text or images. User can create private or public sets of words,
 and learn yours or public sets another users.
 </p>
+<p>BLL based on RTKQuery</p>
+<p>This app is the second version of app <a href="https://github.com/ArtemHard/cards_learn/tree/main/app">cards_learn<a/></p>
 
-###### [Demonstration](https://cards-git-storybook-deploy-kabaktema1-gmailcom.vercel.app/)
+#### [Demonstration](https://cards-ecru-three.vercel.app/)
 
-###### [UI library](https://cards-ecru-three.vercel.app/)
+#### [UI library](https://cards-git-storybook-deploy-kabaktema1-gmailcom.vercel.app/)
 
-\*note: *\*\*deck = *cards kit
+_note_: **deck** = cards kit
 
-> #### Possibilities of app:
->
+> ### Possibilities of app:
+
+<details>
+  <summary>Click me</summary>
+  
 > - Authorization
 > - Registration
 > - Recovering Password
@@ -25,3 +30,25 @@ and learn yours or public sets another users.
 >   > - set status of card for change frequency repeat
 >   > - Change personal info
 > - Have validation on all forms
+</details>
+<div id="section1">
+  <h1>Section 1</h1>
+  <p>Section 1 content</p>
+  <div id="section1-1">
+    <h2>Section1-1</h2>
+    <p>section 1-1 content</p>
+  </div>
+    <div id="section1-2">
+    <h2>Section1-2</h2>
+    <p>section 1-2 content</p>
+  </div>
+</div>
+
+> ### Difference:
+>
+> - BLL based on RTKQuery
+> - Have polymorh components
+> - Used SCSS, all components was styled from zero-style
+> - Different style
+> - another file structure
+> - Different backend server
