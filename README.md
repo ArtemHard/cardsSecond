@@ -13,7 +13,9 @@ and learn yours or public sets another users.
 *note*: **deck** = cards kit
 
 > ### Possibilities of app:
->
+<details>
+  <summary>Click me</summary>
+  
 > - Authorization
 > - Registration
 > - Recovering Password
@@ -26,6 +28,8 @@ and learn yours or public sets another users.
 >   > - set status of card for change frequency repeat
 >   > - Change personal info
 > - Have validation on all forms
+</details>
+
 
 > ### Difference:
 > - BLL based on RTKQuery
