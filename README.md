@@ -13,10 +13,11 @@ and learn yours or public sets another users.
 
 _note_: **deck** = cards kit
 
-> ### Possibilities of app:
+### Possibilities of app:
 
 <details>
-  <summary>Click me</summary>
+  <summary>Open Here</summary>
+  
   
 > - Authorization
 > - Registration
@@ -31,24 +32,40 @@ _note_: **deck** = cards kit
 >   > - Change personal info
 > - Have validation on all forms
 </details>
-<div id="section1">
-  <h1>Section 1</h1>
-  <p>Section 1 content</p>
-  <div id="section1-1">
-    <h2>Section1-1</h2>
-    <p>section 1-1 content</p>
-  </div>
-    <div id="section1-2">
-    <h2>Section1-2</h2>
-    <p>section 1-2 content</p>
-  </div>
-</div>
 
-> ### Difference:
->
+### Difference:
+
+<details>
+  <summary>Open here</summary>
+
 > - BLL based on RTKQuery
 > - Have polymorh components
 > - Used SCSS, all components was styled from zero-style
 > - Different style
 > - another file structure
 > - Different backend server
+
+</details>
+
+## Main technology
+
+<details>
+  <summary>Open here</summary>
+
+> - React (based on Vite)
+> - Redux Toolkit, RTKQuery
+> - Storybook
+> - react-hook-form
+> - zod
+> - Radix UI
+> - pnpm package manager
+
+</details>
+
+#### For start app
+
+Open terminal:
+
+1. git clone https://github.com/ArtemHard/cardsSecond.git
+2. pnpm i
+3. pnpm run dev
