@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
+import { useAppSelector } from '../../app/store'
+
 import { cardsActions, cardsReducer } from '.'
 
 // extends Vitest's expect method with methods from react-testing-library
@@ -70,7 +72,8 @@ describe('cardsReducer', () => {
       cardsActions.updateOrderBy({ key: orderByEntry, direction })
     )
 
-    expect(newState.orderBy).toBe({ key: orderByEntry, direction })
+    expect(newState.orderBy?.key).toBe(orderByEntry)
+    expect(newState.orderBy?.direction).toBe(direction)
   })
 
   it('should update the currentPage', () => {

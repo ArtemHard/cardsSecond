@@ -21,6 +21,8 @@ export const SignUpForm = ({ onSubmit, isSubmitting }: SignUpFormPropsType) => {
     formState: { errors },
   } = useSignUpForm(onSubmit)
 
+  const isDisabled = isSubmitting || !!errors.confirmPassword || !!errors.email || !!errors.password
+
   return (
     <Card className={style.card}>
       <Typography as="h1" variant="h1" className={style.title}>
@@ -48,7 +50,7 @@ export const SignUpForm = ({ onSubmit, isSubmitting }: SignUpFormPropsType) => {
           errorMessage={errors.confirmPassword?.message}
           className={style.textField}
         />
-        <Button type="submit" fullWidth disabled={isSubmitting}>
+        <Button type="submit" fullWidth disabled={isDisabled}>
           Sign Up
         </Button>
       </form>

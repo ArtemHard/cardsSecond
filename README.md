@@ -1,6 +1,6 @@
 # Application for learning words
 
-<p>Application for learning words in format question-answer, that
+<p>Application for learning words on desktop in format question-answer, that
 can use text or images. User can create private or public sets of words,
 and learn yours or public sets another users.
 </p>
@@ -8,6 +8,8 @@ and learn yours or public sets another users.
 <p>This app is the second version of app <a href="https://github.com/ArtemHard/cards_learn/tree/main/app">cards_learn<a/></p>
 
 #### [Demonstration](https://cards-ecru-three.vercel.app/)
+
+<font size="2"><em>if you <b>don't want to "sign in"</b> you can enter with test acc info will be on "in sign in" page</em></font>
 
 #### [UI library](https://cards-git-storybook-deploy-kabaktema1-gmailcom.vercel.app/)
 
@@ -53,6 +55,7 @@ _note_: **deck** = cards kit
   <summary>Open here</summary>
 
 > - React (based on Vite)
+> - Vitest (testing framework)
 > - Redux Toolkit, RTKQuery
 > - Storybook
 > - react-hook-form

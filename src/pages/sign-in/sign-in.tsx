@@ -9,11 +9,6 @@ import { PATH } from '../../routes'
 import { useAuthMeQuery, useLogInMutation } from '../../services/auth'
 import { errorCommonHandler } from '../../services/common'
 
-// {
-//   "email": rasselCrow@mail.ru,
-//   "password": 1234,
-// }
-
 export const SignInPage = () => {
   const { data: meData, isLoading: isLoadingMe } = useAuthMeQuery()
   const [logIn, { isLoading: isLoggingIn }] = useLogInMutation()

@@ -21,6 +21,8 @@ export const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
     formState: { errors },
   } = useLoginForm({ onSubmit })
 
+  const isDisabled = isSubmitting || !!errors.email || !!errors.password
+
   return (
     <Card className={style.card}>
       <Typography as="h1" variant="h1" className={style.title}>
@@ -59,7 +61,7 @@ export const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
         >
           Forgot Password?
         </Typography>
-        <Button type="submit" fullWidth disabled={isSubmitting}>
+        <Button type="submit" fullWidth disabled={isDisabled}>
           Submit
         </Button>
       </form>

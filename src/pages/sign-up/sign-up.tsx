@@ -7,10 +7,7 @@ import { Loader } from '../../components/loader'
 import { PATH } from '../../routes'
 import { useAuthMeQuery, useSignUpMutation } from '../../services/auth'
 import { errorCommonHandler } from '../../services/common'
-// {
-//   "email": rasselCrow@mail.ru,
-//   "password": 1234,
-// }
+
 export const SignUpPage = () => {
   const { data: meData, isLoading: isLoadingMe } = useAuthMeQuery()
   const [signUp, { isLoading: isSugnUpFetching }] = useSignUpMutation()
