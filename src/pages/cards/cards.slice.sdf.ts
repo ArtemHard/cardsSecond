@@ -63,9 +63,14 @@ describe('cardsReducer', () => {
       itemsPerPage: '50',
     }
 
-    const newState = cardsReducer(initialState, cardsActions.updateOrderBy('asc'))
+    const orderByEntry = 'Cards'
+    const direction = 'asc'
+    const newState = cardsReducer(
+      initialState,
+      cardsActions.updateOrderBy({ key: orderByEntry, direction })
+    )
 
-    expect(newState.orderBy).toBe('asc')
+    expect(newState.orderBy).toBe({ key: orderByEntry, direction })
   })
 
   it('should update the currentPage', () => {
