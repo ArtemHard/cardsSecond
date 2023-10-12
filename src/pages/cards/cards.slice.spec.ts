@@ -1,7 +1,5 @@
 import { describe, expect, it } from 'vitest'
 
-import { useAppSelector } from '../../app/store'
-
 import { cardsActions, cardsReducer } from '.'
 
 // extends Vitest's expect method with methods from react-testing-library
