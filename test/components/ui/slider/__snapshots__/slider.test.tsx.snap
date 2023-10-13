@@ -1,0 +1,287 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`test of basic params > snap shot mathes 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="_SliderWrapper_9aa7bb"
+      >
+        <div
+          class="_cardNumber_9aa7bb"
+        >
+          <span
+            aria-label="minValue"
+            class="_body1_c177e4"
+            style="position: absolute;"
+          >
+            0
+          </span>
+        </div>
+        <span
+          aria-disabled="false"
+          class="_SliderRoot_9aa7bb"
+          data-orientation="horizontal"
+          data-testid="ajrgkjadbqdegbkjdsfg"
+          dir="ltr"
+          style="--radix-slider-thumb-transform: translateX(-50%);"
+        >
+          <span
+            class="_SliderTrack_9aa7bb"
+            data-orientation="horizontal"
+          >
+            <span
+              class="_SliderRange_9aa7bb"
+              data-orientation="horizontal"
+              style="left: 0%; right: 88%;"
+            />
+          </span>
+          <span
+            style="transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(0% + 0px);"
+          >
+            <span
+              aria-label="Minimum"
+              aria-orientation="horizontal"
+              aria-valuemax="100"
+              aria-valuemin="0"
+              aria-valuenow="0"
+              class="_SliderThumb_9aa7bb"
+              data-orientation="horizontal"
+              data-radix-collection-item=""
+              role="slider"
+              style=""
+              tabindex="0"
+            />
+          </span>
+          <span
+            style="transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(12% + 0px);"
+          >
+            <span
+              aria-label="Maximum"
+              aria-orientation="horizontal"
+              aria-valuemax="100"
+              aria-valuemin="0"
+              aria-valuenow="12"
+              class="_SliderThumb_9aa7bb"
+              data-orientation="horizontal"
+              data-radix-collection-item=""
+              role="slider"
+              style=""
+              tabindex="0"
+            />
+          </span>
+        </span>
+        <div
+          class="_cardNumber_9aa7bb"
+        >
+          <span
+            aria-label="maxValue"
+            class="_body1_c177e4"
+            style="position: absolute;"
+          >
+            12
+          </span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        class="_SliderWrapper_9aa7bb"
+      >
+        <div
+          class="_cardNumber_9aa7bb"
+        >
+          <span
+            aria-label="minValue"
+            class="_body1_c177e4"
+            style="position: absolute;"
+          />
+        </div>
+        <span
+          aria-disabled="false"
+          class="_SliderRoot_9aa7bb"
+          data-orientation="horizontal"
+          dir="ltr"
+          style="--radix-slider-thumb-transform: translateX(-50%);"
+        >
+          <span
+            class="_SliderTrack_9aa7bb"
+            data-orientation="horizontal"
+          >
+            <span
+              class="_SliderRange_9aa7bb"
+              data-orientation="horizontal"
+              style="left: 0%; right: 100%;"
+            />
+          </span>
+          <span
+            style="transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(0% + 0px);"
+          >
+            <span
+              aria-orientation="horizontal"
+              aria-valuemax="100"
+              aria-valuemin="0"
+              aria-valuenow="0"
+              class="_SliderThumb_9aa7bb"
+              data-orientation="horizontal"
+              data-radix-collection-item=""
+              role="slider"
+              style=""
+              tabindex="0"
+            />
+          </span>
+          <span
+            style="transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(0% + 0px);"
+          >
+            <span
+              aria-orientation="horizontal"
+              aria-valuemax="100"
+              aria-valuemin="0"
+              class="_SliderThumb_9aa7bb"
+              data-orientation="horizontal"
+              data-radix-collection-item=""
+              role="slider"
+              style="display: none;"
+              tabindex="0"
+            />
+          </span>
+        </span>
+        <div
+          class="_cardNumber_9aa7bb"
+        >
+          <span
+            aria-label="maxValue"
+            class="_body1_c177e4"
+            style="position: absolute;"
+          />
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="_SliderWrapper_9aa7bb"
+    >
+      <div
+        class="_cardNumber_9aa7bb"
+      >
+        <span
+          aria-label="minValue"
+          class="_body1_c177e4"
+          style="position: absolute;"
+        />
+      </div>
+      <span
+        aria-disabled="false"
+        class="_SliderRoot_9aa7bb"
+        data-orientation="horizontal"
+        dir="ltr"
+        style="--radix-slider-thumb-transform: translateX(-50%);"
+      >
+        <span
+          class="_SliderTrack_9aa7bb"
+          data-orientation="horizontal"
+        >
+          <span
+            class="_SliderRange_9aa7bb"
+            data-orientation="horizontal"
+            style="left: 0%; right: 100%;"
+          />
+        </span>
+        <span
+          style="transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(0% + 0px);"
+        >
+          <span
+            aria-orientation="horizontal"
+            aria-valuemax="100"
+            aria-valuemin="0"
+            aria-valuenow="0"
+            class="_SliderThumb_9aa7bb"
+            data-orientation="horizontal"
+            data-radix-collection-item=""
+            role="slider"
+            style=""
+            tabindex="0"
+          />
+        </span>
+        <span
+          style="transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(0% + 0px);"
+        >
+          <span
+            aria-orientation="horizontal"
+            aria-valuemax="100"
+            aria-valuemin="0"
+            class="_SliderThumb_9aa7bb"
+            data-orientation="horizontal"
+            data-radix-collection-item=""
+            role="slider"
+            style="display: none;"
+            tabindex="0"
+          />
+        </span>
+      </span>
+      <div
+        class="_cardNumber_9aa7bb"
+      >
+        <span
+          aria-label="maxValue"
+          class="_body1_c177e4"
+          style="position: absolute;"
+        />
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
