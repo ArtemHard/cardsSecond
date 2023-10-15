@@ -35,7 +35,7 @@ describe('test of input', () => {
     })
 
     test('check default value', () => {
-      expect(input.value).toBe(inputValue)
+      expect(input?.value).toBe(inputValue)
     })
 
     test('user change data - called onChange callback', async () => {
