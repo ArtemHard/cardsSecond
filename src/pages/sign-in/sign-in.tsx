@@ -37,7 +37,7 @@ export const SignInPage = () => {
   return (
     <>
       <LoginForm onSubmit={submitHandler} isSubmitting={isLoggingIn} />
-      <TestAccountInfo />
+      {/* <TestAccountInfo /> */}
     </>
   )
 }
