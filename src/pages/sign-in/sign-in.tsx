@@ -3,7 +3,6 @@ import { toast } from 'react-toastify'
 
 import { LoginForm } from '../../components/auth/login-form'
 import { FormValuesLogin } from '../../components/auth/login-form/use-login-form'
-import { TestAccountInfo } from '../../components/auth/test-accountInfo/test-accountInfo'
 import { Loader } from '../../components/loader'
 import { PATH } from '../../routes'
 import { useAuthMeQuery, useLogInMutation } from '../../services/auth'
@@ -37,7 +36,6 @@ export const SignInPage = () => {
   return (
     <>
       <LoginForm onSubmit={submitHandler} isSubmitting={isLoggingIn} />
-      {/* <TestAccountInfo /> */}
     </>
   )
 }
